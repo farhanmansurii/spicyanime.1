@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 const Navbar = () => {
   return (
-    <div className="navbar  bg-transparent backdrop-blur flex justify-between w-full  ">
+    <div className="navbar  bg-transparent backdrop-blur flex fixed justify-between w-full z-10 ">
       <div className="">
         <Link href="/">
           <div className="btn btn-ghost normal-case text-lg">SpicyAnime </div>
