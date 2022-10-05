@@ -1,0 +1,57 @@
+{
+  "name": "nextjs-firebase-npm",
+  "description": "a nextjs boilerplate with firebase",
+  "license": "MIT",
+  "homepage": "YOUR_GIT_REPO_URL",
+  "repository": {
+    "type": "git",
+    "url": "git+"
+  },
+  "keywords": [
+    "nextjs",
+    "boilerplate",
+    "tailwindcss",
+    "firebase"
+  ],
+  "bugs": {
+    "url": "YOUR_GIT_REPO_URL/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=5.0.0",
+    "yarn": "please-use-npm"
+  },
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "inspect-dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "prettier": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "daisyui": "^2.24.0",
+    "firebase": "^9.9.3",
+    "next": "12.2.5",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "swiper": "^8.4.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "@tailwindcss/line-clamp": "^0.4.2",
+    "autoprefixer": "^10.4.8",
+    "cross-env": "^7.0.3",
+    "eslint": "8.22.0",
+    "eslint-config-next": "12.2.5",
+    "husky": "^8.0.1",
+    "postcss": "^8.4.16",
+    "prettier": "^2.7.1",
+    "tailwindcss": "^3.1.8"
+  }
+}
