@@ -6,12 +6,11 @@ import Related from "../components/Related";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 function details({ deets, }) {
   const epi = deets.episodes
-  const relations = deets.recommendations
-  const [epid, setepid] = useState();
+  const [epid, setepid] = useState(epi[0].id);
   const [eplink, setEplink] = useState();
-  const [eptitle, setEptitle] = useState();
+  const [eptitle, setEptitle] = useState(epi[0].number);
   const URL = "https://animeapi-demo.herokuapp.com/animix/watch/";
-  console.log(epid)
+  console.log(eptitle)
   const getURL = async () => {
     await fetch(URL + epid)
       .then((response) => response.json())
@@ -43,9 +42,10 @@ function details({ deets, }) {
             url={eplink || ''}
           />
         </div>
-      }
-
-      {deets.type === "TV" ? (
+      }<button onClick={
+        () => setEptitle(eptitle + 1)
+      }>CLick on next</button>
+      {deets.type === "TV" && (
         <div className="my-10 mx-auto p-5 text-xl  text-white font-semibold">
           Episode List
           <div className=" flex overflow-x-scroll  scrollbar-hide ">
@@ -71,7 +71,7 @@ function details({ deets, }) {
             ))}
           </div>
         </div>
-      ) : <div>MOVIE</div>}
+      )}
 
       {deets.relations.length && <>
 
