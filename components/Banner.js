@@ -2,10 +2,12 @@ import React from "react";
 export const Banner = ({ titles, description, imageban }) => {
   return (
     <div
-      className="flex flex-col w-vw h-[45vh]  lg:h-[55vh] space-y-2  mt-[4rem] md:space-y-4 justify-end  z-0   bg-cover bg-center bg-no-repeat"
+      className="flex flex-col w-vw h-[45vh]  lg:h-[55vh] space-y-2   md:space-y-4 justify-end  z-0   bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url("${imageban}")` }}
     >
       <div className="bg-gradient-to-t  from-base-100 to to-transparent p-4 px-5 mt-10">
+        <div className="w-10/12 mx-auto">
+
         <h1 className=" justify-center text-3xl font-semibold md:text-4xl  text-black  lg:text-6xl ">
           {titles}
         </h1>
@@ -21,7 +23,8 @@ export const Banner = ({ titles, description, imageban }) => {
             More Info
           </button>
         </div>
+        </div>
       </div>
     </div>
-  );
-};
+  )
+}

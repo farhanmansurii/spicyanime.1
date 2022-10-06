@@ -2,8 +2,11 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
-export default function Home({ bannerimg }) {
-  console.log(bannerimg);
+import Row from "../components/Row";
+import requests from "./api/requests";
+export default function Home({ bannerimg , popular , action }) {
+  // console.log(popular)
+  // console.log(action)
   return (
     <>
       <Swiper slidesPerView={1} loop={true}>
@@ -17,12 +20,25 @@ export default function Home({ bannerimg }) {
           </SwiperSlide>
         ))}
       </Swiper>
+     <Row typeOfAnime={popular} text={'Popular Anime'} />
+     <Row typeOfAnime={action}  text={'Action Anime'}/>
     </>
-  );
+  )
 }
 
-Home.getInitialProps = async () => {
+export const getStaticProps  = async () => {
   const res = await fetch("https://api.consumet.org/meta/anilist/popular");
+  const res1 = await fetch(requests.popular.url);
+  const res2 = await fetch(requests.action.url);
   const json = await res.json();
-  return { bannerimg: json.results };
+  const popular = await res1.json();
+  const action = await res2.json();
+  
+  return {
+    props: {
+      bannerimg: json.results,
+      popular : popular.results,
+      action : action.results
+    },
+  };
 };

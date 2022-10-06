@@ -6,7 +6,7 @@ module.exports = {
     "./layouts/**/*.{js,ts,jsx,tsx}",
   ],
   daisyui: {
-    themes: ["pastel"],
+    themes: ["dark"],
   },
-  plugins: [require("daisyui"), require("@tailwindcss/line-clamp")],
+  plugins: [require("daisyui"), require("@tailwindcss/line-clamp"),   require('tailwind-scrollbar-hide')],
 };

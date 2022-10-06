@@ -1,7 +1,8 @@
 import React from "react";
+import GenreSelector from "../components/GenreSelector";
+const anime = ({results}) => {
+  return <div className="mt-6"><GenreSelector/></div>;
+}
 
-const anime = () => {
-  return <div className="mt-6">anime</div>;
-};
 
 export default anime;
