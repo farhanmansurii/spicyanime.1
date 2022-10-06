@@ -1,15 +1,12 @@
-import {
-  useState
-} from "react";
+import { useRouter } from "next/router";
 import Navbar from "../components/Navbar";
 import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
-  const [isLoading, setIsLoading] = useState(false);
-
+  const router = useRouter()
   return (
     <>
       <Navbar />
-      <Component {...pageProps} />;
+      <Component {...pageProps} key={router.asPath} />;
     </>
   );
 }
