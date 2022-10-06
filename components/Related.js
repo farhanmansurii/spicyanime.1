@@ -1,7 +1,6 @@
 import React from 'react'
 import AnimeCard from './AnimeCard'
 const Related = ({ relations, text }) => {
-  console.log(relations)
   return (<>
 
     <div className='w-10/12 mx-auto my-6'>

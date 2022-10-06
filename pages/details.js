@@ -5,10 +5,11 @@ import Animedetails from "../components/Animedetails";
 import Related from "../components/Related";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 function details({ deets, }) {
+  const [ind, setind] = useState(0)
   const epi = deets.episodes
-  const [epid, setepid] = useState(epi[0].id);
+  const [epid, setepid] = useState(epi[ind].id);
   const [eplink, setEplink] = useState();
-  const [eptitle, setEptitle] = useState(epi[0].number);
+  const [eptitle, setEptitle] = useState(epi[ind].number);
   const URL = "https://animeapi-demo.herokuapp.com/animix/watch/";
   console.log(eptitle)
   const getURL = async () => {
@@ -18,6 +19,7 @@ function details({ deets, }) {
         for (const key in animelist.sources) {
           setEplink(animelist.sources[key].file);
         }
+        console.log(animelist)
       });
   };
 
@@ -34,7 +36,7 @@ function details({ deets, }) {
       )}
       {
         <div className=" place-self-center my-5 w-[300px] bg-black/30 mx-auto whitespace-wrap ">
-          <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2"  >Ep  {eptitle}</div>
+          <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2"  >Ep {epi[ind].number} : {epi[ind].title}</div>
           <ReactPlayer
             controls={true}
             height={168.8}
@@ -43,7 +45,10 @@ function details({ deets, }) {
           />
         </div>
       }<button onClick={
-        () => setEptitle(eptitle + 1)
+        () => {
+          setind(ind + 1)
+          setepid(epi[ind].id)
+        }
       }>CLick on next</button>
       {deets.type === "TV" && (
         <div className="my-10 mx-auto p-5 text-xl  text-white font-semibold">
