@@ -7,17 +7,16 @@ const Navbar = () => {
         <Link href="/">
           <div className="btn btn-ghost normal-case text-lg">SpicyAnime </div>
         </Link>
-      </div><Link href="/anime">
+      </div>
+      <div className="">
+        <Link href="/anime">
           <div className="btn btn-ghost normal-case text-lg">Anime </div>
         </Link>
-      <div className="hidden lg:block">
-        
-        <Link href="/">
+        <Link href="/searchpage">
           <div className="btn btn-ghost normal-case text-lg">Search </div>
         </Link>
-        <Link href="/">
-          <div className="btn btn-ghost normal-case text-lg">My List</div>
-        </Link>
+
+
       </div>
     </div>
   )

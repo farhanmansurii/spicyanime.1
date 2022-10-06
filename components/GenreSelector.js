@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React from "react";
 import requests from "../pages/api/requests";
-const GenreSelector = ({request}) => {
+const GenreSelector = ({ request }) => {
   console.log(request)
   const router = useRouter();
   return (
@@ -21,13 +21,5 @@ const GenreSelector = ({request}) => {
   );
 };
 
-export async function getStaticProps(context) {
-  const genre = context.query.genre;
-  const request =requests.popular.url
-  return {
-    props: {
-      request,
-    },
-  };
-}
+
 export default GenreSelector;

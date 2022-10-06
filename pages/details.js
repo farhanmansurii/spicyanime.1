@@ -4,14 +4,14 @@ import React, { useEffect, useState } from "react";
 import Animedetails from "../components/Animedetails";
 import Related from "../components/Related";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
-function details({ deets, epi, relations ,animen}) {
-  // console.log(epi)
-  // console.log(deets)
+function details({ deets, }) {
+  const epi = deets.episodes
+  const relations = deets.recommendations
   const [epid, setepid] = useState();
   const [eplink, setEplink] = useState();
   const [eptitle, setEptitle] = useState();
   const URL = "https://animeapi-demo.herokuapp.com/animix/watch/";
-
+  console.log(epid)
   const getURL = async () => {
     await fetch(URL + epid)
       .then((response) => response.json())
@@ -30,31 +30,31 @@ function details({ deets, epi, relations ,animen}) {
     <>
       {deets && (
         <div className=" flex-column  ">
-         <Animedetails deets={deets} />
+          <Animedetails deets={deets} />
         </div>
       )}
       {
-        <div className=" place-self-center my-5 w-[300px] mx-auto whitespace-wrap ">  
-          <div>{eptitle}</div>
+        <div className=" place-self-center my-5 w-[300px] bg-black/30 mx-auto whitespace-wrap ">
+          <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2"  >Ep  {eptitle}</div>
           <ReactPlayer
             controls={true}
             height={168.8}
             width={300}
-            url={eplink ||''}
+            url={eplink || ''}
           />
         </div>
       }
 
-      {deets.type === "TV" && (
+      {deets.type === "TV" ? (
         <div className="my-10 mx-auto p-5 text-xl  text-white font-semibold">
           Episode List
           <div className=" flex overflow-x-scroll  scrollbar-hide ">
-            {epi.map((e,index) => (
+            {epi?.map((e, index) => (
               <div
                 key={e.id}
                 onClick={() => {
                   setepid(e.id)
-                  setEptitle(e.title)
+                  setEptitle(e.number + ' ' + e.title)
                 }}
                 className="m-2 bg-cover h-[200px] w-[300px] "
                 style={{ backgroundImage: `url(${e.image})` }}
@@ -71,29 +71,29 @@ function details({ deets, epi, relations ,animen}) {
             ))}
           </div>
         </div>
-      )}
-      {deets.relations.length < 1 ? (
-        ""
-      ) : (
-        <Related relations={deets.relations} text="Related Anime "/>
-      )}<Related relations={deets.recommendations} text="Users Also watched"/>
-    </>
+      ) : <div>MOVIE</div>}
+
+      {deets.relations.length && <>
+
+        <Related relations={deets.relations} text="Related Anime " />
+        <Related relations={deets.recommendations} text="Users Also watched" />
+      </>
+      }</>
   );
 }
 export async function getServerSideProps(context) {
   const animen = context.query.id;
   const deets = await fetch(
-    "https://api.consumet.org/meta/anilist/info/"+ animen 
+    "https://api.consumet.org/meta/anilist/info/" + animen
   ).then((res) => res.json());
   // const epi = await fetch(
   //   "https://api.enime.moe/mapping/mal/ " + deets.malId
   // ).then((res) => res.json());
-  const epi = deets.episodes
-  const relations = deets.recommendations
+
+
   return {
-    props: {animen,
+    props: {
       deets,
-      epi, relations
     },
   };
 }
