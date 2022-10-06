@@ -6,8 +6,9 @@ import Related from "../components/Related";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 function details({ deets, }) {
   const epi = deets.episodes
-  const [epid, setepid] = useState('');
-  const [currep, setcurrep] = useState('');
+  console.log(epi[0])
+  const [epid, setepid] = useState(epi[0].id);
+  const [currep, setcurrep] = useState(epi[0].title);
   const [eplink, setEplink] = useState();
   const URL = "https://animeapi-demo.herokuapp.com/animix/watch/";
   const getURL = async () => {
@@ -16,15 +17,10 @@ function details({ deets, }) {
       .then((animelist) => {
         {
           setEplink(animelist.sources[0].file);
-          setcurrep(animelist)
         }
       });
   };
-  const iterator = epi.slice(1);
 
-  console.log(iterator)
-  console.log(epi, "episodes")
-  console.log(epid, "episodes ID")
   useEffect(() => {
     getURL();
     return () => { };
@@ -38,7 +34,7 @@ function details({ deets, }) {
       )}
       {eplink &&
         <div className=" place-self-center my-5 w-[300px] bg-black/30 mx-auto whitespace-wrap ">
-          {deets.type === 'TV' ? <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2"  >Ep {currep.episodeNum}</div> : <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2">{deets.title.english}</div>}
+          {deets.type === 'TV' ? <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2"  >Ep {' '}{currep.number || epi[0].number} {currep.title || epi[0].title} </div> : <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2">{deets.title.english}</div>}
           <ReactPlayer
             controls={true}
             height={168.8}
@@ -48,14 +44,14 @@ function details({ deets, }) {
         </div>
       }
       {(
-        <div>
+        <div className=" w-10/12 mx-auto">
           {deets.type === "TV" ?
             (
 
-              <div className="my-10 mx-auto p-5 text-xl  text-white font-semibold">
+              <div className="mt-10 text-xl  text-white font-semibold">
                 Episode List
               </div>
-            ) : (<div className="my-10 mx-auto p-5 text-xl  text-white font-semibold">
+            ) : (<div className="mt-10 mx-auto p-5 text-xl  text-white font-semibold">
               Movie
             </div>)
           }
@@ -65,21 +61,22 @@ function details({ deets, }) {
                 key={e.id}
                 onClick={() => {
                   setepid(e.id)
-
+                  setcurrep(e)
                 }}
-                className="m-2 bg-cover h-[200px] max-w-[300px] "
+                className="m-2 bg-cover max-h-[200px] max-w-[300px] "
                 style={{ backgroundImage: `url(${e.image})` }}
               >
-                <div className=" flex flex-col-reverse   bg-gradient-to-t mt-30  h-full from-black to-transparent w-[220px]  bg-cover ">
-                  <div className="self-bottom text-sm line-clamp-2 text-white mx-2 whitespace-wrap ">
-                    {e.description}
-                  </div>
-                  {deets.type === "TV" ?
-                    (
+                <div className=" flex flex-col-reverse  p-4 bg-gradient-to-t mt-10  h-full from-black to-transparent w-[220px]  bg-cover ">
 
+                  {deets.type === "TV" ?
+                    (<>
+                      <div className="self-bottom text-sm  line-clamp-2 text-white mx-2 whitespace-wrap ">
+                        {e.description}
+                      </div>
                       <div className="self-bottom font-semibold text-white bg-transparent backdrop-blur-sm text-md mx-2 text-shadow-xl whitespace-pre-wrap line-clamp-3">
                         Ep {e.number} : {e.title}
                       </div>
+                    </>
 
                     ) :
                     (
