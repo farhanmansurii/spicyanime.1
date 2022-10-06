@@ -5,24 +5,26 @@ import Animedetails from "../components/Animedetails";
 import Related from "../components/Related";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 function details({ deets, }) {
-  const [ind, setind] = useState(0)
   const epi = deets.episodes
-  const [epid, setepid] = useState(epi[ind].id);
+  const [epid, setepid] = useState('');
+  const [currep, setcurrep] = useState('');
   const [eplink, setEplink] = useState();
-  const [eptitle, setEptitle] = useState(epi[ind].number);
   const URL = "https://animeapi-demo.herokuapp.com/animix/watch/";
-  console.log(eptitle)
   const getURL = async () => {
     await fetch(URL + epid)
       .then((response) => response.json())
       .then((animelist) => {
-        for (const key in animelist.sources) {
-          setEplink(animelist.sources[key].file);
+        {
+          setEplink(animelist.sources[0].file);
+          setcurrep(animelist)
         }
-        console.log(animelist)
       });
   };
+  const iterator = epi.slice(1);
 
+  console.log(iterator)
+  console.log(epi, "episodes")
+  console.log(epid, "episodes ID")
   useEffect(() => {
     getURL();
     return () => { };
@@ -34,9 +36,9 @@ function details({ deets, }) {
           <Animedetails deets={deets} />
         </div>
       )}
-      {
+      {eplink &&
         <div className=" place-self-center my-5 w-[300px] bg-black/30 mx-auto whitespace-wrap ">
-          <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2"  >Ep {epi[ind].number} : {epi[ind].title}</div>
+          {deets.type === 'TV' ? <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2"  >Ep {currep.episodeNum}</div> : <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2">{deets.title.english}</div>}
           <ReactPlayer
             controls={true}
             height={168.8}
@@ -44,33 +46,50 @@ function details({ deets, }) {
             url={eplink || ''}
           />
         </div>
-      }<button onClick={
-        () => {
-          setind(ind + 1)
-          setepid(epi[ind].id)
-        }
-      }>CLick on next</button>
-      {deets.type === "TV" && (
-        <div className="my-10 mx-auto p-5 text-xl  text-white font-semibold">
-          Episode List
+      }
+      {(
+        <div>
+          {deets.type === "TV" ?
+            (
+
+              <div className="my-10 mx-auto p-5 text-xl  text-white font-semibold">
+                Episode List
+              </div>
+            ) : (<div className="my-10 mx-auto p-5 text-xl  text-white font-semibold">
+              Movie
+            </div>)
+          }
           <div className=" flex overflow-x-scroll  scrollbar-hide ">
-            {epi?.map((e, index) => (
+            {epi?.map((e) => (
               <div
                 key={e.id}
                 onClick={() => {
                   setepid(e.id)
-                  setEptitle(e.number + ' ' + e.title)
+
                 }}
-                className="m-2 bg-cover h-[200px] w-[300px] "
+                className="m-2 bg-cover h-[200px] max-w-[300px] "
                 style={{ backgroundImage: `url(${e.image})` }}
               >
                 <div className=" flex flex-col-reverse   bg-gradient-to-t mt-30  h-full from-black to-transparent w-[220px]  bg-cover ">
                   <div className="self-bottom text-sm line-clamp-2 text-white mx-2 whitespace-wrap ">
                     {e.description}
                   </div>
-                  <div className="self-bottom font-semibold text-white bg-transparent backdrop-blur-sm text-md mx-2 text-shadow-xl whitespace-pre-wrap line-clamp-3">
-                    Ep {e.number} : {e.title}
-                  </div>
+                  {deets.type === "TV" ?
+                    (
+
+                      <div className="self-bottom font-semibold text-white bg-transparent backdrop-blur-sm text-md mx-2 text-shadow-xl whitespace-pre-wrap line-clamp-3">
+                        Ep {e.number} : {e.title}
+                      </div>
+
+                    ) :
+                    (
+
+
+                      <div className="self-bottom font-semibold text-white bg-transparent backdrop-blur-sm text-md mx-2 text-shadow-xl whitespace-pre-wrap line-clamp-3">
+                        {e.title} Movie
+                      </div>
+                    )
+                  }
                 </div>
               </div>
             ))}

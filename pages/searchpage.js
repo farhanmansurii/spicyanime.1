@@ -5,11 +5,11 @@ const URL = "https://api.consumet.org/meta/anilist/";
 const SearchPage = () => {
   const [val, setval] = useState("");
   const [searchList, setSearchList] = useState([]);
-
   useEffect(() => {
     fetch(URL + val)
       .then((response) => response.json())
       .then((animelist) => setSearchList(animelist.results));
+
     return () => { };
   }, [val]);
 
@@ -22,7 +22,9 @@ const SearchPage = () => {
         </div>
         <div></div>
         <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
+
           <Row typeOfAnime={searchList} />
+
         </div>
       </div>
     </>
