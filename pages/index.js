@@ -29,7 +29,7 @@ export default function Home({ bannerimg, popular, action }) {
   )
 }
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const res = await fetch("https://api.consumet.org/meta/anilist/popular");
   const res1 = await fetch(requests.popular.url);
   const res2 = await fetch(requests.action.url);
