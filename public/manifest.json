@@ -1,9 +1,9 @@
 {
-    "theme_color": "#212121",
-    "background_color": "#212121",
-    "display": "fullscreen",
+    "theme_color": "#fb7c00",
+    "background_color": "#1e1a16",
+    "display": "standalone",
     "scope": "/",
-    "start_url": "https://spicyanime.vercel.app/",
+    "start_url": "/",
     "name": "SpicyAnime",
     "short_name": "SpicyAnime",
     "icons": [
