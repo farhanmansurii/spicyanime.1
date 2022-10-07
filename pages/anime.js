@@ -12,7 +12,7 @@ const anime = ({ results }) => {
           title={e.title.english || e.title.native}
           key={e.malId}
           rating={e.rating}
-          id={e.malId}
+          id={e.id}
         />
       ))}
     </div> </div>;

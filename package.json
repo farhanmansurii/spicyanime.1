@@ -33,15 +33,19 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@vime/core": "^5.3.3",
     "axios": "^0.27.2",
     "daisyui": "^2.24.0",
     "firebase": "^9.9.3",
     "next": "12.2.5",
+    "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-loading-screen": "^0.0.17",
     "react-player": "^2.11.0",
     "swiper": "^8.4.2",
-    "tailwind-scrollbar-hide": "^1.1.7"
+    "tailwind-scrollbar-hide": "^1.1.7",
+    "vimond-replay": "^3.3.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.0.3",

@@ -5,8 +5,16 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
     "./layouts/**/*.{js,ts,jsx,tsx}",
   ],
-  daisyui: {
-    themes: ["dark"],
+  theme: {
+    extend: {
+      fontFamily: {
+        'sans': ['Space Grotesk'],
+        'damion': ['Damion'],
+      }
+    }
   },
-  plugins: [require("daisyui"), require("@tailwindcss/line-clamp"),   require('tailwind-scrollbar-hide')],
+  daisyui: {
+    themes: ["halloween"],
+  },
+  plugins: [require("daisyui"), require("@tailwindcss/line-clamp"), require('tailwind-scrollbar-hide')],
 };

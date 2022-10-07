@@ -33,12 +33,12 @@ function details({ deets, }) {
         </div>
       )}
       {eplink &&
-        <div className=" place-self-center my-5 w-[300px] bg-black/30 mx-auto whitespace-wrap ">
-          {deets.type === 'TV' ? <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2"  >Ep {' '}{currep.number || epi[0].number} {currep.title || epi[0].title} </div> : <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2">{deets.title.english}</div>}
+        <div className=" place-self-center my-5  w-fit bg-black/30 mx-auto whitespace-wrap ">
+          {deets.type === 'TV' ? <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2"  >Ep {' '}{currep.number || epi[0]?.number} {currep.title || epi[0].title} </div> : <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2">{deets.title.english}</div>}
           <ReactPlayer
             controls={true}
-            height={168.8}
-            width={300}
+            height='360'
+            width='640'
             url={eplink || ''}
           />
         </div>
@@ -63,17 +63,17 @@ function details({ deets, }) {
                   setepid(e.id)
                   setcurrep(e)
                 }}
-                className="m-2 bg-cover max-h-[200px] max-w-[300px] "
+                className="m-2 bg-cover h-[200px] w-[300px] transition duration-100 transform  ease-in sm:hover:scale-105 rounded-lg hover:border-rose-500 "
                 style={{ backgroundImage: `url(${e.image})` }}
               >
-                <div className=" flex flex-col-reverse  p-4 bg-gradient-to-t mt-10  h-full from-black to-transparent w-[220px]  bg-cover ">
+                <div className=" flex flex-col-reverse  p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-[220px]  bg-cover ">
 
                   {deets.type === "TV" ?
                     (<>
                       <div className="self-bottom text-sm  line-clamp-2 text-white mx-2 whitespace-wrap ">
                         {e.description}
                       </div>
-                      <div className="self-bottom font-semibold text-white bg-transparent backdrop-blur-sm text-md mx-2 text-shadow-xl whitespace-pre-wrap line-clamp-3">
+                      <div className="self-bottom font-semibold text-white bg-transparent text-md mx-2 text-shadow-xl whitespace-pre-wrap line-clamp-3">
                         Ep {e.number} : {e.title}
                       </div>
                     </>
@@ -94,12 +94,11 @@ function details({ deets, }) {
         </div>
       )}
 
-      {deets.relations.length && <>
+      {deets.relations &&
 
-        <Related relations={deets.relations} text="Related Anime " />
-        <Related relations={deets.recommendations} text="Users Also watched" />
-      </>
-      }</>
+        <Related relations={deets.relations} text="Related Anime " />}
+      <Related relations={deets.recommendations} text="Users Also watched" />
+    </>
   );
 }
 export async function getServerSideProps(context) {
