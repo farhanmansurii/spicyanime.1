@@ -5,7 +5,7 @@ const BottomNavbar = () => {
   const [active, setactive] = useState(false)
   const router = useRouter();
   return (
-    <div className="btm-nav fixed z-30 lg:hidden " >
+    <div className="btm-nav backdrop-blur-sm fixed z-30 lg:hidden " >
       <Link href='/' >
         <button className={router.pathname == "/" ? "active" : ""}>
           Home
@@ -18,7 +18,7 @@ const BottomNavbar = () => {
       </Link>
       <Link href='/searchpage' >
         <button className={router.pathname == "/searchpage" ? "active" : ""}>
-          search
+          Search
         </button>
       </Link>
 

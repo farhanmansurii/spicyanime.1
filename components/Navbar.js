@@ -4,7 +4,7 @@ import React from 'react';
 const Navbar = () => {
   const router = useRouter();
   return (
-    <div className="navbar  self-center bg-transparent backdrop-blur-sm fixed z-30 hidden lg:flex">
+    <div className="navbar  self-center bg-black/50 backdrop-blur-sm fixed z-30 hidden lg:flex">
       <div className='w-10/12 mx-auto top-0'>
 
         <div className="flex-1 ">

@@ -4,7 +4,7 @@ const Animedetails = ({ deets }) => {
   return (
     <div
       style={{ backgroundImage: `url(${deets.cover})` }}
-      className="bg-cover bg-center w-10/12 mx-auto"
+      className="bg-cover bg-center w-vw lg:w-10/12 lg:mx-auto"
     >
       <div className="bg-black/50 w-100">
         <div className="flex flex-col md:flex-row items-center  ">
@@ -45,6 +45,7 @@ const Animedetails = ({ deets }) => {
                 Total Episodes : {deets.totalEpisodes} Episodes
               </div>
             )}
+
             <div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-white rounded-sm  border-2 border-white w-fit">
               Duration : {deets.duration} minutes
             </div>
