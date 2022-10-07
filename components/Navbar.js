@@ -13,7 +13,7 @@ const Navbar = () => {
         <div className="flex-none">
           <ul className="menu menu-horizontal p-0 space-x-5">
             <Link href='/' >
-              <button className='className="btn btn-ghost normal-case text-xl' class='active:bg-black'>
+              <button className='className="btn btn-ghost normal-case text-xl' >
                 Home
               </button>
             </Link>
