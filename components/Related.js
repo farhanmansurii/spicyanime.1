@@ -5,7 +5,7 @@ const Related = ({ relations, text }) => {
 
     <div className='w-10/12 mx-auto my-6'>
 
-      <div className=" mx-auto p-5 text-xl text-white font-semibold">
+      <div className=" mx-auto p-5 text-xl text-primary font-semibold">
         {text}
       </div>
       <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
@@ -31,6 +31,7 @@ const Related = ({ relations, text }) => {
         ))}
       </div>
     </div>
+
 
   </>
   )

@@ -6,7 +6,6 @@ import Related from "../components/Related";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 function details({ deets, }) {
   const epi = deets.episodes
-  console.log(epi[0])
   const [epid, setepid] = useState(epi[0].id);
   const [currep, setcurrep] = useState(epi[0].title);
   const [eplink, setEplink] = useState();
@@ -34,7 +33,7 @@ function details({ deets, }) {
       )}
       {eplink &&
         <div className=" place-self-center my-5  w-fit bg-black/30 mx-auto whitespace-wrap ">
-          {deets.type === 'TV' ? <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2"  >Ep {' '}{currep.number || epi[0]?.number} {currep.title || epi[0].title} </div> : <div className=" mx-auto p-5 text-md text-white font-semibold line-clamp-2">{deets.title.english}</div>}
+          {deets.type === 'TV' ? <div className=" mx-auto p-5 text-md text-primary font-semibold line-clamp-2"  >Ep {' '}{currep.number || epi[0]?.number} {currep.title || epi[0].title} </div> : <div className=" mx-auto p-5 text-md text-primary font-semibold line-clamp-2">{deets.title.english}</div>}
           <ReactPlayer
             controls={true}
             height='360'
@@ -48,10 +47,10 @@ function details({ deets, }) {
           {deets.type === "TV" ?
             (
 
-              <div className="mt-10 text-xl  text-white font-semibold">
+              <div className="mt-10 text-xl  text-primary font-semibold">
                 Episode List
               </div>
-            ) : (<div className="mt-10 mx-auto p-5 text-xl  text-white font-semibold">
+            ) : (<div className="mt-10 mx-auto p-5 text-xl  text-primary font-semibold">
               Movie
             </div>)
           }
@@ -63,17 +62,17 @@ function details({ deets, }) {
                   setepid(e.id)
                   setcurrep(e)
                 }}
-                className="m-2 bg-cover h-[200px] w-[300px] transition duration-100 transform  ease-in sm:hover:scale-105 rounded-lg hover:border-rose-500 "
+                className="m-2 bg-cover  min-w-[300px]  min-h-[200px] max-h-[200px] max-w-[300px]  transition duration-100 transform  ease-in sm:hover:scale-105 rounded-lg border-secondary hover:border-4 "
                 style={{ backgroundImage: `url(${e.image})` }}
               >
-                <div className=" flex flex-col-reverse  p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-[220px]  bg-cover ">
+                <div className=" flex flex-col-reverse  p-4 bg-gradient-to-t   h-full from-base-100 to-transparent   bg-cover ">
 
                   {deets.type === "TV" ?
                     (<>
-                      <div className="self-bottom text-sm  line-clamp-2 text-white mx-2 whitespace-wrap ">
+                      <div className="self-bottom text-sm  line-clamp-2 text-primary mx-2 whitespace-wrap ">
                         {e.description}
                       </div>
-                      <div className="self-bottom font-semibold text-white bg-transparent text-md mx-2 text-shadow-xl whitespace-pre-wrap line-clamp-3">
+                      <div className="self-bottom font-semibold text-primary bg-transparent text-md mx-2 text-shadow-xl whitespace-pre-wrap line-clamp-3">
                         Ep {e.number} : {e.title}
                       </div>
                     </>
@@ -82,7 +81,7 @@ function details({ deets, }) {
                     (
 
 
-                      <div className="self-bottom font-semibold text-white bg-transparent backdrop-blur-sm text-md mx-2 text-shadow-xl whitespace-pre-wrap line-clamp-3">
+                      <div className="self-bottom font-semibold text-primary bg-transparent backdrop-blur-sm text-md mx-2 text-shadow-xl primary space-pre-wrap line-clamp-3">
                         {e.title} Movie
                       </div>
                     )
@@ -93,11 +92,13 @@ function details({ deets, }) {
           </div>
         </div>
       )}
+      <div className="mb-[6rem] mt-[4rem] space-y-16">
 
-      {deets.relations &&
+        {deets.relations &&
 
-        <Related relations={deets.relations} text="Related Anime " />}
-      <Related relations={deets.recommendations} text="Users Also watched" />
+          <Related relations={deets.relations} text="Related Anime " />}
+        <Related relations={deets.recommendations} text="Users Also watched" />
+      </div>
     </>
   );
 }
@@ -106,9 +107,7 @@ export async function getServerSideProps(context) {
   const deets = await fetch(
     "https://api.consumet.org/meta/anilist/info/" + animen
   ).then((res) => res.json());
-  // const epi = await fetch(
-  //   "https://api.enime.moe/mapping/mal/ " + deets.malId
-  // ).then((res) => res.json());
+
 
 
   return {
