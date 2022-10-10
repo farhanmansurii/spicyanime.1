@@ -34,7 +34,7 @@ const Episodes = ({ epi, deets }) => {
       Episode List
     </div>
     <div className=" flex overflow-x-scroll  scrollbar-hide ">
-      {epi.map((e) => (<div key={e.id} className='hover:border-4 border-yellow-500' onClick={() => { setepid(e.id), setepisodedeets(e.number + ' ' + e.title) }}>
+      {epi.map((e) => (<div key={e.id} className='border-secondary rounded-lg hover:border-4 ' onClick={() => { setepid(e.id), setepisodedeets(e.number + ' ' + e.title) }}>
         <EpisodeCard episode={e} id={e.id} />
       </div>
       ))}
