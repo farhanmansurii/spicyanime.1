@@ -1,7 +1,9 @@
 import React from 'react'
 
 const Animedetails = ({ deets }) => {
+  console.log(deets)
   return (
+
     <div
       style={{ backgroundImage: `url(${deets.cover})` }}
       className="bg-cover bg-center w-vw -mt-5 lg:mt-0 lg:w-10/12 lg:mx-auto"
@@ -16,7 +18,7 @@ const Animedetails = ({ deets }) => {
           <div className="flex flex-col p-2 ">
             <div className="flex sm:flex-auto sm:mt-10  ">
               <div className="text-shadow-xl text-primary text-4xl font-semibold">
-                {deets.title.english || deets.title.userPreffered || deets.title.native}
+                {deets.title.english || deets.title.userPreferred || deets.title.romaji || 'hi'}
               </div>
               <div className="px-2 py-1 bg-transparent backdrop-blur text-primary text-shadow-xl font-bold rounded-sm w-fit h-fit align-bottom mt-2 mx-4">
 
