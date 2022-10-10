@@ -17,7 +17,7 @@ function details({ deets, }) {
         </div>
       )}
 
-      {epi ?
+      {deets.totalEpisodes > 1 ?
         (
 
           <div className=" w-10/12 mx-auto">

@@ -4,13 +4,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
 import Row from "../components/Row";
 import requests from "./api/requests";
+
 export default function Home({ bannerimg, popular, action }) {
 
   return (
     <>
       <div className="w-10/12 mx-auto  border-4 border-secondary/70 rounded-xl">
         <Swiper slidesPerView={1} loop={true}>
-          {bannerimg.slice(0, 5).map((e, index) => (
+          {bannerimg.map((e, index) => (
             <SwiperSlide key={index}>
               <Banner
                 titles={e.title.english}
@@ -22,11 +23,8 @@ export default function Home({ bannerimg, popular, action }) {
           ))}
         </Swiper>
       </div>
-      <div className="mb-[6rem] mt-[4rem] space-y-16">
-
-        <Row typeOfAnime={popular} text={'Popular Anime'} />
-        <Row typeOfAnime={action} text={'Action Anime'} />
-      </div>
+      <Row typeOfAnime={popular} text={'Popular Anime'} />
+      <Row typeOfAnime={action} text={'Action Anime'} />
     </>
   )
 }
