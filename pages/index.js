@@ -3,7 +3,6 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
 import Row from "../components/Row";
-import requests from "./api/requests";
 
 export default function Home({ bannerimg, popular, action }) {
 
@@ -22,17 +21,19 @@ export default function Home({ bannerimg, popular, action }) {
             </SwiperSlide>
           ))}
         </Swiper>
+      </div><div className="flex flex-col space-y-5 my-10">
+
+        <Row typeOfAnime={popular} text={'All Time Favourite Anime'} />
+        <Row typeOfAnime={action} text={'Trending Anime'} />
       </div>
-      <Row typeOfAnime={popular} text={'Popular Anime'} />
-      <Row typeOfAnime={action} text={'Action Anime'} />
     </>
   )
 }
 
 export const getStaticProps = async () => {
   const res = await fetch("https://api.consumet.org/meta/anilist/popular");
-  const res1 = await fetch(requests.popular.url);
-  const res2 = await fetch(requests.action.url);
+  const res1 = await fetch("https://api.consumet.org/meta/anilist/advanced-search?sort=[%22FAVOURITES_DESC%22]");
+  const res2 = await fetch("https://api.consumet.org/meta/anilist/trending");
   const json = await res.json();
   const popular = await res1.json();
   const action = await res2.json();
