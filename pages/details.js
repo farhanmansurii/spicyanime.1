@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import dynamic from "next/dynamic";
 import React from "react";
+import AnimeCard from "../components/AnimeCard";
 import Animedetails from "../components/Animedetails";
 import Episodes from "../components/Episodes";
 import Related from "../components/Related";
@@ -17,15 +18,15 @@ function details({ deets, }) {
         </div>
       )}
 
-      {deets.totalEpisodes > 1 ?
+      {deets.episodes.length >= 1 ?
         (
 
           <div className=" w-10/12 mx-auto">
             <Episodes deets={deets} epi={epi} />
           </div>
-        ) : (<div>No episodes</div>)
+        ) : (<div className=" w-full mx-auto">No episodes</div>)
       }
-
+      <AnimeCard />
       {deets.relations &&
 
         <Related relations={deets.relations} text="Related Anime " />}
