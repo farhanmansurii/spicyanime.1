@@ -3,13 +3,14 @@ import ReactPlayer from 'react-player'
 import EpisodeCard from './EpisodeCard'
 const Episodes = ({ epi, deets }) => {
   const [eplink, seteplink] = React.useState()
-  const [epid, setepid] = React.useState(deets.episodes[0].id || '')
+  const [epid, setepid] = React.useState(deets.episodes[0].id)
   function epfetch() {
     fetch(
-      "https://api.consumet.org/meta/anilist/watch/" + epid)
+      "https://animeapi-demo.herokuapp.com/animix/watch/" + epid)
       .then((res) => res.json())
       .then((json) => {
-        seteplink(json.sources[1].url)
+        seteplink(json.sources[0].file)
+        console.log(json)
       });
   }
   useEffect(() => {
@@ -18,11 +19,10 @@ const Episodes = ({ epi, deets }) => {
     return () => {
     }
   }, [epid])
-  console.log(eplink)
 
   return (<>
     <div className=" place-self-center my-5  w-fit bg-black/30 mx-auto whitespace-wrap ">
-      <div className=" mx-auto p-5 text-md text-primary font-semibold line-clamp-2"  >Ep number</div> : <div className=" mx-auto p-5 text-md text-primary font-semibold line-clamp-2">{deets.title.english}</div>
+      <div className=" mx-auto p-5 text-md  text-primary font-semibold line-clamp-2"  >E</div>
       <ReactPlayer
         controls={true}
         height='360'
@@ -33,9 +33,8 @@ const Episodes = ({ epi, deets }) => {
       Episode List
     </div>
     <div className=" flex overflow-x-scroll  scrollbar-hide ">
-      {epi.map((e) => (<div onClick={() => { setepid(e.id), console.log(e.id) }}>
-
-        <EpisodeCard episode={e} key={e.id} id={e.id} />
+      {epi.map((e) => (<div key={e.id} className='hover:border-4 border-yellow-500' onClick={() => setepid(e.id)}>
+        <EpisodeCard episode={e} id={e.id} />
       </div>
       ))}
     </div>

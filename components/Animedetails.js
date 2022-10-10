@@ -41,15 +41,23 @@ const Animedetails = ({ deets }) => {
             <div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary text-shadow-xl rounded-sm w-fit">
               Status : {deets.status}
             </div>
-            {deets.type === "TV" && (
-              <div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl  border-2 border-primary text-shadow-xl rounded-sm w-fit">
-                Total Episodes : {deets.totalEpisodes} Episodes
-              </div>
-            )}
+            {deets.startDate.day !== null ? (<div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary text-shadow-xl rounded-sm w-fit">
+              Release Date : {deets.startDate.day}/{deets.startDate.month}/{deets.startDate.year}
+            </div>) : ('')}
+            {deets.endDate.day !== null ? (<div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary text-shadow-xl rounded-sm w-fit">
+              End Date : {deets.endDate.day}/{deets.endDate.month}/{deets.endDate.year}
+            </div>) : ('')}
+            {
+              deets.totalEpisodes !== null ? (
+                <div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl  border-2 border-primary text-shadow-xl rounded-sm w-fit">
+                  Total Episodes : {deets.totalEpisodes} Episodes
+                </div>
+              ) : ('')
+            }
 
-            <div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl rounded-sm  border-2 border-primary text-shadow-xl w-fit">
+            {deets.totalEpisodes !== null ? <div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl rounded-sm  border-2 border-primary text-shadow-xl w-fit">
               Duration : {deets.duration} minutes
-            </div>
+            </div> : ('')}
             <div className="text-shadow-md line-clamp-4 text-primary/80 w-11/12  mx-auto lg:mx-0 text-shadow-xl text-sm  mt-2">
               {deets.description}
             </div>

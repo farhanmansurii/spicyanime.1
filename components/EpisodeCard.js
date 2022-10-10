@@ -3,11 +3,11 @@ import React from 'react'
 const EpisodeCard = ({ episode }) => {
   return (<>
     <div
-      className="m-2 bg-cover h-[200px] w-[300px] transition duration-100 transform  ease-in sm:hover:scale-105 rounded-lg border-secondary "
+      className=" bg-cover h-[200px] w-[300px] m-2 "
       style={{ backgroundImage: `url(${episode.image})` }}
 
     >
-      <div className=" flex flex-col-reverse  p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-[220px]  bg-cover ">
+      <div className=" flex flex-col-reverse  p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-[300px]  bg-cover ">
         <div className="self-bottom text-sm  line-clamp-2 text-primary mx-2 whitespace-wrap ">
           {episode.description}
         </div>

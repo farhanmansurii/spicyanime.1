@@ -10,7 +10,7 @@ const anime = ({ results }) => {
         <AnimeCard
           animeImg={e.image}
           title={e.title.english || e.title.native}
-          key={e.malId}
+          key={e.id}
           rating={e.rating}
           id={e.id}
         />
