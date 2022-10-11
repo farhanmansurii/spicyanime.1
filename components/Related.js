@@ -14,7 +14,7 @@ const Related = ({ relations, text }) => {
           e.type === "TV" && < AnimeCard
             key={e.id}
             animeImg={e.image}
-            title={e.title.english || e.title.userPreferred}
+            title={e.title.userPreferred || e.title.english}
             id={e.id}
           />
 
