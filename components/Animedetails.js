@@ -19,7 +19,7 @@ const Animedetails = ({ deets, addlist, setaddlist }) => {
           <div className="flex flex-col p-2 ">
             <div className="flex sm:flex-auto sm:mt-10  ">
               <div className="text-shadow-xl text-primary text-3xl lg:text-4xl font-semibold">
-                {deets.title.userPreferred || deets.title.english || deets.title.romaji || 'hi'}
+                {deets.title.userPreferred || deets.title.romaji || deets.title.english || 'hi'}
               </div>
               <div className="px-2 py-1 bg-transparent backdrop-blur text-primary text-shadow-xl font-bold rounded-sm w-fit h-fit align-bottom mt-2 mx-4">
 
@@ -59,9 +59,9 @@ const Animedetails = ({ deets, addlist, setaddlist }) => {
             {deets.totalEpisodes !== null ? <div className="px-2 py-1 m-1 text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl rounded-sm  border-2 border-primary text-shadow-xl w-fit">
               Duration : {deets.duration} minutes
             </div> : ('')}
-            <div className="text-shadow-md line-clamp-4 text-primary/80 w-11/12  mx-auto lg:mx-0 text-shadow-xl text-sm  mt-2">
+            <h4 className="text-shadow-md line-clamp-4 text-primary/80 w-11/12  mx-auto lg:mx-0 text-shadow-xl text-sm  mt-2">
               {deets.description}
-            </div>
+            </h4>
           </div>
         </div>
       </div>
