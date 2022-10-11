@@ -4,8 +4,8 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "SpicyAnime ≧◡≦",
-  "short_name": "SpicyAnime ≧◡≦",
+  "name": "SpiceAnime",
+  "short_name": "SpiceAnime",
   "icons": [
     {
       "src": "/icon-192x192.png",

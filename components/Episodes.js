@@ -4,6 +4,7 @@ import ReactPlayer from 'react-player';
 
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets }) => {
+  console.log(deets)
   const [eplink, seteplink] = React.useState()
   const [epid, setepid] = React.useState(deets.episodes[0].id)
   const [episodedeets, setepisodedeets] = useState(deets.episodes[0].number + ' ' + deets.episodes[0].title)

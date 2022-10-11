@@ -5,7 +5,7 @@ import requests from "./api/requests";
 const anime = ({ results }) => {
 
   return <div >  <GenreSelector />
-    <div className="p-5 grid mx-auto my-10 grid-cols-2 gap-4 md:grid-cols-6 w-11/12 lg:w-10/12 mb-[6rem]">
+    <div className="p-5 grid my-10 grid-cols-3 gap-2 md:grid-cols-6  lg:w-10/12 mb-[6rem]">
       {results.map((e) => (
         <AnimeCard
           animeImg={e.image}

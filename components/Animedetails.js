@@ -13,13 +13,13 @@ const Animedetails = ({ deets, addlist, setaddlist }) => {
         <div className="flex flex-col md:flex-row items-center  ">
           <div className="  my-3 mx-6">
 
-            <div className=" w-[233.33px] bg-cover bg-no-repeat h-[350px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.image})` }}>
+            <div className="w-[149.33px] lg:w-[233.33px] bg-cover bg-no-repeat h-[233px] lg:h-[350px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.image})` }}>
             </div>
           </div>
           <div className="flex flex-col p-2 ">
             <div className="flex sm:flex-auto sm:mt-10  ">
-              <div className="text-shadow-xl text-primary text-4xl font-semibold">
-                {deets.title.english || deets.title.userPreferred || deets.title.romaji || 'hi'}
+              <div className="text-shadow-xl text-primary text-3xl lg:text-4xl font-semibold">
+                {deets.title.userPreferred || deets.title.english || deets.title.romaji || 'hi'}
               </div>
               <div className="px-2 py-1 bg-transparent backdrop-blur text-primary text-shadow-xl font-bold rounded-sm w-fit h-fit align-bottom mt-2 mx-4">
 
@@ -27,7 +27,7 @@ const Animedetails = ({ deets, addlist, setaddlist }) => {
               </div>
             </div>
             <div >
-              <div className="px-2 py-1 flex m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary text-shadow-xl rounded-sm w-fit">
+              <div className="px-2 py-1 flex m-1 text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary rounded-sm w-fit">
                 Category {':'}
                 {deets.genres.slice(0, 2).map((e, index) => (
                   <div
@@ -39,24 +39,24 @@ const Animedetails = ({ deets, addlist, setaddlist }) => {
                 ))}
               </div>
             </div>
-            <div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary text-shadow-xl rounded-sm w-fit">
+            <div className="px-2 py-1 m-1 text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary text-shadow-xl rounded-sm w-fit">
               Status : {deets.status}
             </div>
-            {deets.startDate.day !== null ? (<div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary text-shadow-xl rounded-sm w-fit">
+            {deets.startDate.day !== null ? (<div className="px-2 py-1 text-sm lg:text-lg m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary text-shadow-xl rounded-sm w-fit">
               Release Date : {deets.startDate.day}/{deets.startDate.month}/{deets.startDate.year}
             </div>) : ('')}
-            {deets.endDate.day !== null ? (<div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary text-shadow-xl rounded-sm w-fit">
+            {deets.endDate.day !== null ? (<div className="px-2 py-1 text-sm lg:text-lg m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary text-shadow-xl rounded-sm w-fit">
               End Date : {deets.endDate.day}/{deets.endDate.month}/{deets.endDate.year}
             </div>) : ('')}
             {
               deets.totalEpisodes !== null ? (
-                <div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl  border-2 border-primary text-shadow-xl rounded-sm w-fit">
+                <div className="px-2 py-1 m-1  text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl  border-2 border-primary text-shadow-xl rounded-sm w-fit">
                   Total Episodes : {deets.totalEpisodes} Episodes
                 </div>
               ) : ('')
             }
 
-            {deets.totalEpisodes !== null ? <div className="px-2 py-1 m-1 bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl rounded-sm  border-2 border-primary text-shadow-xl w-fit">
+            {deets.totalEpisodes !== null ? <div className="px-2 py-1 m-1 text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl rounded-sm  border-2 border-primary text-shadow-xl w-fit">
               Duration : {deets.duration} minutes
             </div> : ('')}
             <div className="text-shadow-md line-clamp-4 text-primary/80 w-11/12  mx-auto lg:mx-0 text-shadow-xl text-sm  mt-2">

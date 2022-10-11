@@ -5,7 +5,7 @@ import Animedetails from "../components/Animedetails";
 import Episodes from "../components/Episodes";
 import Related from "../components/Related";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
-function details({ deets, addlist, setaddlist }) {
+function details({ deets, setaddlist, addlist }) {
   const epi = deets.episodes
 
 
@@ -26,7 +26,7 @@ function details({ deets, addlist, setaddlist }) {
         ) : (<div className=" w-full mx-auto">No episodes</div>)
       }
       {deets.relations &&
-        <div className="sm:pb-10 lg:pb-3">
+        <div className="pb-16 lg:pb-3">
 
           <Related relations={deets.relations} text="Related Anime " />
           <Related relations={deets.recommendations} text="Users Also watched" />
@@ -39,6 +39,7 @@ export async function getServerSideProps(context) {
   const deets = await fetch(
     "https://api.consumet.org/meta/anilist/info/" + animen
   ).then((res) => res.json());
+
 
 
   return {
