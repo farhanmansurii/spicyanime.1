@@ -31,11 +31,7 @@ const Navbar = () => {
                 Search
               </button>
             </Link>
-            <Link href='/mylist' >
-              <button className='className="btn btn-ghost normal-case  text-primary text-xl'>
-                Mylist
-              </button>
-            </Link>
+
           </ul>
         </div>
       </div>

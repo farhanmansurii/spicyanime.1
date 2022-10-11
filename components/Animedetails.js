@@ -33,7 +33,7 @@ const Animedetails = ({ deets, addlist, setaddlist }) => {
                 {deets.description}
               </em>
             </div>
-              <div className="px-2 py-1 flex m-1 text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
+              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
                 Category {':'}
                 {deets.genres.slice(0, 2).map((e, index) => (
                   <div
@@ -45,27 +45,27 @@ const Animedetails = ({ deets, addlist, setaddlist }) => {
                 ))}
               </div>
             </div>
-            <div className="px-2 py-1 flex m-1 text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
+            <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
               Status : {deets.status}
             </div>
-            {deets.startDate.day !== null ? (<div className="px-2 py-1 flex m-1 text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
+            {deets.startDate.day !== null ? (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
 
               Release Date : {deets.startDate.day}/{deets.startDate.month}/{deets.startDate.year}
             </div>) : ('')}
-            {deets.endDate.day !== null ? (<div className="px-2 py-1 flex m-1 text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
+            {deets.endDate.day !== null ? (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
 
               End Date : {deets.endDate.day}/{deets.endDate.month}/{deets.endDate.year}
             </div>) : ('')}
             {
               deets.totalEpisodes !== null ? (
-                <div className="px-2 py-1 flex m-1 text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
+                <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
 
                   Total Episodes : {deets.totalEpisodes} Episodes
                 </div>
               ) : ('')
             }
 
-            {deets.totalEpisodes !== null ? <div className="px-2 py-1 flex m-1 text-sm lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
+            {deets.totalEpisodes !== null ? <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
 
               Duration : {deets.duration} minutes
             </div> : ('')}

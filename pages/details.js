@@ -29,7 +29,7 @@ function details({ deets, setaddlist, addlist }) {
         <div className="pb-16 lg:pb-3">
 
           <Related relations={deets.relations} text="Related Anime " />
-          <Related relations={deets.recommendations} text="Users Also watched" />
+          <Related relations={deets.recommendations} text="Recommendations " />
         </div>}
     </>
   );
