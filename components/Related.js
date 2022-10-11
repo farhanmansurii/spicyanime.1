@@ -3,7 +3,7 @@ import AnimeCard from './AnimeCard'
 const Related = ({ relations, text }) => {
   return (<>
 
-    <div className='w-10/12 mx-auto my-6'>
+    <div className='w-10/12 mx-auto my-6 '>
 
       <div className=" mx-auto p-5 text-xl text-primary font-semibold">
         {text}
@@ -26,6 +26,7 @@ const Related = ({ relations, text }) => {
             animeImg={e.image}
             title={e.title.english || e.title.userPreferred}
             id={e.id}
+
           />
 
         ))}

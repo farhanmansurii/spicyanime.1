@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import ReactPlayer from 'react-player'
-import EpisodeCard from './EpisodeCard'
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player';
+
+import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets }) => {
   const [eplink, seteplink] = React.useState()
   const [epid, setepid] = React.useState(deets.episodes[0].id)
@@ -20,7 +22,7 @@ const Episodes = ({ epi, deets }) => {
     return () => {
     }
   }, [epid])
-
+  const router = useRouter();
   return (<>
     <div className=" place-self-center my-5  w-fit bg-black/30 mx-auto whitespace-wrap ">
       <div className=" mx-auto p-5 text-md  text-primary font-semibold line-clamp-2"  > Ep {episodedeets}</div>

@@ -1,7 +1,8 @@
 import React from 'react'
 
-const Animedetails = ({ deets }) => {
+const Animedetails = ({ deets, addlist, setaddlist }) => {
   console.log(deets)
+
   return (
 
     <div
@@ -64,7 +65,7 @@ const Animedetails = ({ deets }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

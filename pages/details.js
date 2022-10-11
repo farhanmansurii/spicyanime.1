@@ -5,7 +5,7 @@ import Animedetails from "../components/Animedetails";
 import Episodes from "../components/Episodes";
 import Related from "../components/Related";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
-function details({ deets, }) {
+function details({ deets, addlist, setaddlist }) {
   const epi = deets.episodes
 
 
@@ -13,7 +13,7 @@ function details({ deets, }) {
     <>
       {!deets ? (<div>No Data Found</div>) : (
         <div className=" flex-column  ">
-          <Animedetails deets={deets} />
+          <Animedetails addlist={addlist} setaddlist={setaddlist} deets={deets} />
         </div>
       )}
 
@@ -26,9 +26,11 @@ function details({ deets, }) {
         ) : (<div className=" w-full mx-auto">No episodes</div>)
       }
       {deets.relations &&
+        <div className="sm:pb-10 lg:pb-3">
 
-        <Related relations={deets.relations} text="Related Anime " />}
-      <Related relations={deets.recommendations} text="Users Also watched" />
+          <Related relations={deets.relations} text="Related Anime " />
+          <Related relations={deets.recommendations} text="Users Also watched" />
+        </div>}
     </>
   );
 }
