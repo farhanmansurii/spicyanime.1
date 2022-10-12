@@ -13,7 +13,6 @@ const Episodes = ({ epi, deets }) => {
       .then((res) => res.json())
       .then((json) => {
         seteplink(json.sources[0].file)
-        console.log(json)
       });
   }
   useEffect(() => {
