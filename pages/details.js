@@ -19,7 +19,7 @@ function details({ deets }) {
         (
 
           <div className=" w-10/12 mx-auto">
-            <Episodes deets={deets} epi={epi} setaddlist={setaddlist} addlist={addlist} />
+            <Episodes deets={deets} epi={epi} />
           </div>
         ) : (<div className=" w-full mx-auto">No episodes</div>)
       }
