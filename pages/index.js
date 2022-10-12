@@ -1,4 +1,5 @@
 import Link from "next/link";
+import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,8 +7,8 @@ import { Banner } from "../components/Banner";
 import EpisodeCard from "../components/EpisodeCard";
 import Row from "../components/Row";
 export default function Home({ bannerimg, popular, action, recentlyaired, addlist, setaddlist }) {
-  console.log(recentlyaired)
   console.log(addlist || 'hi')
+
   return (
     <>
       <div className="w-10/12 mx-auto  border-4 border-secondary/70 rounded-xl">
@@ -23,10 +24,17 @@ export default function Home({ bannerimg, popular, action, recentlyaired, addlis
             </SwiperSlide>
           ))}
         </Swiper>
-      </div><div className="flex flex-col space-y-5 my-10 pb-10">
-        {addlist ? (<Link href={addlist.id}>
-          < EpisodeCard episode={addlist} />
-        </Link>
+      </div><div className="flex flex-col space-y-5  my-10 pb-10">
+        {addlist ? (<>
+          <div className="  pt-5 text-xl text-primary w-10/12 ml-[2.5rem] font-semibold">
+            Continue Watching
+          </div>
+          <Link href={`/details?id=${addlist.id}`} >
+            <div className="w-10/12 mx-auto" >
+              < EpisodeCard episode={addlist} />
+            </div>
+          </Link>
+        </>
         ) : ""}
         <Row typeOfAnime={popular} text={'All Time Favourites'} />
         <div className="text-xl lg:text-3xl  font-semibold  text-primary w-10/12 mx-auto">

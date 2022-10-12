@@ -8,7 +8,7 @@ const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 function details({ deets, setaddlist, addlist }) {
   const epi = deets.episodes
 
-
+  console.log(addlist + "addlist")
   return (
     <>
       {!deets ? (<div>No Data Found</div>) : (

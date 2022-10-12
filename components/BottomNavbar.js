@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-const BottomNavbar = () => {
+const BottomNavbar = ({ user }) => {
   const [active, setactive] = useState(false)
   const router = useRouter();
   return (
@@ -22,9 +22,15 @@ const BottomNavbar = () => {
         </button>
       </Link>
       <Link href='/mylist' >
-        <button className={router.pathname == "/mylist" ? "active : bg-base-100/10 border-t-primary rounded-tr-lg  text-primary" : "text-primary"}>
-          My List
+
+        <button variant="unstyled">
+          {user ? (<div className="avatar">
+            <div className="w-7 rounded-full z-10 ring ring-primary ring-offset-base-100 ring-offset-2">
+              <img src={user.photoURL} />
+            </div>
+          </div>) : <div>login</div>}
         </button>
+
       </Link>
 
     </div >

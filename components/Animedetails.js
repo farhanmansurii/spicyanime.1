@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Animedetails = ({ deets, addlist, setaddlist }) => {
-  console.log(deets)
 
   return (
 
