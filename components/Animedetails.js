@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Animedetails = ({ deets, addlist, setaddlist }) => {
+const Animedetails = ({ deets }) => {
 
   return (
 

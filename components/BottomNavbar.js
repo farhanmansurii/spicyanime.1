@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React from "react";
 const BottomNavbar = ({ user }) => {
-  const [active, setactive] = useState(false)
   const router = useRouter();
   return (
     <div className="btm-nav bg-secondary text-md mb-[1rem] mx-[1rem] rounded-xl w-11/12 align-self-center font-bold fixed z-30 lg:hidden  " >

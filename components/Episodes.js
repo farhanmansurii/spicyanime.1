@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 
 import EpisodeCard from './EpisodeCard';
-const Episodes = ({ epi, deets, setaddlist, addlist }) => {
+const Episodes = ({ epi, deets }) => {
   console.log(addlist)
   const [eplink, seteplink] = React.useState()
   const [epid, setepid] = React.useState(deets.episodes[0].id)
@@ -37,7 +37,7 @@ const Episodes = ({ epi, deets, setaddlist, addlist }) => {
       Episode List
     </div>
     <div className=" flex overflow-x-scroll  scrollbar-hide ">
-      {epi.map((e) => (<div key={e.id} className='border-secondary rounded-lg hover:border-4 ' onClick={() => { setepid(e.id), setepisodedeets(e.number + ' ' + e.title), setaddlist({ id: deets.id, number: e.number, title: e.title, description: e.title, image: e.image }) }}>
+      {epi.map((e) => (<div key={e.id} className='border-secondary rounded-lg hover:border-4 ' onClick={() => { setepid(e.id), setepisodedeets(e.number + ' ' + e.title), console.log({ id: deets.id, number: e.number, title: e.title, description: e.title, image: e.image }) }}>
         <EpisodeCard episode={e} id={e.id} />
       </div>
       ))}

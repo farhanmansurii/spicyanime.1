@@ -1,8 +1,7 @@
 import React from "react";
 import { auth } from "./firebase";
-const mylist = ({ addlist, isLoggedIn, handleAuth, user }) => {
+const mylist = ({ isLoggedIn, handleAuth, user }) => {
 
-  console.log(addlist)
   return (
     <div className="mx-10 text-white">
       {!isLoggedIn ?

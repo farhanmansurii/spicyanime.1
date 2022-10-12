@@ -5,15 +5,14 @@ import Animedetails from "../components/Animedetails";
 import Episodes from "../components/Episodes";
 import Related from "../components/Related";
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
-function details({ deets, setaddlist, addlist }) {
+function details({ deets }) {
   const epi = deets.episodes
 
-  console.log(addlist + "addlist")
   return (
     <>
       {!deets ? (<div>No Data Found</div>) : (
         <div className=" flex-column  ">
-          <Animedetails addlist={addlist} setaddlist={setaddlist} deets={deets} />
+          <Animedetails deets={deets} />
         </div>
       )}
       {deets.episodes.length >= 1 ?
