@@ -16,12 +16,11 @@ function details({ deets, setaddlist, addlist }) {
           <Animedetails addlist={addlist} setaddlist={setaddlist} deets={deets} />
         </div>
       )}
-
       {deets.episodes.length >= 1 ?
         (
 
           <div className=" w-10/12 mx-auto">
-            <Episodes deets={deets} epi={epi} />
+            <Episodes deets={deets} epi={epi} setaddlist={setaddlist} addlist={addlist} />
           </div>
         ) : (<div className=" w-full mx-auto">No episodes</div>)
       }
