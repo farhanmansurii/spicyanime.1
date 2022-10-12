@@ -7,12 +7,4 @@ const firebaseConfig = {
   appId: "1:1099032984903:web:52b1c15e46c8871f95e062",
   measurementId: "G-C5RREFWD0E"
 };
-import React from 'react';
-
-const firebaseConfig1 = () => {
-  return (
-    <div>firebaseConfig</div>
-  )
-}
-
-export default { firebaseConfig1, firebaseConfig }
+export default firebaseConfig
