@@ -1,22 +1,24 @@
-import { doc, setDoc } from 'firebase/firestore';
-import React, { useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
+import React from 'react';
 import { db } from './config/firebase';
-
 const Animedetails = ({ deets, user }) => {
-  const [watchlist, setwatchlist] = useState()
-  const addwatchlist = async () => {
-    const animeRef = doc(db, "watchlist", user.uid);
+  const addwatchlist = async ({ userId, id, title, }) => {
     try {
-      await setDoc(animeRef,
-        { anime: watchlist ? [...watchlist, deets?.title.english] : [deets?.title.english] }
-      );
-      console.log('added')
+      await addDoc(collection(db, user.uid, 'watchlist'), {
+        user: userId,
+        title: title,
+        id: id
+      })
+    } catch (err) {
+      ''
     }
-    catch (error) {
-      console.log(error)
-    }
-
   }
+  const data = {
+    userId: user.uid,
+    title: deets.title.english,
+    id: deets.id
+  }
+
   return (
 
     <div
@@ -56,7 +58,7 @@ const Animedetails = ({ deets, user }) => {
                   >
                     {e}
                   </div>
-                ))}<button className="btn btn-xs btn-circle btn-outline" onClick={addwatchlist} >
+                ))}<button className="btn btn-xs btn-circle btn-outline" onClick={() => addwatchlist(data)} >
 
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                 </button>
