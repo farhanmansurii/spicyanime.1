@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import AnimeCard from "../components/AnimeCard";
 import { auth, db } from "../components/config/firebase";
 const mylist = ({ isLoggedIn, handleAuth, user, watchlist, setwatchlist }) => {
-
   const [animes, setAnimes] = useState([])
   useEffect(() => {
     const refreshData = () => {
