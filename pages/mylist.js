@@ -2,8 +2,8 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import AnimeCard from "../components/AnimeCard";
 import { auth, db } from "../components/config/firebase";
-const mylist = ({ isLoggedIn, handleAuth, user, watchlist, setwatchlist }) => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
+export default function mylist({ user, isLoggedIn }) {
   const [animes, setAnimes] = useState([])
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
@@ -36,7 +36,7 @@ const mylist = ({ isLoggedIn, handleAuth, user, watchlist, setwatchlist }) => {
           <button className="btn" onClick={() => auth.signOut()}>Sign Out  </button>
         )
       }
-      <div className="text-primary text-3xl"> {user?.displayName} `&apos;` s WatchList</div>
+      <div className="text-primary text-3xl"> {user?.displayName} &apos;s WatchList</div>
       <div className="p-5 grid my-10 grid-cols-2 gap-2 md:grid-cols-6  lg:w-10/12 mb-[6rem]">
 
         {
@@ -46,5 +46,3 @@ const mylist = ({ isLoggedIn, handleAuth, user, watchlist, setwatchlist }) => {
     </div>
   )
 }
-
-export default mylist;
