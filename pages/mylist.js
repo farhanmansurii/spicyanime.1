@@ -34,7 +34,7 @@ const mylist = ({ isLoggedIn, handleAuth, user, watchlist, setwatchlist }) => {
           <button className="btn" onClick={() => auth.signOut()}>Sign Out  </button>
         )
       }
-      <div className="text-primary text-3xl"> {user?.displayName}'s WatchList</div>
+      <div className="text-primary text-3xl"> {user?.displayName} `&apos;` s WatchList</div>
       <div className="p-5 grid my-10 grid-cols-2 gap-2 md:grid-cols-6  lg:w-10/12 mb-[6rem]">
 
         {
