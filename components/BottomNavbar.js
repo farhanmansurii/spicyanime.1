@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
@@ -10,11 +11,7 @@ const BottomNavbar = ({ user }) => {
           Home
         </button>
       </Link>
-      <Link href='/anime' >
-        <button className={router.pathname == "/anime" ? "active : bg-base-100/10  border-t-primary text-primary" : "text-primary"}>
-          Anime
-        </button>
-      </Link>
+
       <Link href='/searchpage' >
         <button className={router.pathname == "/searchpage" ? "active : bg-base-100/10 border-t-primary   text-primary" : "text-primary"}>
           Search
@@ -25,7 +22,7 @@ const BottomNavbar = ({ user }) => {
         <button variant="unstyled">
           {user ? (<div className="avatar">
             <div className="w-7 rounded-full z-10 ring ring-primary ring-offset-base-100 ring-offset-2">
-              <img src={user?.photoURL} />
+              <img src={user?.photoURL} alt={user?.uid} />
             </div>
           </div>) : <div>login</div>}
         </button>

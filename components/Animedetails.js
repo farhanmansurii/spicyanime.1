@@ -1,7 +1,8 @@
 import { addDoc, collection } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { db } from './config/firebase';
-const Animedetails = ({ deets, user, isLoggedIn }) => {
+const Animedetails = ({ deets, user }) => {
+  const [isAdded, setIsAdded] = useState(false)
   const [watchlist, setwatchlist] = useState([])
   const data = {
     userId: user?.uid,
@@ -12,6 +13,7 @@ const Animedetails = ({ deets, user, isLoggedIn }) => {
   const addwatchlist = async () => {
 
     try {
+      setIsAdded(true)
       await addDoc(collection(db, 'watchlist'), data)
     } catch (err) {
       ''
@@ -41,13 +43,20 @@ const Animedetails = ({ deets, user, isLoggedIn }) => {
                 {deets.type}
               </div>
             </div>
-            <div > <button className="btn bg-secondary" onClick={addwatchlist}>{user ? "Add to List" : "remove from watchlist"}</button><div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
-              Synopsis  {' '}
-              : {'    '}
-              <em>
-                {deets.description}
-              </em>
-            </div>
+
+            {!isAdded ?
+
+              (<button className="btn bg-secondary" onClick={addwatchlist}>Add to watchlist</button>
+              ) : (<button className="btn bg-secondary">Remove From Watchlist</button>)
+            }
+            <div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-11/12">
+              <div >
+                Synopsis
+                :
+                <em>
+                  {deets.description}
+                </em>
+              </div>
               <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
                 Category {':'}
                 {deets.genres.slice(0, 2).map((e, index) => (
