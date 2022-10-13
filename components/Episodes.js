@@ -1,9 +1,10 @@
+import { addDoc, collection } from "firebase/firestore";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
-
+import { db } from "./config/firebase";
 import EpisodeCard from './EpisodeCard';
-const Episodes = ({ epi, deets }) => {
+const Episodes = ({ epi, deets, user }) => {
   const [eplink, seteplink] = React.useState()
   const [epid, setepid] = React.useState(deets.episodes[0].id)
   const [episodedeets, setepisodedeets] = useState(deets.episodes[0].number + ' ' + deets.episodes[0].title)
@@ -15,6 +16,21 @@ const Episodes = ({ epi, deets }) => {
         seteplink(json.sources[0].file)
       });
   }
+
+  const [data, setData] = useState([])
+  const addcontinuewatching = async () => {
+
+    try {
+      await addDoc(collection(db, 'continueWatching'), data)
+      console.log(data)
+    } catch (err) {
+      ''
+    }
+  }
+  useEffect(() => {
+    addcontinuewatching
+    return console.log(data)
+  }, [data])
   useEffect(() => {
     epfetch()
 
@@ -35,8 +51,8 @@ const Episodes = ({ epi, deets }) => {
       Episode List
     </div>
     <div className=" flex overflow-x-scroll  scrollbar-hide ">
-      {epi.map((e) => (<div key={e.id} className='border-secondary rounded-lg hover:border-4 ' onClick={() => { setepid(e.id), setepisodedeets(e.number + ' ' + e.title), console.log({ id: deets.id, number: e.number, title: e.title, description: e.title, image: e.image }) }}>
-        <EpisodeCard episode={e} id={e.id} />
+      {epi.map((e) => (<div key={e.id} className='border-secondary rounded-lg hover:border-4 ' onClick={() => { setepid(e.id), setepisodedeets(e.number + ' ' + e.title), setData({ id: deets.id, number: e.number, title: e.title, description: e.title, image: e.image, user: user.uid }) }}>
+        <EpisodeCard episode={e} id={e.id} user={user} />
       </div>
       ))}
     </div>
