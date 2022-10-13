@@ -1,14 +1,27 @@
 import Link from "next/link";
 import React from "react";
+import { FcGoogle } from 'react-icons/fc';
+import { RiLogoutCircleRFill } from 'react-icons/ri';
 import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
 import Row from "../components/Row";
-export default function Home({ bannerimg, popular, action, recentlyaired, }) {
+export default function Home({ bannerimg, popular, action, recentlyaired, user }) {
 
   return (
-    <>
+    <><div className="flex w-10/12 justify-between my-3 mx-auto">
+      {user ? (<>
+        <div className="text-3xl lg:text-4xl my-4 font-semibold  text-primary "> Welcome Back ,  {user?.displayName}</div>
+        <button className=" my-auto btn btn-ghost btn-circle btn-md"><RiLogoutCircleRFill size='md' /> </button>
+      </>
+      ) : (<>
+        <div className="text-3xl lg:text-4xl my-4 font-semibold  text-primary ">
+          Hello User
+        </div><button className="  my-auto btn btn-ghost btn-md">
+          <FcGoogle size='md' /></button>
+      </>
+      )} </div>
       <div className="w-10/12 mx-auto  border-4 border-secondary/70 rounded-xl">
         <Swiper slidesPerView={1} loop={true}>
           {bannerimg.map((e, index) => (
@@ -22,7 +35,8 @@ export default function Home({ bannerimg, popular, action, recentlyaired, }) {
             </SwiperSlide>
           ))}
         </Swiper>
-      </div><div className="flex flex-col space-y-5  my-10 pb-10">
+      </div>
+      <div className="flex flex-col space-y-5  my-10 pb-10">
 
         <Row typeOfAnime={popular} text={'All Time Favourites'} />
         <div className="text-xl lg:text-3xl  font-semibold  text-primary w-10/12 mx-auto">

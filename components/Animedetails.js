@@ -1,19 +1,21 @@
 import { addDoc, collection } from 'firebase/firestore';
-import React from 'react';
+import React, { useState } from 'react';
 import { db } from './config/firebase';
 const Animedetails = ({ deets, user, isLoggedIn }) => {
-  const addwatchlist = async () => {
-    try {
-      await addDoc(collection(db, 'watchlist'), data)
-    } catch (err) {
-      ''
-    }
-  }
+  const [watchlist, setwatchlist] = useState([])
   const data = {
     userId: user?.uid,
     title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
     id: deets.id,
     image: deets.image
+  }
+  const addwatchlist = async () => {
+
+    try {
+      await addDoc(collection(db, 'watchlist'), data)
+    } catch (err) {
+      ''
+    }
   }
 
   return (
@@ -39,7 +41,7 @@ const Animedetails = ({ deets, user, isLoggedIn }) => {
                 {deets.type}
               </div>
             </div>
-            <div > <button className="btn bg-secondary" onClick={addwatchlist}>Add to List</button><div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
+            <div > <button className="btn bg-secondary" onClick={addwatchlist}>{user ? "Add to List" : "remove from watchlist"}</button><div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
               Synopsis  {' '}
               : {'    '}
               <em>
