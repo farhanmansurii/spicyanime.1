@@ -1,10 +1,10 @@
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AnimeCard from "../components/AnimeCard";
 import { auth, db } from "../components/config/firebase";
 const mylist = ({ isLoggedIn, handleAuth, user, watchlist, setwatchlist }) => {
 
-  const [animes, setAnimes] = React.useState([])
+  const [animes, setAnimes] = useState([])
   useEffect(() => {
     const refreshData = () => {
       if (!user) {
