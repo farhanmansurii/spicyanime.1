@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import AnimeCard from "../components/AnimeCard";
 import { auth, db } from "../components/config/firebase";
 const mylist = ({ isLoggedIn, handleAuth, user, watchlist, setwatchlist }) => {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const [animes, setAnimes] = useState([])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const refreshData = () => {
       if (!user) {
