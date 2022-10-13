@@ -2,9 +2,8 @@
 import dynamic from "next/dynamic";
 import React from "react";
 import Animedetails from "../components/Animedetails";
-import Episodes from "../components/Episodes";
 import Related from "../components/Related";
-const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
+const Episodes = dynamic(() => import("../components/Episodes"), { loading: () => <div className="mx-auto text-2xl">loading</div>, ssr: false });
 function details({ deets, setwatchlist, watchlist, user }) {
   const epi = deets.episodes
 
@@ -19,7 +18,7 @@ function details({ deets, setwatchlist, watchlist, user }) {
         (
 
           <div className=" w-10/12 mx-auto">
-            <Episodes deets={deets} epi={epi} />
+            <Episodes deets={deets} epi={epi} user={user} />
           </div>
         ) : (<div className=" w-full mx-auto">No episodes</div>)
       }

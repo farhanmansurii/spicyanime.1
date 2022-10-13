@@ -13,7 +13,7 @@ const Animedetails = ({ deets, user }) => {
   const addwatchlist = async () => {
 
     try {
-      setIsAdded(true)
+      await setIsAdded(true)
       await addDoc(collection(db, 'watchlist'), data)
     } catch (err) {
       ''
