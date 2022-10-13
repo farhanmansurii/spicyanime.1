@@ -5,6 +5,7 @@ import { auth, db } from "../components/config/firebase";
 
 export default function Mylist({ user, isLoggedIn, handleAuth }) {
   const [animes, setAnimes] = useState([])
+
   useEffect(() => {
     const refreshData = () => {
       if (!user) {
@@ -22,7 +23,6 @@ export default function Mylist({ user, isLoggedIn, handleAuth }) {
     }
     refreshData()
   }, [user])
-  console.log(animes)
   return (
     <div className="mx-10 text-white">
       {!isLoggedIn ?
@@ -35,13 +35,16 @@ export default function Mylist({ user, isLoggedIn, handleAuth }) {
           <button className="btn" onClick={() => auth.signOut()}>Sign Out  </button>
         )
       }
-      <div className="text-primary text-3xl"> {user?.displayName} &apos;s WatchList</div>
-      <div className="p-5 grid my-10 grid-cols-2 gap-2 md:grid-cols-6  lg:w-10/12 mb-[6rem]">
+      {user && (<div className="text-primary text-3xl"> {user?.displayName} &apos;s WatchList</div>)}
+      {user ? (
+        <div className="p-5 grid my-10 grid-cols-2 gap-2 md:grid-cols-6  lg:w-10/12 mb-[6rem]">
 
-        {
-          animes.map((e) => <AnimeCard animeImg={e.image} title={e.title} id={e.id} key={e.id} />)
-        }
-      </div>
+
+          {animes.map((e) => <AnimeCard animeImg={e.image} title={e.title} id={e.id} key={e.id} />)}
+        </div>) : (
+        <div> Login to View Your watchlist</div>
+      )
+      }
     </div>
   )
 }
