@@ -1,28 +1,24 @@
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import AnimeCard from "../components/AnimeCard";
 import { auth, db } from "../components/config/firebase";
-
 export default function Mylist({ user, isLoggedIn, handleAuth }) {
   const [animes, setAnimes] = useState([])
-
   useEffect(() => {
-    const refreshData = () => {
-      if (!user) {
-        setAnimes([])
-        return
-      }
-      const q = query(collection(db, "watchlist"), where("userId", "==", user.uid))
-      onSnapshot(q, (querySnapchot) => {
-        let ar = []
-        querySnapchot.docs.forEach((doc) => {
-          ar.push({ id: doc.id, ...doc.data() })
-        })
-        setAnimes(ar)
-      })
+    if (user) {
+      const animeRef = doc(db, 'watchlist', user.uid);
+      var unsubscrine = onSnapshot(animeRef, data => {
+        if (data.exists()) {
+          setAnimes(data.data().anime)
+        }
+      });
     }
-    refreshData()
-  }, [user])
+    setAnimes([])
+    return () => {
+      unsubscrine;
+    }
+  }, [user]);
+
   return (
     <div className="mx-10 text-white">
       {!isLoggedIn ?

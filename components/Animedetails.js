@@ -1,8 +1,9 @@
-import { addDoc, collection } from 'firebase/firestore';
-import React, { useState } from 'react';
+import { doc, onSnapshot, setDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import { db } from './config/firebase';
 const Animedetails = ({ deets, user }) => {
-  const [isAdded, setIsAdded] = useState(false)
+
+  const isAdded = false
   const [watchlist, setwatchlist] = useState([])
   const data = {
     userId: user?.uid,
@@ -10,15 +11,34 @@ const Animedetails = ({ deets, user }) => {
     id: deets.id,
     image: deets.image
   }
-  const addwatchlist = async () => {
+  useEffect(() => {
+    if (user) {
+      const animeRef = doc(db, 'watchlist', user.uid);
+      var unsubscrine = onSnapshot(animeRef, data => {
+        if (data.exists()) {
+          setwatchlist(data.data().anime)
 
-    try {
-      await setIsAdded(true)
-      await addDoc(collection(db, 'watchlist'), data)
-    } catch (err) {
-      ''
+
+
+        }
+      });
     }
-  }
+    return () => {
+      unsubscrine;
+    }
+  }, [user]);
+
+  const [inWatchlist, setInWatchlist] = useState(false)
+  const addwatchlist = async () => {
+    const animeRef = doc(db, 'watchlist', user?.uid);
+    try {
+      await setDoc(animeRef,
+        { anime: watchlist ? [...watchlist, data] : [data] }
+      )
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   return (
 
@@ -44,11 +64,9 @@ const Animedetails = ({ deets, user }) => {
               </div>
             </div>
 
-            {!isAdded ?
 
-              (<button className="btn bg-secondary" onClick={addwatchlist}>Add to watchlist</button>
-              ) : (<button className="btn bg-secondary">Remove From Watchlist</button>)
-            }
+
+            <button className="btn w-fit bg-secondary" onClick={addwatchlist} >{inWatchlist ? "Add to watchlist" : "RemoveWatchlist"}</button>
             <div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-11/12">
               <div >
                 Synopsis
