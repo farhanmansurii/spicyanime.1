@@ -1,4 +1,4 @@
-import { arrayUnion, doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { db } from './config/firebase';
 const Animedetails = ({ deets, user }) => {
@@ -9,9 +9,10 @@ const Animedetails = ({ deets, user }) => {
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
     })
+    const value = watchlist.filter((item) => item.id === deets.id)
 
     return () => {
-
+      console.log(value)
     }
   }, []);
   const data = {
@@ -35,17 +36,6 @@ const Animedetails = ({ deets, user }) => {
       })
     }
   };
-  console.log(watchlist?.includes("id"))
-  const [inWatchlist, setInWatchlist] = useState(false)
-  const addwatchlist = async () => {
-    const animeRef = doc(db, 'watchlist', user?.uid);
-    try {
-      await setDoc(doc(db, user.id, deets.id), data);
-
-    } catch (error) {
-    }
-  };
-
   return (
 
     <div
