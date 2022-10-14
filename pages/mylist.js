@@ -1,19 +1,29 @@
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import AnimeCard from "../components/AnimeCard";
 import { auth, db } from "../components/config/firebase";
 export default function Mylist({ user, isLoggedIn, handleAuth }) {
   const [animes, setAnimes] = useState([])
   const [userid, setUserid] = useState()
+  async function login(user) {
+    const docRef = doc(db, "users", `${user?.email}`);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.data()) {
 
-  useEffect(() => {
-    async function login(user) {
-      await setDoc(doc(db, 'users', user.email), {
+      setDoc(docRef, {
         savedAnime: []
       })
     }
+    else {
+    }
+  }
+  useEffect(() => {
+    login(user);
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setAnimes(doc.data()?.savedAnime);
+    })
     return () => {
-      login(user);
+
     }
   }, [user]);
 
@@ -30,7 +40,7 @@ export default function Mylist({ user, isLoggedIn, handleAuth }) {
         )
       }
       {user && (<div className="text-primary text-3xl"> {user?.displayName} &apos;s WatchList</div>)}
-      {user ? (
+      {animes ? (
         <div className="p-5 grid my-10 grid-cols-2 gap-2 md:grid-cols-6  lg:w-10/12 mb-[6rem]">
 
 
