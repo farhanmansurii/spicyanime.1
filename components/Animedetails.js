@@ -1,34 +1,41 @@
-import { doc, onSnapshot, setDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import { arrayUnion, doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
+import React, { useState } from 'react';
 import { db } from './config/firebase';
 const Animedetails = ({ deets, user }) => {
 
-  const isAdded = false
+  const [isAdded, setIsAdded] = useState(false)
   const [watchlist, setwatchlist] = useState([])
+  React.useEffect(() => {
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setwatchlist(doc.data()?.savedAnime);
+    })
+
+    return () => {
+
+    }
+  }, []);
   const data = {
     userId: user?.uid,
     title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
     id: deets.id,
     image: deets.image
   }
-  useEffect(() => {
-    if (user) {
-      const animeRef = doc(db, 'watchlist', deets.id);
-      var unsubscrine = onSnapshot(animeRef, data => {
-        if (data.exists()) {
-          setwatchlist(data.data())
-          console.log(watchlist)
+  const animeRef = doc(db, 'users', `${user?.email}`);
+  const saveAnime = async () => {
 
-
-
-        }
-      });
+    if (user?.email) {
+      setIsAdded(true)
+      await updateDoc(animeRef, {
+        savedAnime: arrayUnion({
+          userId: user?.uid,
+          title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
+          id: deets.id,
+          image: deets.image
+        })
+      })
     }
-    return () => {
-      unsubscrine;
-    }
-  }, [user]);
-
+  };
+  console.log(watchlist?.includes("id"))
   const [inWatchlist, setInWatchlist] = useState(false)
   const addwatchlist = async () => {
     const animeRef = doc(db, 'watchlist', user?.uid);
@@ -36,7 +43,6 @@ const Animedetails = ({ deets, user }) => {
       await setDoc(doc(db, user.id, deets.id), data);
 
     } catch (error) {
-      console.log(error)
     }
   };
 
@@ -66,7 +72,7 @@ const Animedetails = ({ deets, user }) => {
 
 
 
-            <button className="btn w-fit bg-secondary" onClick={addwatchlist} >{!inWatchlist ? "Add to watchlist" : "RemoveWatchlist"}</button>
+            <button className="btn w-fit bg-secondary" onClick={saveAnime} >{!isAdded ? "Add to watchlist" : "RemoveWatchlist"}</button>
             <div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-11/12">
               <div >
                 Synopsis
