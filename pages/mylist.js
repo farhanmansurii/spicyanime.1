@@ -1,21 +1,19 @@
-import { doc, onSnapshot } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import AnimeCard from "../components/AnimeCard";
 import { auth, db } from "../components/config/firebase";
 export default function Mylist({ user, isLoggedIn, handleAuth }) {
   const [animes, setAnimes] = useState([])
+  const [userid, setUserid] = useState()
+
   useEffect(() => {
-    if (user) {
-      const animeRef = doc(db, 'watchlist', user.uid);
-      var unsubscrine = onSnapshot(animeRef, data => {
-        if (data.exists()) {
-          setAnimes(data.data().anime)
-        }
-      });
+    async function login(user) {
+      await setDoc(doc(db, 'users', user.email), {
+        savedAnime: []
+      })
     }
-    setAnimes([])
     return () => {
-      unsubscrine;
+      login(user);
     }
   }, [user]);
 

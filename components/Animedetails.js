@@ -13,10 +13,11 @@ const Animedetails = ({ deets, user }) => {
   }
   useEffect(() => {
     if (user) {
-      const animeRef = doc(db, 'watchlist', user.uid);
+      const animeRef = doc(db, 'watchlist', deets.id);
       var unsubscrine = onSnapshot(animeRef, data => {
         if (data.exists()) {
-          setwatchlist(data.data().anime)
+          setwatchlist(data.data())
+          console.log(watchlist)
 
 
 
@@ -32,9 +33,8 @@ const Animedetails = ({ deets, user }) => {
   const addwatchlist = async () => {
     const animeRef = doc(db, 'watchlist', user?.uid);
     try {
-      await setDoc(animeRef,
-        { anime: watchlist ? [...watchlist, data] : [data] }
-      )
+      await setDoc(doc(db, user.id, deets.id), data);
+
     } catch (error) {
       console.log(error)
     }
@@ -66,7 +66,7 @@ const Animedetails = ({ deets, user }) => {
 
 
 
-            <button className="btn w-fit bg-secondary" onClick={addwatchlist} >{inWatchlist ? "Add to watchlist" : "RemoveWatchlist"}</button>
+            <button className="btn w-fit bg-secondary" onClick={addwatchlist} >{!inWatchlist ? "Add to watchlist" : "RemoveWatchlist"}</button>
             <div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-11/12">
               <div >
                 Synopsis
