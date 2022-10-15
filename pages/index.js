@@ -12,13 +12,16 @@ import Row from "../components/Row";
 export default function Home({ bannerimg, popular, action, recentlyaired, user, isLoggedIn, handleAuth }) {
 
   return (
-    <><div className="flex w-10/12 justify-between my-3 mx-auto">
-      {isLoggedIn ? (<>
+    <><div className=" w-10/12 justify-between my-3 mx-auto">
+      {!isLoggedIn ? (<button onClick={() => handleAuth()} className='btn btn-secondary w-full my-3' >CLick to login </button>) : (<button onClick={() => auth.signOut()} className='btn btn-secondary w-full my-3'> Logout</button>)}
+      {user ? (<>
         <div className="text-3xl lg:text-4xl my-4 font-semibold  text-primary "> Welcome Back ,  {user?.displayName}</div>
         <button className=" my-auto btn btn-ghost btn-circle btn-md"><RiLogoutCircleRFill size='md' onClick={() => auth.signOut()} /> </button>
       </>
       ) : (<>
-        <button className="  my-auto btn btn-ghost">
+        <div className="text-3xl lg:text-4xl my-4 font-semibold  text-primary ">
+          Hello User
+        </div><button className="  my-auto btn btn-ghost btn-md">
           <FcGoogle size='md' onClick={() => handleAuth()} /></button>
       </>
       )} </div>

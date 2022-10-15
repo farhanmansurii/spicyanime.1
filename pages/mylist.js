@@ -1,7 +1,7 @@
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import AnimeCard from "../components/AnimeCard";
-import { db } from "../components/config/firebase";
+import { auth, db } from "../components/config/firebase";
 export default function Mylist({ user, isLoggedIn, handleAuth, signOut }) {
   const [animes, setAnimes] = useState([])
   const [userid, setUserid] = useState()
@@ -30,6 +30,7 @@ export default function Mylist({ user, isLoggedIn, handleAuth, signOut }) {
 
   return (
     <div className="mx-10 text-white">
+      {!isLoggedIn ? (<button onClick={() => handleAuth()} className='btn btn-secondary w-full my-3' >CLick to login </button>) : (<button onClick={() => auth.signOut()} className='btn btn-secondary w-full my-3'> Logout</button>)}
 
       {user && (<div className="text-primary text-3xl"> {user?.displayName} &apos;s WatchList</div>)}
       {animes ? (
