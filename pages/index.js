@@ -13,14 +13,14 @@ export default function Home({ bannerimg, popular, action, recentlyaired, user, 
 
   return (
     <><div className="flex w-10/12 justify-between my-3 mx-auto">
-      {user ? (<>
+      {isLoggedIn ? (<>
         <div className="text-3xl lg:text-4xl my-4 font-semibold  text-primary "> Welcome Back ,  {user?.displayName}</div>
         <button className=" my-auto btn btn-ghost btn-circle btn-md"><RiLogoutCircleRFill size='md' onClick={() => auth.signOut()} /> </button>
       </>
       ) : (<>
         <div className="text-3xl lg:text-4xl my-4 font-semibold  text-primary ">
           Hello User
-        </div><button className="  my-auto btn btn-ghost btn-md">
+        </div><button className="  my-auto btn btn-ghost">
           <FcGoogle size='md' onClick={() => handleAuth()} /></button>
       </>
       )} </div>
