@@ -1,7 +1,5 @@
 import Link from "next/link";
 import React from "react";
-import { FcGoogle } from 'react-icons/fc';
-import { RiLogoutCircleRFill } from 'react-icons/ri';
 import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -12,17 +10,13 @@ import Row from "../components/Row";
 export default function Home({ bannerimg, popular, action, recentlyaired, user, isLoggedIn, handleAuth }) {
 
   return (
-    <><div className=" w-10/12 justify-between my-3 mx-auto">
-      {!isLoggedIn ? (<button onClick={() => handleAuth()} className='btn btn-secondary w-full my-3' >Login</button>) : (<button onClick={() => auth.signOut()} className='btn btn-secondary w-full my-3'> Logout</button>)}
+    <><div className="  flex w-10/12 justify-between my-3 mx-auto">
       {user ? (<>
         <div className="text-3xl lg:text-4xl my-4 font-semibold  text-primary "> Welcome Back ,  {user?.displayName}</div>
-        <button className=" my-auto btn btn-ghost btn-circle btn-md"><RiLogoutCircleRFill size='md' onClick={() => auth.signOut()} /> </button>
+        <button className=" my-auto btn  ml-1"><button size='md' onClick={() => auth.signOut()} >Logout</button> </button>
       </>
       ) : (<>
-        <div className="text-3xl lg:text-4xl my-4 font-semibold  text-primary ">
-          Hello User
-        </div><button className="  my-auto btn btn-ghost btn-md">
-          <FcGoogle size='md' onClick={() => handleAuth()} /></button>
+        <button className="btn bg-secondary  align-middle " onClick={() => handleAuth()} >Login</button>
       </>
       )} </div>
       <div className="w-10/12 mx-auto  border-4 border-secondary/70 rounded-xl">
