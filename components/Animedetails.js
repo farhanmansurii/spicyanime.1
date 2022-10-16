@@ -1,5 +1,6 @@
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import React from 'react';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { db } from './config/firebase';
 const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
   const deeid = deets.id
@@ -17,6 +18,19 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
     if (user?.email) {
       await updateDoc(animeRef, {
         savedAnime: arrayUnion({
+          userId: user?.uid,
+          title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
+          id: deets.id,
+          image: deets.image,
+        })
+      })
+    }
+  }
+  const removeAnime = async () => {
+
+    if (user?.email) {
+      await updateDoc(animeRef, {
+        savedAnime: arrayRemove({
           userId: user?.uid,
           title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
           id: deets.id,
@@ -42,20 +56,26 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
             </div>
           </div>
           <div className="flex flex-col p-2 ">
-            <div className="flex sm:flex-auto sm:mt-10  ">
-              <div className="text-shadow-xl text-primary text-4xl lg:text-4xl font-semibold">
+            <div className="flex flex-auto sm:mt-10  justify-around mx-3">
+              <div className="text-shadow-xl text-primary text-3xl lg:text-4xl font-semibold">
                 {deets.title.userPreferred || deets.title.romaji || deets.title.english || 'hi'}
               </div>
-              <div className="px-2 py-1 bg-transparent backdrop-blur text-primary text-shadow-xl font-bold rounded-sm w-fit h-fit align-bottom mt-2 mx-4">
 
-                {deets.type}
-              </div>
             </div>
 
+            <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
 
-
-            <button className="btn w-fit bg-secondary m-2" onClick={saveAnime} >{!setIsAdded ? "Add to watchlist" : "Remove from Watchlist"} {setIsAdded}</button>
+              Type : {"  "} {deets.type}
+            </div>
+            {!setIsAdded ?
+              (<button className='  btn w-fit bg-transparent backdrop-blur-sm m-1 text-primary ' onClick={saveAnime} >
+                Add to favourites< AiOutlineHeart className='h-6  ml-2  w-6' />
+              </button>) :
+              (<button className='  btn w-fit bg-primary m-1 text-secondary' onClick={removeAnime} > Remove from favourites < AiFillHeart className=' ml-2 h-6 w-6 ' />
+              </button>)}
             <div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-11/12">
+
+
               <div >
                 Synopsis
                 :
@@ -65,6 +85,7 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
               </div>
 
             </div>
+
             <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
               Category {':'}
               {deets.genres.slice(0, 2).map((e, index) => (
