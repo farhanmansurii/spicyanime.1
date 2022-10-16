@@ -6,7 +6,7 @@ import { db } from "./config/firebase";
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets, user }) => {
   const [eplink, seteplink] = React.useState()
-  const [epid, setepid] = React.useState(deets.episodes[0].id)
+  const [epid, setepid] = React.useState(deets.episodes[0].id || deets.episode[1].id)
   const [episodedeets, setepisodedeets] = useState(deets.episodes[0].number + ' ' + deets.episodes[0].title)
   function epfetch() {
     fetch(
