@@ -2,16 +2,18 @@ import { arrayUnion, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { db } from './config/firebase';
 const Animedetails = ({ deets, user, animes }) => {
-  const [isAdded, setIsAdded] = useState(true)
+  const [isAdded, setIsAdded] = useState(false)
   const [watchlist, setwatchlist] = useState([])
 
   React.useEffect(() => {
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
+      const found = watchlist.some(item => item.id === deets.id);
+      console.log(found)
+      setIsAdded(found)
     })
     return () => {
-      const found = animes.some(item => item.id === deets.id);
-      setIsAdded(found)
+
     }
   }, []);
   const animeRef = doc(db, 'users', `${user?.email}`);
