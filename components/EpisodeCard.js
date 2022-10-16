@@ -3,11 +3,11 @@ import React from 'react'
 const EpisodeCard = ({ episode }) => {
   return (<>
     <div
-      className=" bg-cover h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 "
+      className=" bg-cover h-[113px] lg:h-[200px] w-[188px] -z-10 lg:w-[300px] "
       style={{ backgroundImage: `url(${episode.image})` }}
 
     >
-      <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-[200px] lg:w-[300px]  bg-cover ">
+      <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-[200px] lg:w-[300px] -z-20  bg-cover ">
         <div className="self-bottom text-[10px] lg:text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap sm:hidden lg:line-clamp-3  ">
           {episode.description}
         </div>
