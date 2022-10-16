@@ -24,6 +24,7 @@ const Animedetails = ({ deets, user, animes }) => {
       isAdded: true,
     }
     if (user?.email) {
+      setIsAdded(true)
       await updateDoc(animeRef, {
         savedAnime: arrayUnion({
           userId: user?.uid,
