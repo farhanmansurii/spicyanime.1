@@ -8,7 +8,7 @@ const Animedetails = ({ deets, user, animes }) => {
   React.useEffect(() => {
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
-      const found = watchlist.some(item => item.id === deets.id);
+      const found = watchlist.some(item => item.id === 1);
       (found === true ? setIsAdded(1) : setIsAdded(0))
     })
     return () => {
@@ -31,6 +31,7 @@ const Animedetails = ({ deets, user, animes }) => {
           userId: user?.uid,
           title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
           id: deets.id,
+          isAdded: 1,
           image: deets.image,
         })
       })
