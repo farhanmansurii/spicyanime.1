@@ -37,7 +37,8 @@ function MyApp({ Component, pageProps }) {
     if (!docSnap.data()) {
 
       setDoc(docRef, {
-        savedAnime: []
+        savedAnime: [],
+        continuewatching: []
       })
     }
     else {

@@ -1,12 +1,11 @@
 import { addDoc, collection } from "firebase/firestore";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { db } from "./config/firebase";
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets, user }) => {
   const [eplink, seteplink] = React.useState()
-  const [epid, setepid] = React.useState("")
+  const [epid, setepid] = React.useState(deets.episodes[0].id || deets.episode[1].id)
   const [episodedeets, setepisodedeets] = useState(deets.episodes[0].number + ' ' + deets.episodes[0].title)
   function epfetch() {
     fetch(
@@ -19,6 +18,7 @@ const Episodes = ({ epi, deets, user }) => {
 
   const [data, setData] = useState([])
   const addcontinuewatching = async () => {
+
     try {
       await addDoc(collection(db, 'continueWatching'), data)
       console.log(data)
@@ -27,16 +27,11 @@ const Episodes = ({ epi, deets, user }) => {
     }
   }
   useEffect(() => {
-    addcontinuewatching
-    return console.log(data)
-  }, [data])
-  useEffect(() => {
     epfetch()
 
     return () => {
     }
   }, [epid])
-  const router = useRouter();
   return (<>
     <div className=" place-self-center my-5  w-fit bg-black/30 mx-auto whitespace-wrap ">
       <div className=" mx-auto p-5 text-md  text-primary font-semibold line-clamp-2"  > Ep {episodedeets}</div>

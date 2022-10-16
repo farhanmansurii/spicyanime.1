@@ -57,7 +57,7 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
           </div>
           <div className="flex flex-col p-2 ">
             <div className="sm:mt-10  justify-around mx-3">
-              <div className="text-shadow-xl place-content-start text-primary text-4xl lg:text-6xl font-semibold">
+              <div className="text-shadow-xl place-content-start text-primary text-4xl lg:text-6xl font-semibold uppercase">
                 {deets.title.userPreferred || deets.title.romaji || deets.title.english || 'hi'}
               </div>
 
