@@ -2,15 +2,14 @@ import { arrayUnion, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { db } from './config/firebase';
 const Animedetails = ({ deets, user, animes }) => {
-  const [isAdded, setIsAdded] = useState(false)
+  const [isAdded, setIsAdded] = useState(0)
   const [watchlist, setwatchlist] = useState([])
 
   React.useEffect(() => {
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
       const found = watchlist.some(item => item.id === deets.id);
-      console.log(found)
-      setIsAdded(found)
+      (found === true ? setIsAdded(1) : setIsAdded(0))
     })
     return () => {
 
@@ -26,15 +25,13 @@ const Animedetails = ({ deets, user, animes }) => {
       isAdded: true,
     }
     if (user?.email) {
-      setIsAdded(true)
+      setIsAdded(1)
       await updateDoc(animeRef, {
         savedAnime: arrayUnion({
           userId: user?.uid,
           title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
           id: deets.id,
           image: deets.image,
-          isAdded: true,
-
         })
       })
 
@@ -93,6 +90,9 @@ const Animedetails = ({ deets, user, animes }) => {
             </div>
             <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
               Status : {deets.status}
+            </div>
+            <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
+              {isAdded}
             </div>
             {deets.startDate.day !== null ? (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
 
