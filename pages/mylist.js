@@ -1,32 +1,8 @@
-import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AnimeCard from "../components/AnimeCard";
-import { auth, db } from "../components/config/firebase";
-export default function Mylist({ user, isLoggedIn, handleAuth, signOut }) {
-  const [animes, setAnimes] = useState([])
+import { auth } from "../components/config/firebase";
+export default function Mylist({ user, isLoggedIn, handleAuth, setAnimes, animes, signOut }) {
   const [userid, setUserid] = useState()
-  async function login(user) {
-    const docRef = doc(db, "users", `${user?.email}`);
-    const docSnap = await getDoc(docRef);
-    if (!docSnap.data()) {
-
-      setDoc(docRef, {
-        savedAnime: []
-      })
-    }
-    else {
-      console.log("user exists")
-    }
-  }
-  useEffect(() => {
-    login(user);
-    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setAnimes(doc.data()?.savedAnime);
-    })
-    return () => {
-
-    }
-  }, [user]);
 
   return (
     <div className="mx-10 text-white">

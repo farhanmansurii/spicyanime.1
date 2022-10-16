@@ -1,18 +1,22 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import Router, { useRouter } from 'next/router';
 import NProgress from 'nprogress'; //nprogress module
 import 'nprogress/nprogress.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BottomNavbar from "../components/BottomNavbar";
-import { auth } from '../components/config/firebase';
+import { auth, db } from "../components/config/firebase";
 import Navbar from "../components/Navbar";
 import useAuth from '../components/UseAuth';
+
 import "../styles/globals.css";
 Router.events.on('routeChangeStart', () => NProgress.start()); Router.events.on('routeChangeComplete', () => NProgress.done()); Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const [watchlist, setwatchlist] = useState()
   const { isLoggedIn, user } = useAuth();
+  const [animes, setAnimes] = useState([])
+
   const handleAuth = async () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
@@ -28,6 +32,28 @@ function MyApp({ Component, pageProps }) {
         const credential = GoogleAuthProvider.credentialFromError(error);
       });
   };
+  async function login(user) {
+    const docRef = doc(db, "users", `${user?.email}`);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.data()) {
+
+      setDoc(docRef, {
+        savedAnime: []
+      })
+    }
+    else {
+      console.log("user exists")
+    }
+  }
+  useEffect(() => {
+    login(user);
+    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+      setAnimes(doc.data()?.savedAnime);
+    })
+    return () => {
+    }
+  }, [user]);
+
   return (
     <>
       <div >
@@ -35,7 +61,7 @@ function MyApp({ Component, pageProps }) {
         <BottomNavbar user={user} isLoggedIn={isLoggedIn} />
       </div>
       <div className="sm:pb-24 lg:pb-5 pt-6 lg:pt-24  ">
-        <Component isLoggedIn={isLoggedIn} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
+        <Component animes={animes} setAnimes={setAnimes} isLoggedIn={isLoggedIn} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
       </div>
     </>
   )

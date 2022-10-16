@@ -1,40 +1,42 @@
 import { arrayUnion, doc, onSnapshot, updateDoc } from 'firebase/firestore';
 import React, { useState } from 'react';
 import { db } from './config/firebase';
-const Animedetails = ({ deets, user }) => {
-
+const Animedetails = ({ deets, user, animes }) => {
   const [isAdded, setIsAdded] = useState(false)
   const [watchlist, setwatchlist] = useState([])
+
   React.useEffect(() => {
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
     })
-    const value = watchlist.filter((item) => item.id === deets.id)
-
     return () => {
-      console.log(value)
+      const found = animes.some(item => item.id === deets.id);
+      setIsAdded(found)
     }
-  }, []);
-  const data = {
-    userId: user?.uid,
-    title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
-    id: deets.id,
-    image: deets.image
-  }
+  }, [animes]);
   const animeRef = doc(db, 'users', `${user?.email}`);
   const saveAnime = async () => {
-
+    const data = {
+      userId: user?.uid,
+      title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
+      id: deets.id,
+      image: deets.image,
+      isAdded: true,
+    }
     if (user?.email) {
-      setIsAdded(true)
       await updateDoc(animeRef, {
         savedAnime: arrayUnion({
           userId: user?.uid,
           title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
           id: deets.id,
-          image: deets.image
+          image: deets.image,
+          isAdded: true,
+
         })
       })
+
     }
+
   };
   return (
 
@@ -62,7 +64,7 @@ const Animedetails = ({ deets, user }) => {
 
 
 
-            <button className="btn w-fit bg-secondary" onClick={saveAnime} >{!isAdded ? "Add to watchlist" : "RemoveWatchlist"}</button>
+            <button className="btn w-fit bg-secondary m-2" onClick={saveAnime} >{!isAdded ? "Add to watchlist" : "Remove from Watchlist"}</button>
             <div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-11/12">
               <div >
                 Synopsis
@@ -71,19 +73,20 @@ const Animedetails = ({ deets, user }) => {
                   {deets.description}
                 </em>
               </div>
-              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
-                Category {':'}
-                {deets.genres.slice(0, 2).map((e, index) => (
-                  <div
-                    key={index}
-                    className='mx-2 '
-                  >
-                    {e}
-                  </div>
-                ))}
+
+            </div>
+            <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
+              Category {':'}
+              {deets.genres.slice(0, 2).map((e, index) => (
+                <div
+                  key={index}
+                  className='mx-2 '
+                >
+                  {e}
+                </div>
+              ))}
 
 
-              </div>
             </div>
             <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
               Status : {deets.status}
