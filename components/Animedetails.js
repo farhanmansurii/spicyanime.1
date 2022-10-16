@@ -13,7 +13,7 @@ const Animedetails = ({ deets, user, animes }) => {
       const found = animes.some(item => item.id === deets.id);
       setIsAdded(found)
     }
-  }, [deets]);
+  }, []);
   const animeRef = doc(db, 'users', `${user?.email}`);
   const saveAnime = async () => {
     const data = {
