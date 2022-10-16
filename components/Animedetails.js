@@ -1,42 +1,31 @@
-import { arrayUnion, doc, onSnapshot, updateDoc } from 'firebase/firestore';
-import React, { useState } from 'react';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import React from 'react';
 import { db } from './config/firebase';
-const Animedetails = ({ deets, user, animes }) => {
-  const [isAdded, setIsAdded] = useState(0)
-  const [watchlist, setwatchlist] = useState([])
-
-  React.useEffect(() => {
-    onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setwatchlist(doc.data()?.savedAnime);
-      const found = watchlist.some(item => item.id === 1);
-      (found === true ? setIsAdded(1) : setIsAdded(0))
-    })
-    return () => {
-
-    }
-  }, []);
+const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
+  const deeid = deets.id
+  console.log(watchlist)
+  function animeExists(deeid) {
+    return watchlist?.some(function (el) {
+      return el.id === deeid;
+    });
+  }
+  const setIsAdded = (animeExists(deeid))
+  console.log(setIsAdded)
   const animeRef = doc(db, 'users', `${user?.email}`);
   const saveAnime = async () => {
-    const data = {
-      userId: user?.uid,
-      title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
-      id: deets.id,
-      image: deets.image,
-      isAdded: true,
-    }
+
     if (user?.email) {
-      setIsAdded(1)
       await updateDoc(animeRef, {
         savedAnime: arrayUnion({
           userId: user?.uid,
           title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
           id: deets.id,
-          isAdded: 1,
           image: deets.image,
         })
       })
 
     }
+
 
   };
   return (
@@ -65,7 +54,7 @@ const Animedetails = ({ deets, user, animes }) => {
 
 
 
-            <button className="btn w-fit bg-secondary m-2" onClick={saveAnime} >{!isAdded ? "Add to watchlist" : "Remove from Watchlist"} {isAdded}</button>
+            <button className="btn w-fit bg-secondary m-2" onClick={saveAnime} >{!setIsAdded ? "Add to watchlist" : "Remove from Watchlist"} {setIsAdded}</button>
             <div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-11/12">
               <div >
                 Synopsis
@@ -92,9 +81,7 @@ const Animedetails = ({ deets, user, animes }) => {
             <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
               Status : {deets.status}
             </div>
-            <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
-              {isAdded}
-            </div>
+
             {deets.startDate.day !== null ? (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
 
               Release Date : {deets.startDate.day}/{deets.startDate.month}/{deets.startDate.year}

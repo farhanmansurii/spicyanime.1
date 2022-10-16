@@ -13,9 +13,8 @@ import "../styles/globals.css";
 Router.events.on('routeChangeStart', () => NProgress.start()); Router.events.on('routeChangeComplete', () => NProgress.done()); Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
-  const [watchlist, setwatchlist] = useState()
+  const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
-  const [animes, setAnimes] = useState([])
 
   const handleAuth = async () => {
     const provider = new GoogleAuthProvider();
@@ -48,7 +47,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     login(user);
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
-      setAnimes(doc.data()?.savedAnime);
+      setwatchlist(doc.data()?.savedAnime);
     })
     return () => {
     }
@@ -61,7 +60,7 @@ function MyApp({ Component, pageProps }) {
         <BottomNavbar user={user} isLoggedIn={isLoggedIn} />
       </div>
       <div className="sm:pb-24 lg:pb-5 pt-6 lg:pt-24  ">
-        <Component animes={animes} setAnimes={setAnimes} isLoggedIn={isLoggedIn} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
+        <Component isLoggedIn={isLoggedIn} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
       </div>
     </>
   )

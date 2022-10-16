@@ -4,13 +4,13 @@ import React from "react";
 import Animedetails from "../components/Animedetails";
 import Related from "../components/Related";
 const Episodes = dynamic(() => import("../components/Episodes"), { loading: () => <div className="mx-auto text-2xl">loading</div>, ssr: false });
-function details({ deets, setwatchlist, watchlist, user, animes }) {
+function details({ deets, setwatchlist, watchlist, user }) {
   const epi = deets.episodes
   return (
     <>
       {!deets ? (<div>No Data Found</div>) : (
         <div className=" flex-column  ">
-          <Animedetails deets={deets} watchlist={watchlist} setwatchlist={setwatchlist} user={user} animes={animes} />
+          <Animedetails deets={deets} watchlist={watchlist} setwatchlist={setwatchlist} user={user} />
         </div>
       )}
       {deets.episodes.length >= 1 ?
