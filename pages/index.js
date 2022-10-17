@@ -12,7 +12,7 @@ export default function Home({ bannerimg, popular, action, recentlyaired, user, 
   return (
     <><div className="  flex w-10/12 justify-between my-3 mx-auto">
       {user ? (<>
-        <div className="text-3xl lg:text-4xl my-4 font-semibold  text-primary "> Welcome Back ,  {user?.displayName}</div>
+        <div className="text-3xl lg:text-4xl my-4 text-primary "> Welcome Back ,  {user?.displayName}</div>
         <button className=" my-auto btn  ml-1"><button size='md' onClick={() => auth.signOut()} >Logout</button> </button>
       </>
       ) : (<>

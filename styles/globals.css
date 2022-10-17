@@ -2,10 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 @font-face {
-  font-family: 'Space Grotesk';
-  src: url('./font/SpaceGrotesk-Regular.woff2') format('woff2'),
-      url('./font/SpaceGrotesk-Regular.woff') format('woff');
-  font-weight: normal;
+  font-family: 'GT America';
+  src: url('./font/GTAmerica-Bold.woff2') format('woff2'),
+      url('./font/GTAmerica-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('./font/HelveticaNeueMedium.woff2') format('woff2'),
+      url('./font/HelveticaNeueMedium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'HelveticaNeue light';
+  src: url('./font/HelveticaNeueLight.woff2') format('woff2'),
+      url('./font/HelveticaNeueLight.woff') format('woff');
+  font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
