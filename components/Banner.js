@@ -3,13 +3,13 @@ import React from "react";
 export const Banner = ({ titles, description, imageban, id }) => {
   return (
     <div
-      className="rounded-lg font h-[30vh] mx-auto  lg:h-[55vh] space-y-2   md:space-y-4 justify-end  z-0   bg-cover bg-center bg-no-repeat"
+      className="rounded-lg font h-[32vh] mx-auto  lg:h-[55vh] space-y-2   md:space-y-4 justify-end  z-0   bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url("${imageban}")`, }}
     >
-      <div className="  bg-black/90 h-full flex flex-col-reverse   rounded-lg  px-5 ">
+      <div className="   bg-gradient-to-t from-secondary to-black/40 h-full flex flex-col-reverse   rounded-lg  px-5 ">
         <div className="m-4">
 
-          <h1 className=" justify-center uppercase text-shadow-4xl text-primary text-2xl font-semibold md:text-4xl   lg:text-6xl ">
+          <h1 className=" font-damion justify-center capitalize text-shadow-4xl  text-primary text-3xl  md:text-4xl   lg:text-6xl ">
             {titles}
           </h1>
           <div className="max-w-xs text-xs text-shadow-md md:max-w-lg md:text-md  text-primary/80 lg:max-w-2xl lg:text-lg my-2 line-clamp-2">

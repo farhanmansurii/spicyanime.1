@@ -34,14 +34,15 @@ const Episodes = ({ epi, deets, user }) => {
   }, [epid])
   return (<>
     <div className=" place-self-center my-5  w-fit bg-black/30 mx-auto whitespace-wrap ">
-      <div className=" mx-auto p-5 text-md  text-primary font-semibold line-clamp-2"  > Ep {episodedeets}</div>
+      <div className=" mx-auto p-5 text-md  text-primary font-damion normal-case line-clamp-2"  > EP {episodedeets}</div>
       <ReactPlayer
         controls={true}
         height='360'
         width='640'
         url={eplink} />
     </div>
-    <div className="mt-10 text-xl ml-3 my-4 text-primary font-semibold">
+
+    <div className="  mx-2 text-xl font-damion  text-primary ">
       Episode List
     </div>
     <div className=" flex overflow-x-scroll  scrollbar-hide ">

@@ -22,7 +22,7 @@ function details({ deets, setwatchlist, watchlist, user }) {
           <div className=" w-10/12 mx-auto">
             <Episodes deets={deets} epi={epi} user={user} />
           </div>
-        ) : (<div className="mx-auto text-2xl place-text-center my-6 text-center text-primary ">No episodes</div>)
+        ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">No episodes</div>)
       }
       {deets.relations &&
         <div className="pb-16 lg:pb-3">

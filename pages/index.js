@@ -1,25 +1,28 @@
 import Link from "next/link";
 import React from "react";
+import { AiFillGoogleCircle } from 'react-icons/ai';
+import { BiLogOut } from 'react-icons/bi';
 import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
 import Row from "../components/Row";
-
 export default function Home({ bannerimg, popular, action, recentlyaired, user, isLoggedIn, handleAuth }) {
 
   return (
     <><div className="  flex w-10/12 justify-between my-3 mx-auto">
       {user ? (<>
-        <div className="text-3xl lg:text-4xl my-4 text-primary "> Welcome Back ,  {user?.displayName}</div>
-        <button className=" my-auto btn  ml-1"><button size='md' onClick={() => auth.signOut()} >Logout</button> </button>
+        <div className="text-3xl lg:text-4xl my-4 text-primary font-damion "> Hello,  {user?.displayName}</div>
+        <button className=" my-auto btn btn-ghost  ml-1" onClick={() => auth.signOut()}><BiLogOut className="w-6 h-6 text-primary" /> </button>
       </>
       ) : (<>
-        <button className="btn bg-secondary  align-middle " onClick={() => handleAuth()} >Login</button>
+        <div className="text-3xl lg:text-4xl my-4 font-damion  text-primary "> Hello, User</div>
+
+        <button className=" my-auto btn btn-ghost  " onClick={() => handleAuth()} ><AiFillGoogleCircle className="w-10 h-10 text-secondary" /></button>
       </>
       )} </div>
-      <div className="w-10/12 mx-auto  border-4 border-secondary/70 rounded-xl">
+      <div className="w-10/12 mx-auto  border-4 z-10  border-secondary/70 rounded-xl">
         <Swiper slidesPerView={1} loop={true}>
           {bannerimg.map((e, index) => (
             <SwiperSlide key={index}>
@@ -36,8 +39,8 @@ export default function Home({ bannerimg, popular, action, recentlyaired, user, 
       <div className="flex flex-col space-y-5  my-10 pb-10">
 
         <Row typeOfAnime={popular} text={'All Time Favourites'} />
-        <div className="text-xl lg:text-3xl  font-semibold  text-primary w-10/12 mx-auto">
-          <div className="mx-2">
+        <div className="text-xl lg:text-3xl  text-primary w-10/12 mx-auto">
+          <div className="mx-2 font-damion  mt-2">
             Recently Aired
           </div>
         </div>
@@ -54,7 +57,7 @@ export default function Home({ bannerimg, popular, action, recentlyaired, user, 
                     <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
                       Ep {e.episodeNumber} : {e.episodeTitle}
                     </div>
-                    <div className="self-bottom font-semibold text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
+                    <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
                       {e.title.userPreferred}
                     </div>
                   </div>

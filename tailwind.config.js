@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'sans': ['HelveticaNeue'],
-        'damion': ['Damion'],
+        'damion': ['GT Super Display'],
       }
     }
   },
