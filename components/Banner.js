@@ -16,12 +16,12 @@ export const Banner = ({ titles, description, imageban, id }) => {
             {description}
           </div>
           <div className="flex space-x-3 ">
-            <Link href={`/details?id=${id}`}><button className="btn btn-sm bg-secondary text-primary sm:btn-sm md:btn-md lg:btn-lg">
+            <Link href={`/details?id=${id}`}><button className="  normal-case btn btn-ghost btn-sm bg-secondary text-primary sm:btn-sm md:btn-md lg:btn-lg">
               Play
             </button></Link>
 
-            <button className="btn btn-sm sm:btn-sm md:btn-md bg-primary text-secondary lg:btn-lg">
-              More Info
+            <button className="btn btn-sm sm:btn-sm md:btn-md bg-primary btn-ghost normal-case text-secondary lg:btn-lg">
+              More info
             </button>
           </div>
         </div>
