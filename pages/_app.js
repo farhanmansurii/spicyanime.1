@@ -13,6 +13,7 @@ import "../styles/globals.css";
 Router.events.on('routeChangeStart', () => NProgress.start()); Router.events.on('routeChangeComplete', () => NProgress.done()); Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
+  const [contwatch, setContwatch] = useState()
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
 
@@ -38,7 +39,7 @@ function MyApp({ Component, pageProps }) {
 
       setDoc(docRef, {
         savedAnime: [],
-        continuewatching: []
+        continue: []
       })
     }
     else {
@@ -61,7 +62,7 @@ function MyApp({ Component, pageProps }) {
         <BottomNavbar user={user} isLoggedIn={isLoggedIn} />
       </div>
       <div className="sm:pb-24 lg:pb-5 pt-6 lg:pt-24  ">
-        <Component isLoggedIn={isLoggedIn} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
+        <Component isLoggedIn={isLoggedIn} contwatch={contwatch} setContwatch={setContwatch} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
       </div>
     </>
   )

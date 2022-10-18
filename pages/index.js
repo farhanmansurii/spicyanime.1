@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
 import Row from "../components/Row";
-export default function Home({ bannerimg, popular, action, recentlyaired, user, isLoggedIn, handleAuth }) {
+export default function Home({ bannerimg, popular, action, contwatch, setContwatch, recentlyaired, user, isLoggedIn, handleAuth }) {
 
   return (
     <><div className="  flex w-10/12 justify-between my-3 mx-auto">
