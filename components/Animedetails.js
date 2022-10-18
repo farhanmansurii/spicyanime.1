@@ -4,7 +4,6 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { db } from './config/firebase';
 const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
   const deeid = deets.id
-  console.log(watchlist)
   function animeExists(deeid) {
     return watchlist?.some(function (el) {
       return el.id === deeid;
@@ -52,7 +51,7 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
         <div className="flex flex-col md:flex-row items-center  ">
           <div className="  my-3 mx-6">
 
-            <div className="w-[149.33px] lg:w-[233.33px] bg-cover bg-no-repeat h-[233px] lg:h-[350px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.image})` }}>
+            <div className="w-[149.33px] lg:w-[280.33px] bg-cover bg-no-repeat h-[233px] lg:h-[400px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.image})` }}>
             </div>
           </div>
           <div className="flex flex-col p-2 ">
@@ -75,13 +74,13 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
 
               Type : {"  "} {deets.type}
             </div>
-            <div className="px-2 py-1 line-clamp-5 flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-11/12">
+            <div className="px-2 py-1 flex flex-auto flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-11/12">
               <div >
                 Synopsis
                 :
-                <em>
+                <div className='line-clamp-5 '>
                   {deets.description}
-                </em>
+                </div>
               </div>
 
             </div>

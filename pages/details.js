@@ -2,6 +2,7 @@
 import dynamic from "next/dynamic";
 import React from "react";
 import Animedetails from "../components/Animedetails";
+import Related from "../components/Related";
 const Episodes = dynamic(() => import("../components/Episodes"), {
   loading: () => <div className="mx-auto text-2xl place-text-center my-6 text-center text-primary ">loading</div>
   , ssr: false
@@ -16,7 +17,20 @@ function details({ deets, setwatchlist, watchlist, contwatch, setContwatch, user
           <Animedetails deets={deets} watchlist={watchlist} contwatch={contwatch} setContwatch={setContwatch} setwatchlist={setwatchlist} user={user} />
         </div>
       )}
+      {deets.episodes.length >= 1 ?
+        (
 
+          <div className=" w-10/12 mx-auto">
+            <Episodes deets={deets} epi={epi} user={user} contwatch={contwatch} setContwatch={setContwatch} />
+          </div>
+        ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">No episodes</div>)
+      }
+      {deets.relations &&
+        <div className="pb-16 lg:pb-3">
+
+          <Related relations={deets.relations} text="Related Anime " />
+          <Related relations={deets.recommendations} text="Recommendations " />
+        </div>}
     </>
   );
 }
