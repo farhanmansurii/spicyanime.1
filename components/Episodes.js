@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import EpisodeCard from './EpisodeCard';
+import { MdNextPlan, MdKeyboardBackspace, MdOutlineArrowForward, MdOutlineArrowBack } from 'react-icons/md'
 const Episodes = ({ epi, deets, user }) => {
   console.log(deets)
   const [eplink, seteplink] = React.useState()
@@ -42,14 +43,15 @@ const Episodes = ({ epi, deets, user }) => {
         width='640'
         url={eplink} />
     </div>
-    <div className='flex flex-row w-full '>
+    <div className='flex flex-row w-full  my-4'>
 
 
-      {deets.totalEpisodes > 25 && (<div className="btn-group  w-10/12   ">
-        {initial !== 0 && <button className="btn btn-ghost btn-sm   text-primary" onClick={() => { setinitial(initial - 24), setfinal(final - 24) }}>«</button>}
-        {final < deets.totalEpisodes && (<button className="btn btn-ghost btn-sm   text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} >»</button>)}
+      {deets.totalEpisodes > 25 && (<div className="btn-group hover:bg-transparent btn-ghost align-end  w-10/12   ">
+        {initial !== 0 && <button className="btn btn-primary border-0  bg-base-100    text-primary " onClick={() => { setinitial(initial - 24), setfinal(final - 24) }}><MdOutlineArrowBack className='w-8 h-8' /></button>}
+
+        {final < deets.totalEpisodes && (<button className=" btn btn-primary border-0  bg-base-100    text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} ><MdOutlineArrowForward className='w-8 h-8' /></button>)}
       </div>)}
-      <div className="  mx-2 text-xl font-damion  text-primary whitespace-nowrap ">
+      <div className=" my-auto  mx-2 text-2xl font-damion  text-primary whitespace-nowrap ">
         Episode {initial + 1} - {final < epi.length ? final + 1 : epi.length}
       </div>
     </div>
@@ -60,7 +62,7 @@ const Episodes = ({ epi, deets, user }) => {
       ))}
     </div>
 
-    <button className='btn ' onClick={() => nextep()}>Ep {curr + 1} </button>
+    <div className='btn text-primary normal-case font-damion btn-ghost text-2xl ' onClick={() => nextep()}>Episode {curr + 1}  »</div>
 
   </>
   )
