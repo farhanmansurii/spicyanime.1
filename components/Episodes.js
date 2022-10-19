@@ -46,8 +46,8 @@ const Episodes = ({ epi, deets, user }) => {
 
 
       {deets.totalEpisodes > 25 && (<div className="btn-group  w-10/12   ">
-        {initial !== 0 && <button className="btn btn-sm border-primay hover:bg-secondary border-2 bg-secondary text-primary " onClick={() => { setinitial(initial - 24), setfinal(final - 24) }}>«</button>}
-        {final < deets.totalEpisodes && (<button className="btn btn-ghost btn-sm  border-primay hover:bg-secondary border-2 bg-secondary text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} >»</button>)}
+        {initial !== 0 && <button className="btn btn-ghost btn-sm   text-primary" onClick={() => { setinitial(initial - 24), setfinal(final - 24) }}>«</button>}
+        {final < deets.totalEpisodes && (<button className="btn btn-ghost btn-sm   text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} >»</button>)}
       </div>)}
       <div className="  mx-2 text-xl font-damion  text-primary whitespace-nowrap ">
         Episode {initial + 1} - {final < epi.length ? final + 1 : epi.length}
