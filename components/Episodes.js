@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import EpisodeCard from './EpisodeCard';
-import { MdNextPlan, MdKeyboardBackspace, MdOutlineArrowForward, MdOutlineArrowBack } from 'react-icons/md'
+import { MdNextPlan, MdOutlineNavigateNext, MdOutlineArrowForward, MdOutlineArrowBack } from 'react-icons/md'
 const Episodes = ({ epi, deets, user }) => {
   console.log(deets)
   const [eplink, seteplink] = React.useState()
@@ -34,9 +34,14 @@ const Episodes = ({ epi, deets, user }) => {
   }, [epid])
   return (<>
     <div className=" place-self-center my-5  w-fit bg-black/30 mx-auto whitespace-wrap ">
-      <div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2"  > EP {episodedeets.number} :{episodedeets.title} </div>
-      <div className='mx-auto px-5 text-2xs pb-5 text-primary/50  normal-case line-clamp-2' >
-        {episodedeets.description}</div>
+      <div className='flex flex-auto justify-between mr-5 m-3'>
+        <div>
+          {deets.type !== "MOVIE" ? (<div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2"  > EP {episodedeets.number} :{episodedeets.title} </div>
+          ) : <div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2" > Movie</div>}
+        </div>
+        {deets.type !== "MOVIE" && <div className='w-fit btn  text-primary  normal-case font-damion bg-base-100/50 border-0 text-md my-auto' onClick={() => nextep()}>Ep {curr + 1}  <MdOutlineNavigateNext /></div>
+        }</div>
+
       <ReactPlayer
         controls={true}
         height='360'
@@ -62,7 +67,6 @@ const Episodes = ({ epi, deets, user }) => {
       ))}
     </div>
 
-    <div className='btn text-primary normal-case font-damion btn-ghost text-2xl ' onClick={() => nextep()}>Episode {curr + 1}  »</div>
 
   </>
   )
