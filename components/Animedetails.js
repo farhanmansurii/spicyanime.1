@@ -56,13 +56,13 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
           </div>
           <div className="flex flex-col p-2 ">
             <div className="flex sm:flex-auto sm:mt-10  ">
-              <div className="shadow-xl text-primary text-5xl lg:text-6xl font-damion ">
-                {deets.title.userPreferred || deets.title.english || deets.title.romaji || ''}
+              <div className="shadow-xl text-primary text-4xl lg:text-6xl font-damion ">
+                {deets.title.english || deets.title.userPreferred || deets.title.romaji || ''}
                 {!setIsAdded ?
-                  (<button className='  btn btn-ghost w-fit  m-1 text-secondary ' onClick={saveAnime} >
+                  (<button className='  btn btn-ghost w-fit hover:bg-transparent  hover:animate-ping m-1 text-secondary ' onClick={saveAnime} >
                     < AiOutlineHeart className='h-10  w-10' />
                   </button>) :
-                  (<button className='  btn w-fit btn-ghost m-1 text-secondary' onClick={removeAnime} > < AiFillHeart className=' h-10 w-10 ease-in duration-600 ' />
+                  (<button className='  btn w-fit btn-ghost m-1 hover:bg-transparent text-secondary' onClick={removeAnime} > < AiFillHeart className=' h-10 w-10 ease-in duration-600 ' />
                   </button>)}</div>
 
             </div>
@@ -70,7 +70,7 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
 
 
 
-            <div className="px-3 rounded-2xl py-2 flex  flex-row m-1 text-xs lg:text-lg bg-primary   text-secondary text-shadow-xl  w-11/12 ">
+            <div className="px-3 rounded-2xl py-2 flex  flex-row m-1 mt-3 text-xs lg:text-lg bg-base-100/50   text-primary text-shadow-xl  w-11/12 ">
               <div >
 
                 <div className='line-clamp-4'>
@@ -80,10 +80,10 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
 
             </div>
             <div className='flex flex-wrap'>
-              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary   text-shadow-xl border-2 border-primary/20  w-fit">
+              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50   text-primary rounded-2xl     text-shadow-xl   w-fit">
                 {deets.type}
               </div>
-              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary  text-shadow-xl border-2 border-primary/20  w-fit">
+              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50   text-primary rounded-2xl   text-shadow-xl   w-fit">
                 {deets.genres.slice(0, 4).map((e, index) => (
                   <div
                     key={index}
@@ -94,22 +94,22 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
                 ))}
 
 
-              </div>             <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary   text-shadow-xl border-2 border-primary/20  w-fit">
+              </div>             <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50 rounded-2xl text-primary   text-shadow-xl   w-fit">
                 {deets.status}
               </div>
-              {deets.startDate.day !== null && (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary  text-shadow-xl border-2 border-primary/20  w-fit">
+              {deets.startDate.day !== null && (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50 rounded-2xl text-primary   text-shadow-xl   w-fit">
                 from  {deets.startDate.month}/{deets.startDate.year}
                 {" "} till {deets.endDate.month || '?'}/{deets.endDate.year || ''}
               </div>)
               }{
                 deets.totalEpisodes !== null ? (
-                  <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary  text-shadow-xl border-2 border-primary/20  w-fit">
+                  <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50 rounded-2xl text-primary   text-shadow-xl   w-fit">
                     {deets.totalEpisodes} episodes
                   </div>
                 ) : ('')
               }
 
-              {deets.totalEpisodes !== null ? <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary   text-shadow-xl border-2 border-primary/20  w-fit">
+              {deets.totalEpisodes !== null ? <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50 rounded-2xl text-primary    text-shadow-xl   w-fit">
                 {deets.duration} minutes
               </div> : ('')}
 
