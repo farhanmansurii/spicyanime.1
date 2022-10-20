@@ -27,7 +27,7 @@ export default function Home({ bannerimg, popular, action, contwatch, setContwat
           {bannerimg.map((e, index) => (
             <SwiperSlide key={index}>
               <Banner
-                titles={e.title.english}
+                titles={e.title.userPreferred}
                 description={e.description}
                 imageban={e.cover}
                 id={e.id}
