@@ -56,71 +56,64 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
           </div>
           <div className="flex flex-col p-2 ">
             <div className="flex sm:flex-auto sm:mt-10  ">
-              <div className="text-shadow-2xl text-primary text-4xl lg:text-4xl font-damion ">
-                {deets.title.userPreferred || deets.title.romaji || deets.title.english || 'hi'}
-              </div>
+              <div className="shadow-xl text-primary text-5xl lg:text-6xl font-damion ">
+                {deets.title.userPreferred || deets.title.english || deets.title.romaji || ''}
+                {!setIsAdded ?
+                  (<button className='  btn btn-ghost w-fit  m-1 text-secondary ' onClick={saveAnime} >
+                    < AiOutlineHeart className='h-10  w-10' />
+                  </button>) :
+                  (<button className='  btn w-fit btn-ghost m-1 text-secondary' onClick={removeAnime} > < AiFillHeart className=' h-10 w-10 ease-in duration-600 ' />
+                  </button>)}</div>
 
             </div>
 
 
 
-            {!setIsAdded ?
-              (<button className='  btn w-fit bg-transparent backdrop-blur-sm m-1 text-primary ' onClick={saveAnime} >
-                Add to favourites< AiOutlineHeart className='h-6  ml-2  w-6' />
-              </button>) :
-              (<button className='  btn w-fit bg-primary m-1 text-secondary' onClick={removeAnime} > Remove from favourites < AiFillHeart className=' ml-2 h-6 w-6 ' />
-              </button>)}
-            <div className="px-2 py-1 flex m-1 text-xs lg:text-md bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
 
-              Type : {"  "} {deets.type}
-            </div>
-            <div className="px-2 py-1 flex flex-auto flex-row m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary/70 text-shadow-xl border-2 border-primary/20 rounded-sm w-11/12">
+            <div className="px-3 rounded-2xl py-2 flex  flex-row m-1 text-xs lg:text-lg bg-primary   text-secondary text-shadow-xl  w-11/12 ">
               <div >
-                Synopsis
-                :
-                <div className='line-clamp-5 '>
-                  {deets.description}
+
+                <div className='line-clamp-4'>
+                  Synopsis : {deets.description}
                 </div>
               </div>
 
             </div>
-            <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
-              Category {':'}
-              {deets.genres.slice(0, 2).map((e, index) => (
-                <div
-                  key={index}
-                  className='mx-2 '
-                >
-                  {e}
-                </div>
-              ))}
+            <div className='flex flex-wrap'>
+              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary   text-shadow-xl border-2 border-primary/20  w-fit">
+                {deets.type}
+              </div>
+              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary  text-shadow-xl border-2 border-primary/20  w-fit">
+                {deets.genres.slice(0, 4).map((e, index) => (
+                  <div
+                    key={index}
+                    className='mx-1'
+                  >
+                    {e}
+                  </div>
+                ))}
 
 
-            </div><div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
-              Status : {deets.status}
+              </div>             <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary   text-shadow-xl border-2 border-primary/20  w-fit">
+                {deets.status}
+              </div>
+              {deets.startDate.day !== null && (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary  text-shadow-xl border-2 border-primary/20  w-fit">
+                from  {deets.startDate.month}/{deets.startDate.year}
+                {" "} till {deets.endDate.month || '?'}/{deets.endDate.year || ''}
+              </div>)
+              }{
+                deets.totalEpisodes !== null ? (
+                  <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary  text-shadow-xl border-2 border-primary/20  w-fit">
+                    {deets.totalEpisodes} episodes
+                  </div>
+                ) : ('')
+              }
+
+              {deets.totalEpisodes !== null ? <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-primary rounded-2xl text-secondary   text-shadow-xl border-2 border-primary/20  w-fit">
+                {deets.duration} minutes
+              </div> : ('')}
+
             </div>
-            {deets.startDate.day !== null ? (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
-
-              Release Date : {deets.startDate.day}/{deets.startDate.month}/{deets.startDate.year}
-            </div>) : ('')}
-            {deets.endDate.day !== null ? (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
-
-              End Date : {deets.endDate.day}/{deets.endDate.month}/{deets.endDate.year}
-            </div>) : ('')}
-            {
-              deets.totalEpisodes !== null ? (
-                <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
-
-                  Total Episodes : {deets.totalEpisodes} Episodes
-                </div>
-              ) : ('')
-            }
-
-            {deets.totalEpisodes !== null ? <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-transparent backdrop-blur font-semibold text-primary text-shadow-xl border-2 border-primary/20 rounded-sm w-fit">
-
-              Duration : {deets.duration} minutes
-            </div> : ('')}
-
           </div>
         </div>
       </div>
