@@ -3,6 +3,7 @@ import dynamic from "next/dynamic";
 import React from "react";
 import Animedetails from "../components/Animedetails";
 import Related from "../components/Related";
+import Row from "../components/Row";
 const Episodes = dynamic(() => import("../components/Episodes"), {
   loading: () => <div className="mx-auto text-2xl place-text-center my-6 text-center text-primary ">loading</div>
   , ssr: false
@@ -29,7 +30,7 @@ function details({ deets, setwatchlist, watchlist, contwatch, setContwatch, user
         <div className="pb-16 lg:pb-3">
 
           <Related relations={deets.relations} text="Related Anime " />
-          <Related relations={deets.recommendations} text="Recommendations " />
+          <Row typeOfAnime={deets.recommendations} text="Recommendations " />
         </div>}
     </>
   );

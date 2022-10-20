@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
 import ReactPlayer from 'react-player';
 import EpisodeCard from './EpisodeCard';
-import { MdNextPlan, MdOutlineNavigateNext, MdOutlineArrowForward, MdOutlineArrowBack } from 'react-icons/md'
 const Episodes = ({ epi, deets, user }) => {
   console.log(deets)
   const [eplink, seteplink] = React.useState()
@@ -33,7 +33,7 @@ const Episodes = ({ epi, deets, user }) => {
     }
   }, [epid])
   return (<>
-    <div className=" place-self-center my-5  w-fit bg-black/30 mx-auto whitespace-wrap ">
+    <div className=" place-self-center my-5 border-0 w-fit bg-black/30 mx-auto whitespace-wrap ">
       <div className='flex flex-auto justify-between mr-5 m-3'>
         <div>
           {deets.type !== "MOVIE" ? (<div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2"  > EP {episodedeets.number} :{episodedeets.title} </div>
