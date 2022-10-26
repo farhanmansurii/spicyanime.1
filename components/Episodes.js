@@ -40,10 +40,10 @@ const Episodes = ({ epi, deets, user }) => {
     <div className=" place-self-center my-5 w-10/12 bg-base-100-focus border-2 border-secondary mx-auto whitespace-wrap ">
       <div className='flex flex-auto justify-between mx-5 my-2'>
         <div>
-          {deets.type !== "MOVIE" ? (<div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2"  > Episode {episodedeets.number} : {" "}{episodedeets.title} </div>
+          {deets.type !== "MOVIE" ? (<div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2"  > Ep {episodedeets.number} : {" "}{episodedeets.title} </div>
           ) : <div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2" > Movie</div>}
         </div>
-        {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50 border-0 text-md mt-auto' onClick={() => { seteplink(''), nextep() }}>Next episode  <MdOutlineNavigateNext /></div>
+        {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50 border-0 text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}>Next Ep  <MdOutlineNavigateNext /></div>
         }</div>
       {eplink ?
         <ReactPlayer

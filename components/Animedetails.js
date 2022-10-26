@@ -85,13 +85,13 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
 
             </div>
             <div className='flex flex-wrap'>
-              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50   text-primary rounded-2xl border-2 border-secondary/30    text-shadow-xl   w-fit">
+              <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50   text-primary rounded-2xl border-2 border-secondary/30    text-shadow-xl   w-fit">
                 {deets.type}
               </div>
-              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50   text-primary rounded-2xl  border-2 border-secondary/30   text-shadow-xl   w-fit">
+              <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50   text-primary rounded-2xl  border-2 border-secondary/30   text-shadow-xl   w-fit">
                 {deets.subOrDub}
               </div>
-              <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50   text-primary rounded-2xl border-2 border-secondary/30  text-shadow-xl   w-fit">
+              <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50   text-primary rounded-2xl border-2 border-secondary/30  text-shadow-xl   w-fit">
                 {deets.genres.slice(0, 4).map((e, index) => (
                   <div
                     key={index}
@@ -102,18 +102,18 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
                 ))}
 
 
-              </div>             <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
+              </div>             <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
                 {deets.status}
               </div>
-              {deets.startDate.day !== null && (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
+              {deets.startDate.day !== null && (<div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
                 from  {deets.startDate.month}/{deets.startDate.year}
               </div>)}
-              {deets.endDate.day !== null && (<div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50 rounded-2xl text-primary border-2 border-secondary/30 text-shadow-xl   w-fit">
+              {deets.endDate.day !== null && (<div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary border-2 border-secondary/30 text-shadow-xl   w-fit">
                 to  {deets.endDate.month}/{deets.endDate.year}
               </div>)}
               {
                 deets.totalEpisodes !== null ? (
-                  <div className="px-2 py-1 flex m-1 text-xs lg:text-lg bg-base-100/50 rounded-2xl text-primary   text-shadow-xl  border-2 border-secondary/30 w-fit">
+                  <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary   text-shadow-xl  border-2 border-secondary/30 w-fit">
                     {deets.totalEpisodes} episodes
                   </div>
                 ) : ('')
