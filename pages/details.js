@@ -10,7 +10,7 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
 });
 function details({ deets, setwatchlist, watchlist, contwatch, setContwatch, user }) {
   const epi = deets.episodes
-
+  console.log(deets)
   return (
     <>
       {!deets ? (<div>No Data Found</div>) : (

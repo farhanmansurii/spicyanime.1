@@ -47,7 +47,7 @@ export default function Home({ bannerimg, popular, action, contwatch, setContwat
         <div className=" flex overflow-x-scroll  scrollbar-hide w-10/12 mx-auto my-3rem ">
           {recentlyaired.map((e) => (
             (e.type === "TV" &&
-              <Link href={`/details?id=${e.id}`} key={e.malId}>
+              <Link href={`/details?id=${e.malId}`} key={e.malId}>
                 <div
                   className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px] z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " key={e.id}
                   style={{ backgroundImage: `url(${e.image})` }}
