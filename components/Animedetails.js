@@ -45,19 +45,19 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
   return (
 
     <div
-      style={{ backgroundImage: `url(${deets.cover})` }}
-      className="bg-cover bg-center w-vw -mt-5 lg:mt-0  lg:w-10/12 lg:mx-auto"
+      style={{ backgroundImage: `url(${deets.image})` }}
+      className="bg-cover bg-center w-vw -mt-5 lg:mt-0  lg:w-10/12 bg-hidden lg:mx-auto"
     >
-      <div className="bg-gradient-to-t from-base-100  to-black/25 w-100">
+      <div className="bg-gradient-to-t from-base-100  to-base-100/60 lg:to-base-100 w-100">
         <div className="flex flex-col md:flex-row items-center  ">
-          <div className="  my-3 mx-6">
+          <div className="  my-3 mx-6 mt-56 lg:mt-3">
 
-            <div className="w-[149.33px] lg:w-[280.33px] bg-cover bg-no-repeat h-[233px] lg:h-[400px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.image})` }}>
+            <div className="w-[149.33px] lg:w-[280.33px] bg-cover  hidden  md:block bg-no-repeat h-[233px] lg:h-[400px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.image})` }}>
             </div>
           </div>
           <div className="flex flex-col p-2 ">
             <div className="flex sm:flex-auto sm:mt-10  ">
-              <div className=" text-primary text-4xl lg:text-6xl font-damion  ">
+              <div className=" text-primary text-5xl lg:text-6xl font-damion mx-auto ">
                 {deets.title.english || deets.title.userPreferred || deets.title.romaji || ''}
                 {!setIsAdded ?
                   (<button className='btn btn-circle p-3  ml-2 w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' onClick={saveAnime} >
@@ -71,7 +71,7 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
 
 
 
-            <div className="px-3 rounded-2xl py-2 flex lg:max-h-[10rem] max-h-[5rem] overflow-y-scroll scrollbar-hide flex-row m-1 mt-3 text-xs lg:text-lg bg-base-100/50   text-primary text-shadow-xl  w-11/12 ">
+            <div className="px-3 rounded-2xl py-2 flex lg:max-h-[10rem] border-1 border-secondary max-h-[5rem] overflow-y-scroll scrollbar-hide flex-row m-1 mt-3 text-xs lg:text-lg bg-base-100/50   text-primary text-shadow-xl  w-11/12 ">
               <div  >
                 <div  >
                   {parse(`
