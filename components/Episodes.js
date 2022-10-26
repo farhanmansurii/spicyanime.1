@@ -47,12 +47,12 @@ const Episodes = ({ epi, deets, user }) => {
   }, [epid])
   return (<>
     <div className=" place-self-center my-5 w-10/12 bg-base-100-focus border-2 border-secondary mx-auto whitespace-wrap ">
-      <div className='flex flex-auto justify-between mx-5 my-2'>
+      <div className='flex flex-auto justify-between mx-5 my-2 lg:p-3'>
         <div>
-          {deets.type !== "MOVIE" ? (<div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2"  > Ep {episodedeets.number} : {" "}{episodedeets.title} </div>
-          ) : <div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2" > Movie</div>}
+          {deets.type !== "MOVIE" ? (<div className=" mx-auto  text-md lg:text-xl  text-primary font-damion normal-case line-clamp-2"  > Ep {episodedeets.number} : {" "}{episodedeets.title} </div>
+          ) : <div className=" mx-auto my-auto text-md lg:text-xl text-primary font-damion normal-case line-clamp-2" > Movie</div>}
         </div>
-        {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50 border-0 text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}>Next Ep  <MdOutlineNavigateNext /></div>
+        {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50 border-0 text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
         }</div>
       {eplink ?
         <ReactPlayer
@@ -74,9 +74,9 @@ const Episodes = ({ epi, deets, user }) => {
 
 
       {deets.totalEpisodes > 25 && (<div className="btn-group hover:bg-transparent btn-ghost align-end  w-10/12   ">
-        {initial !== 0 && <button className="btn btn-primary border-0  bg-base-100  hover:bg-secondary  text-primary " onClick={() => { setinitial(initial - 24), setfinal(final - 24) }}><MdOutlineArrowBack className='w-8 h-8' /></button>}
+        {initial !== 0 ? (<button className="btn btn-primary border-0  bg-base-100  hover:bg-secondary  text-primary " onClick={() => { setinitial(initial - 24), setfinal(final - 24) }}><MdOutlineArrowBack className='w-6 h-6' /></button>) : (<button className="btn btn-primary border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowBack className='w-6 h-6' /></button>)}
 
-        {final < deets.totalEpisodes && (<button className=" btn btn-primary border-0 hover:bg-secondary  bg-base-100    text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} ><MdOutlineArrowForward className='w-8 h-8' /></button>)}
+        {final < deets.totalEpisodes ? (<button className=" btn btn-primary border-0 hover:bg-secondary  bg-base-100    text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} ><MdOutlineArrowForward className='w-6 h-6' /></button>) : (<button className="btn btn-primary-focus border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowForward className='w-6 h-6' /></button>)}
       </div>)}
       <div className=" my-auto  mx-2 text-2xl font-damion  text-primary whitespace-nowrap ">
         Episode {initial + 1} - {final < epi.length ? final + 1 : epi.length}

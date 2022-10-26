@@ -1,16 +1,13 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
-import Router, { useRouter } from 'next/router';
-import NProgress from 'nprogress'; //nprogress module
-import 'nprogress/nprogress.css';
+import { useRouter } from 'next/router';
+import NextNProgress from 'nextjs-progressbar';
 import React, { useEffect, useState } from 'react';
 import BottomNavbar from "../components/BottomNavbar";
 import { auth, db } from "../components/config/firebase";
 import Navbar from "../components/Navbar";
 import useAuth from '../components/UseAuth';
-
 import "../styles/globals.css";
-Router.events.on('routeChangeStart', () => NProgress.start()); Router.events.on('routeChangeComplete', () => NProgress.done()); Router.events.on('routeChangeError', () => NProgress.done());
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const [contwatch, setContwatch] = useState()
@@ -60,7 +57,7 @@ function MyApp({ Component, pageProps }) {
       <div >
         <Navbar />
         <BottomNavbar user={user} isLoggedIn={isLoggedIn} />
-      </div>
+      </div><NextNProgress color="#DA0037" startPosition={0.3} stopDelayMs={200} height={5} showOnShallow={true} options={{ easing: 'ease', speed: 500, showSpinner: false }} />
       <div className="sm:pb-24 lg:pb-5 pt-6 lg:pt-24  ">
         <Component isLoggedIn={isLoggedIn} contwatch={contwatch} setContwatch={setContwatch} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
       </div>

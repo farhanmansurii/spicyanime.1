@@ -49,24 +49,27 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
       className="bg-cover bg-center -mt-8 w-vw  bg-hidden lg:block lg:mx-auto"
     >
       <div className="bg-gradient-to-t from-base-100  to-base-100/20 lg:to-base-100/20  lg:backdrop-blur-lg w-100">
-        <div className="flex flex-col md:flex-row items-center  ">
-          <div className="  my-5 mx-10 mt-56 lg:mt-4 lg:w-9/12 " >
+        <div className="flex flex-col md:flex-row items-center w-10/12 mx-auto gap-4 ">
+          <div className="  my-5  mt-48 lg:mt-4 lg:w-9/12 " >
 
             <div className="w-[149.33px] lg:w-[280.33px] bg-cover  hidden  md:block bg-no-repeat h-[233px] lg:h-[400px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.image})` }}>
             </div>
           </div>
           <div className="flex flex-col p-2 ">
-            <div className="flex sm:flex-auto sm:mt-10 w-11/12  ">
-              <div className=" text-primary text-6xl ml-4 lg:text-6xl font-damion  ">
+            <div className=" flex flex-row sm:mt-10  w-11/12  ">
+              <div className=" text-primary text-5xl ml-4 lg:text-6xl font-damion  ">
                 {deets.title.english || deets.title.userPreferred || deets.title.romaji || ''}
               </div>
-              {!setIsAdded ?
-                (<button className='btn btn-circle p-3  my-auto ml-6 w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' onClick={saveAnime} >
-                  < AiOutlineHeart className='h-6  w-6' />
-                </button>) :
-                (<button className=' btn btn-circle p-3 my-auto ml-6 w-fit bg-secondary/40 hover:bg-secondary/40 border-0  duration-600 ease-linear text-primary' onClick={removeAnime} > < AiFillHeart className=' h-6 w-6 ease-in duration-600 ' />
-                </button>)}
+              <div className='my-auto ml-4'>
 
+                {!setIsAdded ?
+                  (<button className='btn btn-circle p-3   w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' onClick={saveAnime} >
+                    < AiOutlineHeart className='h-6  w-6' />
+                  </button>) :
+                  (<button className=' btn btn-circle p-3 w-fit bg-secondary/40 hover:bg-secondary/40 border-0  duration-600 ease-linear text-primary' onClick={removeAnime} > < AiFillHeart className=' h-6 w-6 ease-in duration-600 ' />
+                  </button>)}
+
+              </div>
             </div>
 
 
@@ -92,7 +95,7 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
                 {deets.subOrDub}
               </div>
               <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50   text-primary rounded-2xl border-2 border-secondary/30  text-shadow-xl   w-fit">
-                {deets.genres.slice(0, 4).map((e, index) => (
+                {deets.genres.slice(0, 2).map((e, index) => (
                   <div
                     key={index}
                     className='mx-1'
