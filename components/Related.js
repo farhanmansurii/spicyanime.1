@@ -13,31 +13,30 @@ const Related = ({ relations, text }) => {
 
           e.type === "TV" &&
           <div key={e.id} >
-            <div className='text-center  text-primary  lowercase bg-red-500 rounded-2xl  p-1'>
-              {e.relationType}
-              < AnimeCard
-                key={e.id}
-                animeImg={e.image}
-                title={e.title.userPreferred || e.title.english}
-                id={e.id} extratext={e.relationType}
-              />
-            </div></div>
+
+            <div className='text-center  my-2 text-primary  lowercase bg-red-500 rounded-2xl  p-1'>
+              {e.relationType}</div>
+            < AnimeCard
+              key={e.id}
+              animeImg={e.image}
+              title={e.title.userPreferred || e.title.english}
+              id={e.id} extratext={e.relationType}
+            />
+          </div>
         ))}
         {relations.map((e) => (
 
           e.type === "MOVIE" &&
           <div key={e.id} >
-            <div className='text-center  text-primary  lowercase bg-red-500 rounded-2xl  p-1'>
-              {e.relationType}
+            <div className='text-center font-xs my-2 text-primary  lowercase bg-red-500 rounded-2xl  p-1'>
+              {e.relationType}</div>
+            < AnimeCard
 
-              < AnimeCard
+              animeImg={e.image}
+              title={e.title.english || e.title.userPreferred}
+              id={e.id}
 
-                animeImg={e.image}
-                title={e.title.english || e.title.userPreferred}
-                id={e.id}
-
-              />
-            </div>
+            />
 
           </div>
 

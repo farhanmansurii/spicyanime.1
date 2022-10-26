@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
+import { Rings } from 'react-loader-spinner';
 import ReactPlayer from 'react-player';
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets, user }) => {
@@ -15,7 +16,7 @@ const Episodes = ({ epi, deets, user }) => {
       "https://api.consumet.org/anime/gogoanime/watch/" + epid)
       .then((res) => res.json())
       .then((json) => {
-        seteplink(json.sources[json.sources.length - 3].url)
+        seteplink(json.sources[json.sources.length - 3].url || json.sources[json.sources.length - 2].url || json.sources[json.sources.length - 1].url)
       });
   }
   console.log()
@@ -36,21 +37,34 @@ const Episodes = ({ epi, deets, user }) => {
     }
   }, [epid])
   return (<>
-    {eplink && <div className=" place-self-center my-5 border-0 w-fit bg-black/30 mx-auto whitespace-wrap ">
-      <div className='flex flex-auto justify-between mr-5 m-3'>
+    <div className=" place-self-center my-5 w-10/12 bg-base-100-focus border-2 border-secondary mx-auto whitespace-wrap ">
+      <div className='flex flex-auto justify-between mx-5 my-2'>
         <div>
-          {deets.type !== "MOVIE" ? (<div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2"  > EP {episodedeets.number} :{episodedeets.title} </div>
+          {deets.type !== "MOVIE" ? (<div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2"  > Episode {episodedeets.number} : {" "}{episodedeets.title} </div>
           ) : <div className=" mx-auto pt-5 px-5 text-md  text-primary font-damion normal-case line-clamp-2" > Movie</div>}
         </div>
-        {deets.type !== "MOVIE" && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50 border-0 text-md my-auto' onClick={() => nextep()}>Next episode  <MdOutlineNavigateNext /></div>
+        {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50 border-0 text-md mt-auto' onClick={() => { seteplink(''), nextep() }}>Next episode  <MdOutlineNavigateNext /></div>
         }</div>
+      {eplink ?
+        <ReactPlayer
+          controls={true}
+          width='100%'
+          height='100%'
+          url={eplink} />
+        : <Rings
+          color="#DA0037"
+          radius="2"
+          height={180}
 
-      <ReactPlayer
-        controls={true}
-        height='360'
-        width='640'
-        url={eplink} />
-    </div>}
+          width='fit'
+
+          wrapperStyle={{ width: '100%', height: 'inherit' }}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="rings-loading"
+        />
+      }
+    </div>
 
     <div className='flex flex-row w-full  my-4'>
 
@@ -65,7 +79,7 @@ const Episodes = ({ epi, deets, user }) => {
       </div>
     </div>
     <div className=" flex overflow-x-scroll  scrollbar-hide ">
-      {epi.slice(initial, final).map((e) => (<div key={e.id} className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px]  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }) }}>
+      {epi.slice(initial, final).map((e) => (<div key={e.id} className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px]  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }) }}>
         <EpisodeCard episode={e} id={e.id} user={user} />
       </div>
       ))}
