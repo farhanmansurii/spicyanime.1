@@ -15,10 +15,7 @@ const Episodes = ({ epi, deets, user }) => {
       "https://api.consumet.org/anime/gogoanime/watch/" + epid)
       .then((res) => res.json())
       .then((json) => {
-        setepqual(json.sources)
-        setepqualities(json.sources?.find(e => e.quality === 'default'))
-        console.log(json.sources?.find(e => e.quality === 'default'))
-        seteplink(epqualities?.url)
+        seteplink(json.sources[json.sources.length - 3].url)
       });
   }
   console.log()
@@ -54,15 +51,7 @@ const Episodes = ({ epi, deets, user }) => {
         width='640'
         url={eplink} />
     </div>}
-    {epqual &&
-      <>
-        <div className='text-sm font-damion text-primary'> Select Quality : </div>
-        {epqual.map((e, index) =>
-          <button className='btn btn-xs bg-secondary text-primary font-normal normal-case font-damion ' onClick={() => seteplink(e.url)} key={index}>
-            {e.quality}
-          </button>)}
-      </>
-    }
+
     <div className='flex flex-row w-full  my-4'>
 
 
