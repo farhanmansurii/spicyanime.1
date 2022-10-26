@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
-import { Rings } from 'react-loader-spinner';
 import ReactPlayer from 'react-player';
+import { PulseLoader } from 'react-spinners';
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets, user }) => {
   console.log(deets)
@@ -16,10 +16,19 @@ const Episodes = ({ epi, deets, user }) => {
       "https://api.consumet.org/anime/gogoanime/watch/" + epid)
       .then((res) => res.json())
       .then((json) => {
-        seteplink(json.sources[json.sources.length - 3].url || json.sources[json.sources.length - 2].url || json.sources[json.sources.length - 1].url)
+        setepqual(json.sources)
+        console.log(json.sources)
+        seteplink(json.sources[json.sources.length - 2].url || json.sources[json.sources.length - 1].url)
       });
   }
-  console.log()
+  const override = {
+    display: "flex",
+    justifyItems: 'center',
+    marginTop: "25%",
+    marginLeft: '40%',
+    marginBottom: "25%",
+    borderColor: "red",
+  };
   const [initial, setinitial] = useState(0)
   const [final, setfinal] = useState(24)
   const [curr, setcurr] = useState(1)
@@ -49,19 +58,14 @@ const Episodes = ({ epi, deets, user }) => {
         <ReactPlayer
           controls={true}
           width='100%'
-          height='100%'
+          height='auto'
           url={eplink} />
-        : <Rings
-          color="#DA0037"
-          radius="2"
-          height={180}
 
-          width='fit'
-
-          wrapperStyle={{ width: '100%', height: 'inherit' }}
-          wrapperClass=""
-          visible={true}
-          ariaLabel="rings-loading"
+        :
+        <PulseLoader
+          color="red"
+          cssOverride={override}
+          size={20}
         />
       }
     </div>
