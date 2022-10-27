@@ -19,7 +19,6 @@ function MyApp({ Component, pageProps }) {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
 
       })
       .catch((error) => {
