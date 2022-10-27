@@ -7,7 +7,24 @@ import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets, user }) => {
-  console.log(deets)
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.4,
+        staggerChildren: 0.2
+      }
+    }
+  };
+  const item = {
+    hidden: { y: 10, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
   const router = useRouter();
   const [eplink, seteplink] = React.useState(epqual?.url)
   const [epqual, setepqual] = React.useState()
@@ -24,7 +41,7 @@ const Episodes = ({ epi, deets, user }) => {
         seteplink(json.sources[json.sources.length - 2].url || json.sources[json.sources.length - 1].url)
       });
   }
-  
+
   const override = {
     display: "flex",
     justifyItems: 'center',
