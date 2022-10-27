@@ -54,9 +54,9 @@ const Episodes = ({ epi, deets, user }) => {
           ) : <div className=" mx-auto my-auto text-mdlg:text-xl text-primary font-damion normal-case line-clamp-2" > Movie</div>}
         </div>
         <div className="dropdown my-auto">
-          <label tabIndex={0} className="btn btn-sm btn-circle btn-ghost text-primary "><AiOutlineSetting className='w-10' /></label>
-          <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-            {epqual?.map((e, index) => <li key={index}><div onClick={() => seteplink(e.url)} className='text-primary' >{e.quality}</div></li>)}
+          <label tabIndex={0} className="btn btn-sm  btn-circle btn-ghost text-primary "><AiOutlineSetting className='w-10' /></label>
+          <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-fit">
+            {epqual?.map((e, index) => <li key={index} className='text-primary text-xs'><div onClick={() => seteplink(e.url)}  >{e.quality}</div></li>)}
           </ul>
         </div>
         {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50  text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
