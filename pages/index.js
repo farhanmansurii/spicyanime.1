@@ -36,6 +36,7 @@ export default function Home({ bannerimg, popular, action, contwatch, setContwat
           ))}
         </Swiper>
       </div>
+
       <div className="flex flex-col space-y-5  my-10 pb-10">
 
         <Row typeOfAnime={popular} text={'All Time Favourites'} />

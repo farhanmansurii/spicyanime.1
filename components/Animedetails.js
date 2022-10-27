@@ -49,7 +49,7 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
       className="bg-cover bg-center -mt-8 w-vw  bg-hidden lg:block lg:mx-auto"
     >
       <div className="bg-gradient-to-t from-base-100  to-base-100/20 lg:to-base-100/20  lg:backdrop-blur-lg w-100">
-        <div className="flex flex-col md:flex-row items-center w-10/12 mx-auto gap-4 ">
+        <div className="flex flex-col md:flex-row items-center w-11/12 lg:w-10/12 mx-auto gap-4 ">
           <div className="  my-5  mt-48 lg:mt-4 lg:w-9/12 " >
 
             <div className="w-[149.33px] lg:w-[280.33px] bg-cover  hidden  md:block bg-no-repeat h-[233px] lg:h-[400px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.image})` }}>

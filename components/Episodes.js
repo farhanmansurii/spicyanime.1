@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { AiOutlineSetting } from 'react-icons/ai';
 import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
 import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
@@ -46,13 +47,19 @@ const Episodes = ({ epi, deets, user }) => {
     }
   }, [epid])
   return (<>
-    <div className=" place-self-center my-5 w-10/12 bg-base-100-focus border-2 border-secondary mx-auto whitespace-wrap ">
-      <div className='flex flex-auto justify-between mx-5 my-2 lg:p-3'>
+    <div className=" place-self-center my-5 w-10/12 border-2 border-secondary bg-base-100-focus mx-auto whitespace-wrap ">
+      <div className='flex flex-auto   space-x-3 justify-between mx-5 my-2 lg:p-3'>
         <div>
-          {deets.type !== "MOVIE" ? (<div className=" mx-auto  text-md lg:text-xl  text-primary font-damion normal-case line-clamp-2"  > Ep {episodedeets.number} : {" "}{episodedeets.title} </div>
-          ) : <div className=" mx-auto my-auto text-md lg:text-xl text-primary font-damion normal-case line-clamp-2" > Movie</div>}
+          {deets.type !== "MOVIE" ? (<div className=" mx-auto text-md lg:text-xl  text-primary font-damion normal-case line-clamp-2"  > Ep {episodedeets.number} : {" "}{episodedeets.title} </div>
+          ) : <div className=" mx-auto my-auto text-mdlg:text-xl text-primary font-damion normal-case line-clamp-2" > Movie</div>}
         </div>
-        {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50 border-0 text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
+        <div className="dropdown my-auto">
+          <label tabIndex={0} className="btn btn-sm btn-circle btn-ghost text-primary "><AiOutlineSetting className='w-10' /></label>
+          <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+            {epqual.map((e) => <li><div onClick={() => seteplink(e.url)} className='text-primary' >{e.quality}</div></li>)}
+          </ul>
+        </div>
+        {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50  text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
         }</div>
       {eplink ?
         <ReactPlayer
