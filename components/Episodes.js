@@ -95,11 +95,13 @@ const Episodes = ({ epi, deets, user }) => {
         Episode {initial + 1} - {final < epi.length ? final + 1 : epi.length}
       </div>
     </div>
-    <div className=" flex overflow-x-scroll  scrollbar-hide ">
+    <div className=" flex overflow-x-scroll m-1 p-1 scrollbar-hide ">
       {epi.slice(initial, final).map((e) => (
         <motion.ul key={e.id} className="item" variants={item} >
+          <div key={e.id} className="flex my-3 flex-col-reverse bg-cover ease-in transition duration-100  transform sm:hover:scale-105  rounded-[10px]  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }) }}>
 
-          <EpisodeCard episode={e} id={e.id} user={user} />
+            <EpisodeCard episode={e} id={e.id} user={user} />
+          </div>
         </motion.ul>
       ))}
     </div>
