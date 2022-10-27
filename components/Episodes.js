@@ -4,9 +4,10 @@ import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from
 import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
 import EpisodeCard from './EpisodeCard';
+import { useRouter } from "next/router";
 const Episodes = ({ epi, deets, user }) => {
   console.log(deets)
-
+  const router = useRouter();
   const [eplink, seteplink] = React.useState(epqual?.url)
   const [epqual, setepqual] = React.useState()
   const [epqualities, setepqualities] = React.useState()
