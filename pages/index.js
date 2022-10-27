@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { AiFillGoogleCircle } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
+import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,17 +11,7 @@ import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
 import Row from "../components/Row";
 export default function Home({ bannerimg, popular, action, recentlyaired, user, handleAuth }) {
-  const container = {
-    hidden: { opacity: 1, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delayChildren: 0.4,
-        staggerChildren: 0.2
-      }
-    }
-  };
+
   const item = {
     hidden: { y: 10, opacity: 0 },
     visible: {
@@ -43,7 +34,11 @@ export default function Home({ bannerimg, popular, action, recentlyaired, user, 
 
 
       <div className="w-10/12 mx-auto  border-4 z-10  border-secondary/70 rounded-xl">
-        <Swiper slidesPerView={1} loop={true}>
+        <Swiper slidesPerView={1} loop={true} pagination={{
+          type: "progressbar",
+        }}
+          cssMode={{}}
+          modules={[Pagination, Navigation]}>
           {bannerimg.map((e, index) => (
             <SwiperSlide key={index}>
               <Banner
@@ -69,22 +64,22 @@ export default function Home({ bannerimg, popular, action, recentlyaired, user, 
         <div className=" flex overflow-x-scroll  scrollbar-hide w-10/12 mx-auto my-3rem ">
           {recentlyaired.map((e) => (
             (e.type === "TV" &&
-              <Link href={`/details?id=${e.malId}`} key={e.malId}>
-                <div
+              <Link href={`/details?id=${e.id}`} key={e.malId}>
+                <motion.ul className="item" variants={item} ><div
                   className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px] z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " key={e.id}
                   style={{ backgroundImage: `url(${e.image})` }}
 
-                > <motion.li className="item" variants={item} >
-                    <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-[200px] lg:w-[300px]  bg-cover ">
-                      <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
-                        Ep {e.episodeNumber} : {e.episodeTitle}
-                      </div>
-                      <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
-                        {e.title.userPreferred}
-                      </div>
+                >
+                  <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
+                    <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
+                      Ep {e.episodeNumber} : {e.episodeTitle}
                     </div>
-                  </motion.li>
+                    <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
+                      {e.title.userPreferred}
+                    </div>
+                  </div>
                 </div>
+                </motion.ul>
               </Link>
             )))}</div>
         <Row typeOfAnime={action} text={'Trending now'} />
