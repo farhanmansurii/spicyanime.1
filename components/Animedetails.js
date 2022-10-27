@@ -12,7 +12,6 @@ const Animedetails = ({ deets, user, watchlist }) => {
   }
 
   const setIsAdded = (animeExists(deeid))
-  console.log(setIsAdded)
   const animeRef = doc(db, 'users', `${user?.email}`);
   const saveAnime = async () => {
 
