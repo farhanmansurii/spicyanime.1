@@ -24,7 +24,6 @@ const Episodes = ({ epi, deets, user }) => {
       .then((res) => res.json())
       .then((json) => {
         setepqual(json.sources)
-        console.log(json.sources)
         seteplink(json.sources[json.sources.length - 2].url || json.sources[json.sources.length - 1].url)
       });
   }
@@ -61,7 +60,7 @@ const Episodes = ({ epi, deets, user }) => {
           ) : <div className=" mx-auto my-auto text-mdlg:text-xl text-primary font-damion normal-case line-clamp-2" > Movie</div>}
         </div>
         <div className="dropdown my-auto">
-          <label tabIndex={0} className="btn btn-sm  btn-circle btn-ghost text-primary "><AiOutlineSetting className='w-10' /></label>
+          <label tabIndex={0} className="btn btn-sm  btn-circle btn-ghost text-primary "><AiOutlineSetting className="w-5 h-5" /></label>
           <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-fit">
             {epqual?.map((e, index) => <li key={index} className='text-primary text-xs'><div onClick={() => seteplink(e.url)}  >{e.quality}</div></li>)}
           </ul>
@@ -98,11 +97,10 @@ const Episodes = ({ epi, deets, user }) => {
     </div>
     <div className=" flex overflow-x-scroll  scrollbar-hide ">
       {epi.slice(initial, final).map((e) => (
-        <div key={e.id} className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px]  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }) }}>
-          <motion.li key={e.id} className="item" variants={item} >
-            <EpisodeCard episode={e} id={e.id} user={user} />
-          </motion.li>
-        </div>
+        <motion.ul key={e.id} className="item" variants={item} >
+
+          <EpisodeCard episode={e} id={e.id} user={user} />
+        </motion.ul>
       ))}
     </div>
 
