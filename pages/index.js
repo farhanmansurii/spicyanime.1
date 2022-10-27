@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { motion } from "framer-motion";
 import React from "react";
 import { AiFillGoogleCircle } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
@@ -9,7 +10,24 @@ import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
 import Row from "../components/Row";
 export default function Home({ bannerimg, popular, action, contwatch, setContwatch, recentlyaired, user, isLoggedIn, handleAuth }) {
-
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.4,
+        staggerChildren: 0.2
+      }
+    }
+  };
+  const item = {
+    hidden: { y: 10, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
   return (
     <><div className="  flex w-10/12 justify-between my-3 mx-auto">
       {user ? (<>
@@ -22,12 +40,14 @@ export default function Home({ bannerimg, popular, action, contwatch, setContwat
         <button className=" my-auto btn btn-ghost  " onClick={() => handleAuth()} ><AiFillGoogleCircle className="w-10 h-10 text-secondary" /></button>
       </>
       )} </div>
+
+
       <div className="w-10/12 mx-auto  border-4 z-10  border-secondary/70 rounded-xl">
         <Swiper slidesPerView={1} loop={true}>
           {bannerimg.map((e, index) => (
             <SwiperSlide key={index}>
               <Banner
-                titles={e.title.userPreferred}
+                titles={e.title.english}
                 description={e.description}
                 imageban={e.cover}
                 id={e.id}
@@ -36,6 +56,7 @@ export default function Home({ bannerimg, popular, action, contwatch, setContwat
           ))}
         </Swiper>
       </div>
+
 
       <div className="flex flex-col space-y-5  my-10 pb-10">
 
@@ -53,7 +74,7 @@ export default function Home({ bannerimg, popular, action, contwatch, setContwat
                   className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px] z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " key={e.id}
                   style={{ backgroundImage: `url(${e.image})` }}
 
-                >
+                > <motion.li  className="item" variants={item} >
                   <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-[200px] lg:w-[300px]  bg-cover ">
                     <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
                       Ep {e.episodeNumber} : {e.episodeTitle}
@@ -62,6 +83,7 @@ export default function Home({ bannerimg, popular, action, contwatch, setContwat
                       {e.title.userPreferred}
                     </div>
                   </div>
+         </motion.li>
                 </div>
               </Link>
             )))}</div>

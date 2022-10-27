@@ -10,6 +10,24 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
       return el.id === deeid;
     });
   }
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.4,
+        staggerChildren: 0.2
+      }
+    }
+  };
+  const item = {
+    hidden: { y: 10, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
   const setIsAdded = (animeExists(deeid))
   console.log(setIsAdded)
   const animeRef = doc(db, 'users', `${user?.email}`);
@@ -55,7 +73,10 @@ const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
             <div className="w-[149.33px] lg:w-[280.33px] bg-cover  hidden  md:block bg-no-repeat h-[233px] lg:h-[400px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.image})` }}>
             </div>
           </div>
+
+
           <div className="flex flex-col p-2 ">
+
             <div className=" flex flex-row sm:mt-10  w-11/12  ">
               <div className=" text-primary text-5xl ml-4 lg:text-6xl font-damion  ">
                 {deets.title.english || deets.title.userPreferred || deets.title.romaji || ''}

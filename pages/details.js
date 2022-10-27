@@ -10,22 +10,46 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
 });
 function details({ deets, setwatchlist, watchlist, contwatch, setContwatch, user }) {
   const epi = deets.episodes
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.4,
+        staggerChildren: 0.2
+      }
+    }
+  };
+  const item = {
+    hidden: { y: 10, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1
+    }
+  };
   console.log(deets)
   return (
     <>
+
       {!deets ? (<div>No Data Found</div>) : (
         <div className=" flex-column  ">
           <Animedetails deets={deets} watchlist={watchlist} contwatch={contwatch} setContwatch={setContwatch} setwatchlist={setwatchlist} user={user} />
         </div>
       )}
-      {deets.episodes.length >= 1 ?
+
+      {deets.episodes?.length >= 1 ?
         (
 
           <div className=" w-10/12 mx-auto">
+
+
             <Episodes deets={deets} epi={epi} user={user} contwatch={contwatch} setContwatch={setContwatch} />
+
           </div>
         ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">No episodes</div>)
       }
+
       {deets.relations &&
         <div className="pb-16 lg:pb-3">
 

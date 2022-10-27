@@ -1,7 +1,7 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
-import { useRouter } from 'next/router';
 import { motion } from "framer-motion";
+import { useRouter } from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
 import React, { useEffect, useState } from 'react';
 import BottomNavbar from "../components/BottomNavbar";
@@ -54,27 +54,29 @@ function MyApp({ Component, pageProps }) {
   }, [user]);
 
   return (
-    <><motion.div
-      initial="initial"
-      animate="animate"
-      variants={{
-        initial: {
-          opacity: 0,
-        },
-        animate: {
-          opacity: 1,
-        },
-      }}
-    >
-      <div >
-        <Navbar />
-        <BottomNavbar user={user} isLoggedIn={isLoggedIn} />
-      </div><NextNProgress color="#444444" startPosition={0.3} stopDelayMs={200} height={5} showOnShallow={true} options={{ easing: 'ease-in', speed: 500, showSpinner: false }} />
-      <div className="sm:pb-24 lg:pb-5 pt-6 lg:pt-24  ">
+    <><div >
+      <Navbar />
+      <BottomNavbar user={user} isLoggedIn={isLoggedIn} />
+    </div>
+      <motion.div
+        key={router.route}
+        initial="initial"
+        animate="animate"
+        variants={{
+          initial: {
+            opacity: 0,
+          },
+          animate: {
+            opacity: 1,
+          },
+        }}
+      >
+        <NextNProgress color="#8e0024" startPosition={0.3} stopDelayMs={200} height={5} showOnShallow={true} options={{ easing: 'ease-in', speed: 500, showSpinner: false }} />
+        <div className="sm:pb-24 lg:pb-5 pt-6 lg:pt-24  ">
 
-        <Component isLoggedIn={isLoggedIn} contwatch={contwatch} setContwatch={setContwatch} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
-      </div>
-    </motion.div>
+          <Component isLoggedIn={isLoggedIn} contwatch={contwatch} setContwatch={setContwatch} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
+        </div>
+      </motion.div>
     </>
   )
 }

@@ -1,10 +1,11 @@
+import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
 import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
 import EpisodeCard from './EpisodeCard';
-import { useRouter } from "next/router";
 const Episodes = ({ epi, deets, user }) => {
   console.log(deets)
   const router = useRouter();
@@ -23,6 +24,7 @@ const Episodes = ({ epi, deets, user }) => {
         seteplink(json.sources[json.sources.length - 2].url || json.sources[json.sources.length - 1].url)
       });
   }
+  
   const override = {
     display: "flex",
     justifyItems: 'center',
@@ -91,9 +93,12 @@ const Episodes = ({ epi, deets, user }) => {
       </div>
     </div>
     <div className=" flex overflow-x-scroll  scrollbar-hide ">
-      {epi.slice(initial, final).map((e) => (<div key={e.id} className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px]  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }) }}>
-        <EpisodeCard episode={e} id={e.id} user={user} />
-      </div>
+      {epi.slice(initial, final).map((e) => (
+        <div key={e.id} className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px]  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }) }}>
+          <motion.li key={e.id} className="item" variants={item} >
+            <EpisodeCard episode={e} id={e.id} user={user} />
+          </motion.li>
+        </div>
       ))}
     </div>
 
