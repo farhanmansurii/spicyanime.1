@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import React from "react";
 import { AiFillGoogleCircle } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
 import Row from "../components/Row";
-export default function Home({ bannerimg, popular, action, contwatch, setContwatch, recentlyaired, user, isLoggedIn, handleAuth }) {
+export default function Home({ bannerimg, popular, action, recentlyaired, user, handleAuth }) {
   const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
@@ -74,16 +74,16 @@ export default function Home({ bannerimg, popular, action, contwatch, setContwat
                   className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px] z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " key={e.id}
                   style={{ backgroundImage: `url(${e.image})` }}
 
-                > <motion.li  className="item" variants={item} >
-                  <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-[200px] lg:w-[300px]  bg-cover ">
-                    <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
-                      Ep {e.episodeNumber} : {e.episodeTitle}
+                > <motion.li className="item" variants={item} >
+                    <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-[200px] lg:w-[300px]  bg-cover ">
+                      <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
+                        Ep {e.episodeNumber} : {e.episodeTitle}
+                      </div>
+                      <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
+                        {e.title.userPreferred}
+                      </div>
                     </div>
-                    <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
-                      {e.title.userPreferred}
-                    </div>
-                  </div>
-         </motion.li>
+                  </motion.li>
                 </div>
               </Link>
             )))}</div>

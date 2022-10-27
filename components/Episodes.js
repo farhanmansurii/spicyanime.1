@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
@@ -7,17 +6,7 @@ import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets, user }) => {
-  const container = {
-    hidden: { opacity: 1, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delayChildren: 0.4,
-        staggerChildren: 0.2
-      }
-    }
-  };
+
   const item = {
     hidden: { y: 10, opacity: 0 },
     visible: {
@@ -25,10 +14,8 @@ const Episodes = ({ epi, deets, user }) => {
       opacity: 1
     }
   };
-  const router = useRouter();
   const [eplink, seteplink] = React.useState(epqual?.url)
   const [epqual, setepqual] = React.useState()
-  const [epqualities, setepqualities] = React.useState()
   const [epid, setepid] = React.useState(deets.episodes[0].id || deets.episode[1].id)
   const [episodedeets, setepisodedeets] = useState({ number: deets.episodes[0].number, title: deets.episodes[0].title, description: epi[0].description } || { number: deets.episodes[1].number, title: deets.episodes[1].title, description: epi[1].description })
   function epfetch() {

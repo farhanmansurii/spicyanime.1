@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Row from "../components/Row";
-import _ from 'lodash';
 const URL = "https://api.consumet.org/meta/anilist/";
 
 const SearchPage = () => {
@@ -10,7 +9,7 @@ const SearchPage = () => {
     const getData = setTimeout(() => {
       fetch(URL + val)
         .then((response) => response.json())
-        .then((animelist) => {setSearchList(animelist.results) });
+        .then((animelist) => { setSearchList(animelist.results) });
     }, 1000)
     return () => getData;
   }, [val]);
