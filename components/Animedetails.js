@@ -3,31 +3,14 @@ import parse from 'html-react-parser';
 import React from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { db } from './config/firebase';
-const Animedetails = ({ deets, user, watchlist, setwatchlist }) => {
+const Animedetails = ({ deets, user, watchlist }) => {
   const deeid = deets.id
   function animeExists(deeid) {
     return watchlist?.some(function (el) {
       return el.id === deeid;
     });
   }
-  const container = {
-    hidden: { opacity: 1, scale: 0 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        delayChildren: 0.4,
-        staggerChildren: 0.2
-      }
-    }
-  };
-  const item = {
-    hidden: { y: 10, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  };
+
   const setIsAdded = (animeExists(deeid))
   console.log(setIsAdded)
   const animeRef = doc(db, 'users', `${user?.email}`);
