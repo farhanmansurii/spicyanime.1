@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['HelveticaNeue'],
+        'sans': ['SF Pro Text '],
         'damion': ['GT Super Display'],
       }
     }
