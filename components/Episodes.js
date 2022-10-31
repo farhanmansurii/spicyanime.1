@@ -16,15 +16,20 @@ const Episodes = ({ epi, deets, user }) => {
   };
   const [eplink, seteplink] = React.useState(epqual?.url)
   const [epqual, setepqual] = React.useState()
+  const [subs, setsubs] = React.useState()
+
   const [epid, setepid] = React.useState(deets.episodes[0].id || deets.episode[1].id)
   const [episodedeets, setepisodedeets] = useState({ number: deets.episodes[0].number, title: deets.episodes[0].title, description: epi[0].description } || { number: deets.episodes[1].number, title: deets.episodes[1].title, description: epi[1].description })
   function epfetch() {
     fetch(
-      "https://api.consumet.org/anime/gogoanime/watch/" + epid)
+      `https://api.consumet.org/meta/anilist/watch/${epid}?provider=zoro`)
       .then((res) => res.json())
       .then((json) => {
         setepqual(json.sources)
-        seteplink(json.sources[json.sources.length - 2].url || json.sources[json.sources.length - 1].url)
+        setsubs(json.subtitles[1].url)
+        console.log(json.subtitles[0].url)
+        seteplink(json.sources[json.sources.length - 1].url || json.sources[json.sources.length - 2].url)
+        console.log(json.sources[json.sources.length - 1].url || json.sources[json.sources.length - 2].url)
       });
   }
 
@@ -72,7 +77,17 @@ const Episodes = ({ epi, deets, user }) => {
           controls={true}
           width='100%'
           height='auto'
-          url={eplink} />
+          url={eplink}
+          config={{
+            file: {
+              tracks: [
+                { kind: 'subtitles', src: { subs }, srcLang: 'en', default: true },
+
+              ]
+            }
+          }}
+        />
+
 
         :
         <PulseLoader

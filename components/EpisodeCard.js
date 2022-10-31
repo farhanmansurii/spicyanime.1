@@ -17,9 +17,13 @@ const EpisodeCard = ({ episode }) => {
         <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
           {episode.description}
         </div>
-        <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
-          Ep {episode.number} : {episode.title}
+        <div className="flex-row">
+
+          <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
+            Ep {episode.number} : {episode.title}</div>
+          {episode.isFiller && <div className="w-fit bg-red-500 px-2">FILLER</div>}
         </div>
+
       </div>
     </div>
     </motion.ul>

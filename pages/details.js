@@ -10,7 +10,7 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
 });
 function details({ deets, setwatchlist, watchlist, contwatch, setContwatch, user }) {
   const epi = deets.episodes
-
+  console.log(epi)
   return (
     <>
 
@@ -44,7 +44,7 @@ function details({ deets, setwatchlist, watchlist, contwatch, setContwatch, user
 export async function getServerSideProps(context) {
   const animen = context.query.id;
   const deets = await fetch(
-    "https://api.consumet.org/meta/anilist/info/" + animen
+    `https://api.consumet.org/meta/anilist/info/${animen}?provider=zoro&fetchFiller=true`
   ).then((res) => res.json());
 
 
