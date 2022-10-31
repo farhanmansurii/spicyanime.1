@@ -26,8 +26,8 @@ const Episodes = ({ epi, deets, user }) => {
       .then((res) => res.json())
       .then((json) => {
         setepqual(json.sources)
-        setsubs(json.subtitles[0].url || json.subtitles[1].url || '')
-        console.log(json)
+        setsubs(json.subtitles[0] || json.subtitles[1] || '')
+        console.log(json.subtitles[0] || json.subtitles[1] || '')
         seteplink(json.sources[json.sources.length - 1].url || json.sources[json.sources.length - 2].url)
         console.log(json.sources[json.sources.length - 1].url || json.sources[json.sources.length - 2].url)
       });
@@ -81,7 +81,7 @@ const Episodes = ({ epi, deets, user }) => {
           config={{
             file: {
               tracks: [
-                { kind: 'subtitles', src: { subs }, srcLang: 'en', default: true },
+                { kind: 'subtitles', src: subs.url, srcLang: subs.lang, default: true },
 
               ]
             }
