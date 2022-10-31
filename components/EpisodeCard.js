@@ -14,14 +14,14 @@ const EpisodeCard = ({ episode }) => {
       style={{ backgroundImage: `url(${episode.image}) ` }}
     >
       <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
-        <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
+        <div className="self-bottom text-sm  line-clamp-1 text-primary/50 mx-2 whitespace-wrap  ">
           {episode.description}
         </div>
         <div className="flex-row">
 
-          <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
+          <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-2">
             Ep {episode.number} : {episode.title}</div>
-          {episode.isFiller && <div className="w-fit bg-red-500 px-2">FILLER</div>}
+          {episode.isFiller && <div className="w-fit bg-red-500 text-xs rounded-md px-2">FILLER</div>}
         </div>
 
       </div>
