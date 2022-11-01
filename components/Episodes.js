@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
-import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
 import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
 import EpisodeCard from './EpisodeCard';
-const Episodes = ({ epi, deets, user }) => {
+const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
   const item = {
     hidden: { y: 10, opacity: 0 },
     visible: {
@@ -48,7 +47,6 @@ const Episodes = ({ epi, deets, user }) => {
   }
   useEffect(() => {
     epfetch()
-
     return () => {
     }
   }, [epid])

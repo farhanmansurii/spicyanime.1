@@ -33,7 +33,7 @@ function dub({ deets, setwatchlist, watchlist, contwatch, setContwatch, user }) 
       }
 
       {deets.relations &&
-        <div className="pb-16 lg:pb-3">
+        <div className="pb-[6rem] lg:pb-3">
 
           <Related relations={deets.relations} text="Related Anime " />
           <Row typeOfAnime={deets.recommendations} text="Recommendations " />

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import AnimeCard from './AnimeCard';
-const Row = ({ typeOfAnime, text }) => {
+const Row = ({ typeOfAnime, text, title }) => {
   const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
@@ -34,7 +34,7 @@ const Row = ({ typeOfAnime, text }) => {
         {typeOfAnime.map((e) =>
           <motion.li key={e.id} className="item" variants={item} >
 
-            <AnimeCard animeImg={e.image} title={e.title.english || e.title.userPreferred} extratext={e.rating} id={e.id} />
+            <AnimeCard animeImg={e.image} title={title} title={e.title.english || e.title.userPreferred} extratext={e.rating} id={e.id} />
           </motion.li>
         )}
       </div>
