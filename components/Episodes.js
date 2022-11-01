@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
@@ -6,7 +7,6 @@ import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets, user }) => {
-
   const item = {
     hidden: { y: 10, opacity: 0 },
     visible: {
@@ -16,20 +16,15 @@ const Episodes = ({ epi, deets, user }) => {
   };
   const [eplink, seteplink] = React.useState(epqual?.url)
   const [epqual, setepqual] = React.useState()
-  const [subs, setsubs] = React.useState()
-
   const [epid, setepid] = React.useState(deets.episodes[0].id || deets.episode[1].id)
   const [episodedeets, setepisodedeets] = useState({ number: deets.episodes[0].number, title: deets.episodes[0].title, description: epi[0].description } || { number: deets.episodes[1].number, title: deets.episodes[1].title, description: epi[1].description })
   function epfetch() {
     fetch(
-      `https://api.consumet.org/meta/anilist/watch/${epid}?provider=zoro`)
+      "https://api.consumet.org/anime/gogoanime/watch/" + epid)
       .then((res) => res.json())
       .then((json) => {
         setepqual(json.sources)
-        setsubs(json.subtitles[0] || json.subtitles[1] || '')
-        console.log(json.subtitles[0] || json.subtitles[1] || '')
-        seteplink(json.sources[json.sources.length - 1].url || json.sources[json.sources.length - 2].url)
-        console.log(json.sources[json.sources.length - 1].url || json.sources[json.sources.length - 2].url)
+        seteplink(json.sources[json.sources.length - 2].url || json.sources[json.sources.length - 1].url)
       });
   }
 
@@ -77,17 +72,7 @@ const Episodes = ({ epi, deets, user }) => {
           controls={true}
           width='100%'
           height='auto'
-          url={eplink}
-          config={{
-            file: {
-              tracks: [
-                { kind: 'subtitles', src: subs.url, srcLang: subs.lang, default: true },
-
-              ]
-            }
-          }}
-        />
-
+          url={eplink} />
 
         :
         <PulseLoader

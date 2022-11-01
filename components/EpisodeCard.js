@@ -19,9 +19,9 @@ const EpisodeCard = ({ episode }) => {
         </div>
         <div className="flex-row">
 
-          <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-2">
+          <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md  text-shadow-2xl whitespace-pre-wrap line-clamp-2">
             Ep {episode.number} : {episode.title}</div>
-          {episode.isFiller && <div className="w-fit bg-red-500 text-xs rounded-md px-2">FILLER</div>}
+          {episode.isFiller && <div className="w-fit bg-secondary text-xs  mx-2 rounded-md px-2 font-semibold  py-1/2 text-primary">filler</div>}
         </div>
 
       </div>
