@@ -8,8 +8,8 @@ export default function Mylist({ user, watchlist }) {
       {watchlist.length > 1 && (
         <div className="p-5 grid my-10 grid-cols-3 gap-2 md:grid-cols-6  lg:w-10/12 mb-[6rem]">
           {watchlist.map((e) =>
-            <div className='text-center  hover:scale-105 text-xs w-fit my-2 text-primary  lowercase bg-secondary rounded-xl'> {e.type}
-              <AnimeCard animeImg={e.image} title={e.title} id={e.id} key={e.id} />
+            <div className='text-center  hover:scale-105 text-xs w-fit my-2 text-primary  lowercase bg-secondary rounded-xl' key={e.id}> {e.type}
+              <AnimeCard animeImg={e.image} title={e.title} id={e.id} />
             </div>
 
           )}
