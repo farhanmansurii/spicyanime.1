@@ -88,7 +88,7 @@ export default function Home({ bannerimg, popular, action, recentlyaired, user, 
   )
 }
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const res = await fetch("https://api.consumet.org/meta/anilist/popular");
   const res1 = await fetch("https://api.consumet.org/meta/anilist/advanced-search?sort=[%22FAVOURITES_DESC%22,%22EPISODES%22]");
   const res2 = await fetch("https://api.consumet.org/meta/anilist/trending");

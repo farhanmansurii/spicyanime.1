@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import dynamic from "next/dynamic";
 import React from "react";
-import Link from "next/link";
 import Animedetails from "../components/Animedetails";
 import Related from "../components/Related";
 import Row from "../components/Row";
@@ -9,15 +8,15 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
   loading: () => <div className="mx-auto text-2xl place-text-center my-6 text-center text-primary ">loading</div>
   , ssr: false
 });
-function details({ deets, setwatchlist, watchlist, contwatch, setContwatch, user ,animen}) {
+function details({ deets, setwatchlist, watchlist, contwatch, setContwatch, user, animen }) {
   const epi = deets.episodes
-  console.log(epi)
+  console.log(deets)
   return (
     <>
 
       {!deets ? (<div>No Data Found</div>) : (
         <div className=" flex-column  ">
-          <Animedetails deets={deets} watchlist={watchlist} contwatch={contwatch} setContwatch={setContwatch} setwatchlist={setwatchlist} user={user} />
+          <Animedetails deets={deets} animen={animen} watchlist={watchlist} contwatch={contwatch} setContwatch={setContwatch} setwatchlist={setwatchlist} user={user} />
         </div>
       )}
 
@@ -32,10 +31,7 @@ function details({ deets, setwatchlist, watchlist, contwatch, setContwatch, user
           </div>
         ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">No episodes</div>)
       }
-       <Link href={`/dub?id=${animen}`} >
 
-<button>dub</button>
-</Link>
       {deets.relations &&
         <div className="pb-16 lg:pb-3">
 

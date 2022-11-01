@@ -1,9 +1,10 @@
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import parse from 'html-react-parser';
+import Link from 'next/link';
 import React from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { db } from './config/firebase';
-const Animedetails = ({ deets, user, watchlist }) => {
+const Animedetails = ({ deets, user, watchlist, animen }) => {
   const deeid = deets.id
   function animeExists(deeid) {
     return watchlist?.some(function (el) {
@@ -22,6 +23,7 @@ const Animedetails = ({ deets, user, watchlist }) => {
           title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
           id: deets.id,
           image: deets.image,
+          type: deets.subOrDub
         })
       })
     }
@@ -35,6 +37,7 @@ const Animedetails = ({ deets, user, watchlist }) => {
           title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
           id: deets.id,
           image: deets.image,
+          type: deets.subOrDub
         })
       })
 
@@ -59,22 +62,38 @@ const Animedetails = ({ deets, user, watchlist }) => {
 
           <div className="flex flex-col p-2 ">
 
-            <div className=" flex flex-row sm:mt-10  w-11/12  ">
+            <div className=" flex flex-row sm:mt-10 flex-wrap  w-11/12  ">
               <div className=" text-primary text-5xl ml-4 lg:text-6xl font-damion  ">
                 {deets.title.english || deets.title.userPreferred || deets.title.romaji || ''}
               </div>
-              <div className='my-auto ml-4'>
+              <div className='flex ml-4 flex-auto '>
+                {deets.subOrDub === 'sub' ? (
 
-                {!setIsAdded ?
-                  (<button className='btn btn-circle p-3   w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' onClick={saveAnime} >
-                    < AiOutlineHeart className='h-6  w-6' />
-                  </button>) :
-                  (<button className=' btn btn-circle p-3 w-fit bg-secondary/40 hover:bg-secondary/40 border-0  duration-600 ease-linear text-primary' onClick={removeAnime} > < AiFillHeart className=' h-6 w-6 ease-in duration-600 ' />
-                  </button>)}
+                  <Link href={`/dub?id=${deets.id}`} >
 
+                    <button className=' btn pb-1 normal-case btn-circle  bg-secondary/40 hover:bg-secondary/40 border-0  duration-600 ease-linear text-primary'  >{deets.subOrDub}</button>
+                  </Link>
+                ) : (
+                  <Link href={`/details?id=${deets.id}`} >
+
+                    <button className=' btn pb-1 normal-case btn-circle  bg-primary/80 hover:bg-primary/80 border-0  duration-600 ease-linear text-secondary'  >{deets.subOrDub}</button>
+                  </Link>)
+                }
+                {user &&
+
+                  <div className='my-auto ml-4'>
+
+                    {!setIsAdded ?
+                      (<button className='btn btn-circle p-3   w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' onClick={saveAnime} >
+                        < AiOutlineHeart className='h-6  w-6' />
+                      </button>) :
+                      (<button className=' btn btn-circle p-3 w-fit bg-secondary/40 hover:bg-secondary/40 border-0  duration-600 ease-linear text-primary' onClick={removeAnime} > < AiFillHeart className=' h-6 w-6 ease-in duration-600 ' />
+                      </button>)}
+
+                  </div>
+                }
               </div>
             </div>
-
 
 
 
@@ -94,9 +113,7 @@ const Animedetails = ({ deets, user, watchlist }) => {
               <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50   text-primary rounded-2xl border-2 border-secondary/30    text-shadow-xl   w-fit">
                 {deets.type}
               </div>
-              <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50   text-primary rounded-2xl  border-2 border-secondary/30   text-shadow-xl   w-fit">
-                {deets.subOrDub}
-              </div>
+
               <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50   text-primary rounded-2xl border-2 border-secondary/30  text-shadow-xl   w-fit">
                 {deets.genres.slice(0, 2).map((e, index) => (
                   <div
