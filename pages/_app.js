@@ -1,11 +1,10 @@
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import { useRouter } from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
 import React, { useEffect, useState } from 'react';
 import BottomNavbar from "../components/BottomNavbar";
-import { auth, db } from "../components/config/firebase";
+import { db } from "../components/config/firebase";
 import Navbar from "../components/Navbar";
 import useAuth from '../components/UseAuth';
 import "../styles/globals.css";
@@ -15,15 +14,28 @@ function MyApp({ Component, pageProps }) {
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
   const animeRef = doc(db, 'users', `${user?.email}`);
+  function removeduplicateanime(contwatch) {
+    const uniqueIds = new Set();
+    const unique = contwatch.filter(element => {
+      const isDuplicate = uniqueIds.has(element.id);
 
+      uniqueIds.add(element.id);
+
+      if (!isDuplicate) {
+        return true;
+      }
+
+      return false;
+    });
+
+    console.log(unique)
+    return (
+
+      setcontwatch(unique)
+    )
+
+  }
   const handleAuth = async () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-
-      })
-      .catch((error) => {
-      });
   };
   async function login(user) {
     const docRef = doc(db, "users", `${user?.email}`);
@@ -43,7 +55,8 @@ function MyApp({ Component, pageProps }) {
     login(user);
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
-      setcontwatch(doc.data()?.continue)
+      setcontwatch(() => removeduplicateanime((doc.data()?.continue).reverse()))
+
     })
 
     return () => {

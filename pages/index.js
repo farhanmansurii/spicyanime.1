@@ -11,15 +11,13 @@ import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
 import Row from "../components/Row";
 export default function Home({ bannerimg, popular, contwatch, setcontwatch, action, watchlist, recentlyaired, user, handleAuth }) {
-
-
   const item = {
     hidden: { y: 10, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1
     }
-  }; const seen = new Set();
+  };
 
 
   return (
@@ -63,7 +61,7 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
           {
             contwatch?.map((e, i) =>
               <div className=" hover:border-yellow-500 hover:border-6">
-                <Link href={`/details?id=${e.id}`} >
+                <Link href={`/details?id=${e.id}`} key={e.id} >
                   <div
                     className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px] z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " key={e.id}
                     style={{ backgroundImage: `url(${e.image})` }}
