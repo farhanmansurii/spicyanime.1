@@ -14,27 +14,7 @@ function MyApp({ Component, pageProps }) {
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
   const animeRef = doc(db, 'users', `${user?.email}`);
-  function removeduplicateanime(contwatch) {
-    const uniqueIds = new Set();
-    const unique = contwatch.filter(element => {
-      const isDuplicate = uniqueIds.has(element.id);
-
-      uniqueIds.add(element.id);
-
-      if (!isDuplicate) {
-        return true;
-      }
-
-      return false;
-    });
-
-    console.log(unique)
-    return (
-
-      setcontwatch(unique)
-    )
-
-  }
+  console.log(contwatch)
   const handleAuth = async () => {
   };
   async function login(user) {
@@ -55,8 +35,7 @@ function MyApp({ Component, pageProps }) {
     login(user);
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
-      setcontwatch(() => removeduplicateanime((doc.data()?.continue).reverse()))
-
+      setcontwatch((doc.data()?.continue)?.reverse())
     })
 
     return () => {

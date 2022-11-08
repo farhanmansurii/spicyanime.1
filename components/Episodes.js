@@ -56,7 +56,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
       await updateDoc(animeRef, {
         continue: arrayUnion({
-          number: e.number, title: e.title, description: e.description, image: e.image, epid: e.id, id: deets.id
+          number: e.number, title: e.title, description: e.description, image: e.image, epid: e.id, id: deets.id, eptitle: deets.title.english || deets.title.userPreferred || deets.title.romaji
         }
         )
       })
@@ -93,7 +93,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
         <PulseLoader
           color="red"
           cssOverride={override}
-          size={10}
+          size={20}
         />
       }
     </div>
@@ -101,24 +101,25 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
     {user &&
       <>
-        {contwatch &&
+        {contwatch?.length > 0 &&
+
           <div className=" my-auto  mx-2 text-2xl font-damion  text-primary whitespace-nowrap ">
             Continue Watching
-          </div>}
-        <div className=" flex overflow-x-scroll  scrollbar-hide  mx-auto my-3rem ">
+          </div>
+        }
+        <div className=" flex overflow-x-scroll  scrollbar-hide w-10/12 mx-auto my-3rem ">
 
-          {contwatch &&
-            contwatch.map((e) =>
-              e.id === deets.id &&
-              <div onClick={() => {
+          {contwatch?.map((e) =>
+            e.id === deets.id &&
+            <div onClick={() => {
 
-                setepisodedeets({ number: e.number, title: e.title, description: e.description }),
-                  setepid(e.epid)
-              }} key={e.epid}>
+              setepisodedeets({ number: e.number, title: e.title, description: e.description }),
+                setepid(e.epid)
+            }} key={e.epid}>
 
-                <EpisodeCard episode={e} />
-              </div>
-            )}
+              <EpisodeCard episode={e} />
+            </div>
+          )}
 
         </div>
       </>}
