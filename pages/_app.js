@@ -11,9 +11,10 @@ import useAuth from '../components/UseAuth';
 import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
-  const [contwatch, setcontwatch] = useState()
+  const [contwatch, setcontwatch] = useState([])
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
+  const animeRef = doc(db, 'users', `${user?.email}`);
 
   const handleAuth = async () => {
     const provider = new GoogleAuthProvider();
@@ -42,7 +43,9 @@ function MyApp({ Component, pageProps }) {
     login(user);
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
+      setcontwatch(doc.data()?.continue)
     })
+
     return () => {
     }
   }, [user]);

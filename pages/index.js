@@ -9,16 +9,19 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
-import EpisodeCard from "../components/EpisodeCard";
 import Row from "../components/Row";
 export default function Home({ bannerimg, popular, contwatch, setcontwatch, action, watchlist, recentlyaired, user, handleAuth }) {
+
+
   const item = {
     hidden: { y: 10, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1
     }
-  };
+  }; const seen = new Set();
+
+
   return (
     <><div className="  flex w-10/12 justify-between my-3 mx-auto">
       {user ? (<>
@@ -52,13 +55,35 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
         </Swiper>
       </div>
 
-      {contwatch && <div className="text-xl lg:text-3xl mt-10  text-primary w-10/12 mx-auto">
+      {contwatch ? <div className="text-xl lg:text-3xl mt-10  text-primary w-10/12 mx-auto">
         <div className="mx-2 font-damion  mt-2">
           Continue Watching
         </div>
+        <div className=" flex overflow-x-scroll  scrollbar-hide mx-auto my-3rem ">
+          {
+            contwatch?.map((e, i) =>
+              <div className=" hover:border-yellow-500 hover:border-6">
+                <Link href={`/details?id=${e.id}`} >
+                  <div
+                    className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px] z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " key={e.id}
+                    style={{ backgroundImage: `url(${e.image})` }}
 
-        <EpisodeCard episode={contwatch} />
-      </div>}
+                  >
+                    <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
+                      <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
+                        Ep {e.number} : {e.title}
+                      </div>
+                      <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            )
+          }
+        </div>
+
+      </div> : ''}
       <div className="flex flex-col space-y-5  my-10 pb-10">
         <Row typeOfAnime={popular} text={'All Time Favourites'} />
         <div className="text-xl lg:text-3xl  text-primary w-10/12 mx-auto">

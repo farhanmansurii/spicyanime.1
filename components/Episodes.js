@@ -1,9 +1,11 @@
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
 import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
+import { db } from './config/firebase';
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
   const item = {
@@ -45,6 +47,21 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     )
     setcurr(curr + 1)
   }
+  const animeRef = doc(db, 'users', `${user?.email}`);
+
+
+  const contwatching = async (e) => {
+
+    if (user?.email) {
+
+      await updateDoc(animeRef, {
+        continue: arrayUnion({
+          number: e.number, title: e.title, description: e.description, image: e.image, epid: e.id, id: deets.id
+        }
+        )
+      })
+    }
+  }
   useEffect(() => {
     epfetch()
     return () => {
@@ -81,6 +98,28 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
       }
     </div>
 
+
+    {user &&
+      <>
+        <div className=" my-auto  mx-2 text-2xl font-damion  text-primary whitespace-nowrap ">
+          Continue Watching
+        </div>
+        <div className=" flex overflow-x-scroll  scrollbar-hide w-10/12 mx-auto my-3rem ">
+
+          {contwatch.map((e) =>
+            e.id === deets.id &&
+            <div onClick={() => {
+
+              setepisodedeets({ number: e.number, title: e.title, description: e.description }),
+                setepid(e.epid)
+            }} key={e.epid}>
+
+              <EpisodeCard episode={e} />
+            </div>
+          )}
+
+        </div>
+      </>}
     <div className='flex flex-row w-full  my-4'>
 
 
@@ -96,7 +135,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     <div className=" flex overflow-x-scroll m-1 p-1 scrollbar-hide ">
       {epi.slice(initial, final).map((e) => (
         <motion.ul key={e.id} className="item" variants={item} >
-          <div key={e.id} className="flex my-3 flex-col-reverse bg-cover ease-in transition duration-100  transform sm:hover:scale-105  rounded-[10px]  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), setcontwatch({ number: e.number, title: e.title, description: e.description, image: e.image }) }}>
+          <div key={e.id} className="flex my-3 flex-col-reverse bg-cover ease-in transition duration-100  transform sm:hover:scale-105  rounded-[10px]  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e) }}>
 
             <EpisodeCard episode={e} id={e.id} user={user} />
           </div>
