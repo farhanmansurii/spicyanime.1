@@ -11,7 +11,7 @@ import useAuth from '../components/UseAuth';
 import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
-  const [contwatch, setcontwatch] = useState(1)
+  const [contwatch, setcontwatch] = useState()
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
 

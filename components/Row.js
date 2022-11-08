@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import React from 'react';
 import AnimeCard from './AnimeCard';
 const Row = ({ typeOfAnime, text }) => {
@@ -22,23 +21,15 @@ const Row = ({ typeOfAnime, text }) => {
   };
   return (<div className='w-10/12 mx-auto my-3rem  '>
     {typeOfAnime ? (<div className="text-xl lg:text-3xl mx-3  my-3 text-primary font-damion "> {text}</div>) : ('')}
-    <motion.ul
-      className="container"
-      variants={container}
-      initial="hidden"
-      animate="visible"
-    >
 
 
-      <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
-        {typeOfAnime.map((e) =>
-          <motion.li key={e.id} className="item" variants={item} >
 
-            <AnimeCard animeImg={e.image} title={e.title.english || e.title.userPreferred} extratext={e.rating} id={e.id} />
-          </motion.li>
-        )}
-      </div>
-    </motion.ul>
+    <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
+      {typeOfAnime.map((e) =>
+
+        <AnimeCard key={e.id} animeImg={e.image} title={e.title.english || e.title.userPreferred} extratext={e.rating} id={e.id} />
+      )}
+    </div>
   </div>
   )
 }

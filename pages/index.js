@@ -51,6 +51,14 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
         </Swiper>
       </div>
 
+      <div className="text-xl lg:text-3xl  text-primary w-10/12 mx-auto">
+        <div className="mx-2 font-damion  mt-2">
+          Continue Watching
+        </div>
+        <div className="mx-2 font-damion  mt-2">
+          Episode {contwatch.number} : {contwatch?.title}
+        </div>
+      </div>
       <div className="flex flex-col space-y-5  my-10 pb-10">
         <Row typeOfAnime={popular} text={'All Time Favourites'} />
         <div className="text-xl lg:text-3xl  text-primary w-10/12 mx-auto">

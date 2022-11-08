@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Row from "../components/Row";
-const URL = "https://api.consumet.org/meta/anilist/";
+const URL = "https://api.consumet.org/meta/anilist/advanced-search?query=[%22naruto%22]";
 
 const SearchPage = () => {
   const [val, setval] = useState("");
   const [searchList, setSearchList] = useState([]);
   useEffect(() => {
     const getData = setTimeout(() => {
-      fetch(URL + val)
+      fetch(`https://api.consumet.org/meta/anilist/advanced-search?query=[${val}]`)
         .then((response) => response.json())
         .then((animelist) => { setSearchList(animelist.results) });
     }, 1000)
