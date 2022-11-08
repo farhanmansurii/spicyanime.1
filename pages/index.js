@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
+import EpisodeCard from "../components/EpisodeCard";
 import Row from "../components/Row";
 export default function Home({ bannerimg, popular, contwatch, setcontwatch, action, watchlist, recentlyaired, user, handleAuth }) {
   const item = {
@@ -51,14 +52,13 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
         </Swiper>
       </div>
 
-      <div className="text-xl lg:text-3xl  text-primary w-10/12 mx-auto">
+      {contwatch && <div className="text-xl lg:text-3xl mt-10  text-primary w-10/12 mx-auto">
         <div className="mx-2 font-damion  mt-2">
           Continue Watching
         </div>
-        <div className="mx-2 font-damion  mt-2">
-          Episode {contwatch.number} : {contwatch?.title}
-        </div>
-      </div>
+
+        <EpisodeCard episode={contwatch} />
+      </div>}
       <div className="flex flex-col space-y-5  my-10 pb-10">
         <Row typeOfAnime={popular} text={'All Time Favourites'} />
         <div className="text-xl lg:text-3xl  text-primary w-10/12 mx-auto">
