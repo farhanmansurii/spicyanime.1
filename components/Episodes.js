@@ -45,6 +45,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     setepid(nextep[0].id)
     setepisodedeets({ number: nextep[0].number, title: nextep[0].title, description: nextep[0].description } || { number: deets.episodes[1].number, title: deets.episodes[1].title, description: epi[1].description }
     )
+    contwatching(nextep[0])
     setcurr(curr + 1)
   }
   const animeRef = doc(db, 'users', `${user?.email}`);
@@ -59,6 +60,15 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
           number: e.number, title: e.title, description: e.description, image: e.image, epid: e.id, id: deets.id, eptitle: deets.title.english || deets.title.userPreferred || deets.title.romaji
         }
         )
+      })
+    }
+  }
+  const clearcontwatching = async (e) => {
+
+    if (user?.email) {
+
+      await updateDoc(animeRef, {
+        continue: []
       })
     }
   }
@@ -102,12 +112,15 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     {user &&
       <>
         {contwatch?.length > 0 &&
+          <div className='flex flex-auto justify-between ml-2  my-5 w-10/12 text-2xl font-damion  text-primary whitespace-nowrap '>
 
-          <div className=" my-auto  mx-2 text-2xl font-damion  text-primary whitespace-nowrap ">
-            Continue Watching
+            <div className="text-xl font-damion my-auto text-primary whitespace-nowrap ">
+              Continue Watching
+            </div>
+            <button className='btn  btn-sm font-normal lowercase bg-secondary/20 border-0 text-primary' onClick={clearcontwatching}> clear </button>
           </div>
         }
-        <div className=" flex overflow-x-scroll  scrollbar-hide w-10/12 mx-auto my-3rem ">
+        <div className=" flex overflow-x-scroll  scrollbar-hide  mx-auto my-3rem ">
 
           {contwatch?.map((e) =>
             e.id === deets.id &&
@@ -115,6 +128,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
               setepisodedeets({ number: e.number, title: e.title, description: e.description }),
                 setepid(e.epid)
+              setcurr(e.number)
             }} key={e.epid}>
 
               <EpisodeCard episode={e} />
