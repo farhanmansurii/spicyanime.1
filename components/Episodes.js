@@ -1,11 +1,10 @@
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { motion } from "framer-motion";
-import Hls from 'hls.js';
 import React, { useEffect, useState } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
 import { MdClear, MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
+import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
-import Player from './Artplayer';
 import { db } from './config/firebase';
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
@@ -103,42 +102,19 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
         }</div>
 
       {eplink ?
-        <Player
-          option={{
-            url: eplink,
-            fullscreen: true,
-            muted: false,
-            autoplay: false,
-            poster: deets.image,
-            controls: [
-              {
-                position: 'right',
-                html: '<button type="button">Next</button>',
-                click: (() => { seteplink(''), nextep() })
-              },
-            ],
-            customType: {
-              m3u8: function (video, url) {
-                if (Hls.isSupported()) {
-                  const hls = new Hls();
-                  hls.loadSource(url);
-                  hls.attachMedia(video);
-                }
-              }
-            }
-          }
-          }
-          style={{
-            height: 360,
-            width: 'auto',
-          }}
-          getInstance={(art) => console.log(art)}
-        /> :
+        <ReactPlayer
+          controls={true}
+          width='100%'
+          height='auto'
+          url={eplink} />
+
+        :
         <PulseLoader
           color="red"
           cssOverride={override}
           size={20}
-        />}
+        />
+      }
     </div>
 
 
