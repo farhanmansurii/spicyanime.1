@@ -121,7 +121,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
         {contwatch?.length > 0 &&
           <div className='flex flex-auto justify-between ml-2  my-5 text-2xl font-damion  text-primary whitespace-nowrap '>
 
-            <div className="text-xl font-damion my-auto text-primary whitespace-nowrap ">
+            <div className="text-xl  hover:text-2xl duration-200 font-damion my-auto text-primary whitespace-nowrap ">
               Continue Watching ?
             </div>
             <button className='btn text-xl hover:rotate-90 hover:scale-110 hover:text-2xl duration-300   btn-circle btn-ghost font-normal  lowercase  border-0 text-primary' onClick={clearcontwatching}>
