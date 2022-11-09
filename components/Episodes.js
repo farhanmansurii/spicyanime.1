@@ -160,13 +160,31 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
           {contwatch?.map((e) =>
             e.id === deets.id &&
             <div onClick={() => {
-
+              seteplink('')
               setepisodedeets({ number: e.number, title: e.title, description: e.description }),
                 setepid(e.epid)
               setcurr(e.number)
             }} key={e.epid}>
 
-              <EpisodeCard episode={e} />
+              <div
+                className="flex flex-col-reverse bg-cover ease-in transition duration-100 rounded-[10px] z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 "
+                style={{ backgroundImage: `url(${e.image}) ` }}
+              >
+                <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
+                  {e.isFiller ? (<div className="w-full text-center bg-secondary text-xs   rounded-md  font-semibold  py-1/2 text-primary">filler</div>
+                  ) : (<div className="self-bottom text-sm  line-clamp-1 text-primary/50 whitespace-wrap  ">
+                    {e.description}
+                  </div>)
+                  }
+                  <div className="flex-row">
+
+                    <div className="self-bottom  font-semibold  text-shadow-2xl text-primary bg-transparent text-sm lg:text-md  text-shadow-2xl whitespace-pre-wrap line-clamp-2">
+                      Ep {e.number} : {e.title}</div>
+
+                  </div>
+
+                </div>
+              </div>
             </div>
           )}
 

@@ -16,23 +16,9 @@ function MyApp({ Component, pageProps }) {
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
   const animeRef = doc(db, 'users', `${user?.email}`);
-  async function getunique(arr) {
-    const uniqueIds = new Set();
-
-    const unique = arr.filter(element => {
-      const isDuplicate = uniqueIds.has(element.id);
-
-      uniqueIds.add(element.id);
-
-      if (!isDuplicate) {
-        return true;
-      }
-
-      return false;
-    });
-
-    setcontwatch(unique);
-    console.log(unique);
+  async function getunique(contwatch) {
+    const uniqueObjects = [...new Map(contwatch.map(item => [item.id, item])).values()]
+    console.log(uniqueObjects, 'hi')
   }
   const handleAuth = async () => {
     const provider = new GoogleAuthProvider();
@@ -62,7 +48,8 @@ function MyApp({ Component, pageProps }) {
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
 
-      getunique((doc.data()?.continue).reverse())
+      setcontwatch((doc.data()?.continue).reverse())
+      getunique(contwatch)
     })
     return () => {
     }
