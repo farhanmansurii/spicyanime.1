@@ -16,10 +16,7 @@ function MyApp({ Component, pageProps }) {
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
   const animeRef = doc(db, 'users', `${user?.email}`);
-  async function getunique(contwatch) {
-    const uniqueObjects = [...new Map(contwatch.map(item => [item.id, item])).values()]
-    console.log(uniqueObjects, 'hi')
-  }
+
   const handleAuth = async () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
@@ -49,7 +46,6 @@ function MyApp({ Component, pageProps }) {
       setwatchlist(doc.data()?.savedAnime);
 
       setcontwatch((doc.data()?.continue).reverse())
-      getunique(contwatch)
     })
     return () => {
     }
