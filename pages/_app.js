@@ -1,10 +1,11 @@
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import { motion } from "framer-motion";
 import { useRouter } from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
 import React, { useEffect, useState } from 'react';
 import BottomNavbar from "../components/BottomNavbar";
-import { db } from "../components/config/firebase";
+import { auth, db } from "../components/config/firebase";
 import Navbar from "../components/Navbar";
 import useAuth from '../components/UseAuth';
 import "../styles/globals.css";
@@ -14,8 +15,15 @@ function MyApp({ Component, pageProps }) {
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
   const animeRef = doc(db, 'users', `${user?.email}`);
-  console.log(contwatch)
+
   const handleAuth = async () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+
+      })
+      .catch((error) => {
+      });
   };
   async function login(user) {
     const docRef = doc(db, "users", `${user?.email}`);
@@ -35,7 +43,7 @@ function MyApp({ Component, pageProps }) {
     login(user);
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
-      setcontwatch((doc.data()?.continue)?.reverse())
+      setcontwatch(doc.data()?.continue)
     })
 
     return () => {

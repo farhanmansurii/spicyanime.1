@@ -53,7 +53,7 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
         </Swiper>
       </div>
 
-      {contwatch ? <div className="text-xl lg:text-3xl mt-10  text-primary w-10/12 mx-auto">
+      {contwatch.length > 0 ? <div className="text-xl lg:text-3xl mt-10  text-primary w-10/12 mx-auto">
         <div className="mx-2 font-damion  mt-2">
           Continue Watching
         </div>
