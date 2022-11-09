@@ -2,7 +2,7 @@ import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from 'react';
 import { AiOutlineSetting } from 'react-icons/ai';
-import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
+import { MdClear, MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
 import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
 import { db } from './config/firebase';
@@ -57,6 +57,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
       await updateDoc(animeRef, {
         continue: arrayUnion({
+
           number: e.number, title: e.title, description: e.description, image: e.image, epid: e.id, id: deets.id, eptitle: deets.title.english || deets.title.userPreferred || deets.title.romaji
         }
         )
@@ -112,12 +113,13 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     {user &&
       <>
         {contwatch?.length > 0 &&
-          <div className='flex flex-auto justify-between ml-2  my-5 w-10/12 text-2xl font-damion  text-primary whitespace-nowrap '>
+          <div className='flex flex-auto justify-between ml-2  my-5 text-2xl font-damion  text-primary whitespace-nowrap '>
 
             <div className="text-xl font-damion my-auto text-primary whitespace-nowrap ">
               Continue Watching
             </div>
-            <button className='btn  btn-sm font-normal lowercase bg-secondary/20 border-0 text-primary' onClick={clearcontwatching}> clear </button>
+            <button className='btn text-xl  btn-circle btn-ghost font-normal lowercase hover:rotate-90 border-0 text-primary' onClick={clearcontwatching}>
+              <MdClear /> </button>
           </div>
         }
         <div className=" flex overflow-x-scroll  scrollbar-hide  mx-auto my-3rem ">
