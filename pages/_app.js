@@ -12,10 +12,28 @@ import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const [contwatch, setcontwatch] = useState([])
+  const [finalcontwatch, setfinalcontwatch] = useState([])
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
   const animeRef = doc(db, 'users', `${user?.email}`);
+  async function getunique(arr) {
+    const uniqueIds = new Set();
 
+    const unique = arr.filter(element => {
+      const isDuplicate = uniqueIds.has(element.id);
+
+      uniqueIds.add(element.id);
+
+      if (!isDuplicate) {
+        return true;
+      }
+
+      return false;
+    });
+
+    setcontwatch(unique);
+    console.log(unique);
+  }
   const handleAuth = async () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
@@ -43,9 +61,9 @@ function MyApp({ Component, pageProps }) {
     login(user);
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
-      setcontwatch((doc.data()?.continue)?.reverse())
-    })
 
+      getunique((doc.data()?.continue).reverse())
+    })
     return () => {
     }
   }, [user]);

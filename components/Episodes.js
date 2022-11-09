@@ -52,14 +52,20 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
 
   const contwatching = async (e) => {
-
+    const data = {
+      number: e.number,
+      title: e.title,
+      description: e.description,
+      image: e.image, epid: e.id,
+      id: deets.id, eptitle: deets.title.english || deets.title.userPreferred || deets.title.romaji
+    }
     if (user?.email) {
 
       await updateDoc(animeRef, {
-        continue: arrayUnion({
+        continue: arrayUnion(
 
-          number: e.number, title: e.title, description: e.description, image: e.image, epid: e.id, id: deets.id, eptitle: deets.title.english || deets.title.userPreferred || deets.title.romaji
-        }
+          data
+
         )
       })
     }
@@ -116,9 +122,9 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
           <div className='flex flex-auto justify-between ml-2  my-5 text-2xl font-damion  text-primary whitespace-nowrap '>
 
             <div className="text-xl font-damion my-auto text-primary whitespace-nowrap ">
-              Continue Watching
+              Continue Watching ?
             </div>
-            <button className='btn text-xl  btn-circle btn-ghost font-normal lowercase hover:rotate-90 border-0 text-primary' onClick={clearcontwatching}>
+            <button className='btn text-xl hover:rotate-90 hover:scale-110 hover:text-2xl duration-300   btn-circle btn-ghost font-normal  lowercase  border-0 text-primary' onClick={clearcontwatching}>
               <MdClear /> </button>
           </div>
         }
