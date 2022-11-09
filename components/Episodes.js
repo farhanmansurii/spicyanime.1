@@ -124,7 +124,6 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
                   hls.loadSource(url);
                   hls.attachMedia(video);
                 }
-                else { }
               }
             }
           }
