@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }) {
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
 
-      setcontwatch((doc.data()?.continue).reverse())
+      setfinalcontwatch((doc.data()?.continue).reverse()).then(setcontwatch(finalcontwatch))
     })
     return () => {
     }
