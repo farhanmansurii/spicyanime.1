@@ -7,30 +7,30 @@ import { FiSearch } from "react-icons/fi";
 const BottomNavbar = ({ user }) => {
   const router = useRouter();
   return (
-    <div className="btm-nav bg-secondary text-md mb-[1rem] mx-[1rem] rounded-xl w-11/12 align-self-center font-bold fixed z-30 lg:hidden  " >
+    <div className="btm-nav bg-secondary/20 backdrop-blur-md btm-nav-sm text-sm mb-[2rem] mx-auto rounded-xl w-7/12 align-self-center font-bold fixed z-30 lg:hidden  " >
       <Link href='/' >
-        <button className={router.pathname == "/" ? "active : bg-base-100/10 rounded-tl-lg border-t-primary text-primary" : " text-primary"}>
-          <AiOutlineHome className="w-5 h-5" />
-        </button>
-      </Link>
-
-      <Link href='/searchpage' >
-        <button className={router.pathname == "/searchpage" ? "active : bg-base-100/10 border-t-primary   text-primary" : "text-primary"}>
-
-          <FiSearch className="w-5 h-5" />
+        <button className={router.pathname == "/" ? "active : bg-base-100/10 rounded-tl-xl border-t-primary text-primary" : " text-primary"}>
+          <AiOutlineHome className="w-4 h-4" />
         </button>
       </Link>
       <Link href='/mylist' >
 
-        <button variant="unstyled">
+        <button variant="btn  ">
           {user ? (<div className="avatar">
-            <div className="w-5 rounded-full z-10 ring ring-primary ring-offset-base-100 ring-offset-2">
+            <div className="w-9 rounded-full z-10   ring-primary/30 ring-2">
               <img src={user?.photoURL} alt={user?.uid} />
             </div>
           </div>) : <div className="text-primary"><AiOutlineGoogle className="w-6 h-6" /> </div>}
         </button>
 
       </Link>
+      <Link href='/searchpage' >
+        <button className={router.pathname == "/searchpage" ? "active : bg-base-100/10 rounded-tr-xl border-t-primary   text-primary" : "text-primary"}>
+
+          <FiSearch className="w-4 h-4" />
+        </button>
+      </Link>
+
 
     </div >
   )

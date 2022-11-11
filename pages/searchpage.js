@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Row from "../components/Row";
-const URL = "https://api.consumet.org/meta/anilist/advanced-search?query=[%22naruto%22]";
-
+import useDebounce from "../hooks/useDebounce";
+const URL = "https://api.consumet.org/meta/anilist/advanced-search?query=[%22naruto%22]&perPage=6";
 const SearchPage = () => {
   const [val, setval] = useState("");
   const [searchList, setSearchList] = useState([]);
+  const debouncedSearch = useDebounce(val, 1000);
   useEffect(() => {
-    const getData = setTimeout(() => {
-      fetch(`https://api.consumet.org/meta/anilist/advanced-search?query=[${val}]`)
-        .then((response) => response.json())
-        .then((animelist) => { setSearchList(animelist.results) });
-    }, 1000)
-    return () => getData;
-  }, [val]);
+    async function fetchData() {
+
+      const data = await fetch(
+        `https://api.consumet.org/meta/anilist/advanced-search?query=${debouncedSearch}`
+      ).then((res) => res.json());
+      setSearchList(data.results);
+      console.log(data.results)
+    }
+
+    if (debouncedSearch) fetchData();
+  }, [debouncedSearch]);
 
   return (
     <>

@@ -25,7 +25,7 @@ const Row = ({ typeOfAnime, text }) => {
 
 
     <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
-      {typeOfAnime.map((e) =>
+      {typeOfAnime?.map((e) =>
 
         <AnimeCard key={e.id} animeImg={e.image} title={e.title.english || e.title.userPreferred} extratext={e.rating} id={e.id} />
       )}
