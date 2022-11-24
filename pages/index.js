@@ -23,7 +23,7 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
   return (
     <><div className="  flex w-11/12 justify-between mb-3 mx-auto">
       {user ? (<>
-        <div className="text-3xl lg:text-4xl mb-4 mt-2 text-primary font-damion "> Hello,  {user?.displayName}</div>
+        <div className="text-3xl lg:text-4xl mb-4 mt-2 text-primary font-damion lowercase "> hi,  {user?.displayName}</div>
         <button className=" my-auto btn btn-ghost  ml-1" onClick={() => auth.signOut()}><BiLogOut className="w-6 h-6 text-primary" /> </button>
       </>
       ) : (<>

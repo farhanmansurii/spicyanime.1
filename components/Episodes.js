@@ -22,7 +22,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
       "https://api.amvstr.ml/api/v2/stream?id=" + epid)
       .then((res) => res.json())
       .then((json) => {
-        seteplink(json.plyr.main || json.plyr.backup || json.nspl.main || json.nspl.backup)
+        seteplink(json.plyr.main || json.nspl.main || json.plyr.backup || json.nspl.backup)
       });
   }
 
@@ -89,20 +89,18 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
           ) : <div className=" mx-auto my-auto text-mdlg:text-xl text-primary font-damion normal-case line-clamp-2" > Movie</div>}
         </div>
 
-        {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50  text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
+        {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary rounded-none normal-case font-damion bg-base-100/50  text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
         }</div>
 
       {eplink ?
-        <div className=' h-[360px] '>
 
-          <iframe src={eplink} className='w-full h-full mx-auto'
-          />
-        </div>
+        <iframe src={eplink} className='w-full h-[210px] lg:h-[400px] mx-auto'
+        />
         :
         <PulseLoader
           color="red"
           cssOverride={override}
-          size={20}
+          size={10}
         />
       }
     </div>
