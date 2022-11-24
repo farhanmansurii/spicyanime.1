@@ -82,7 +82,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     }
   }, [epid])
   return (<>
-    <div className=" place-self-center my-5 w-full   border-t-2 border-secondary bg-base-100-focus mx-auto whitespace-wrap ">
+    <div className=" place-self-center my-5 w-[97%] rounded-xl aspect-video lg:w-[720px]     border-t-2  border-secondary bg-base-100-focus mx-auto whitespace-wrap ">
       <div className='flex flex-auto  space-x-3 justify-between mx-5 my-2 lg:p-3'>
         <div>
           {deets.type !== "MOVIE" ? (<div className=" mx-auto text-md lg:text-xl  text-primary font-damion normal-case line-clamp-2"  > Ep {episodedeets.number} : {" "}{episodedeets.title} </div>
