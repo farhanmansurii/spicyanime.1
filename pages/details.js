@@ -23,7 +23,7 @@ function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, user
       {deets.episodes?.length >= 1 ?
         (
 
-          <div className=" w-10/12 mx-auto">
+          <div className=" w-full mx-auto">
 
 
             <Episodes deets={deets} contwatch={contwatch} setcontwatch={setcontwatch} user={user} watchlist={watchlist} setwatchlist={setwatchlist} epi={epi} />

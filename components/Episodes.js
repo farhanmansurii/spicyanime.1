@@ -1,9 +1,7 @@
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from 'react';
-import { AiOutlineSetting } from 'react-icons/ai';
 import { MdClear, MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
-import ReactPlayer from 'react-player';
 import { PulseLoader } from 'react-spinners';
 import { db } from './config/firebase';
 import EpisodeCard from './EpisodeCard';
@@ -15,18 +13,16 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
       opacity: 1
     }
   };
-  const [eplink, seteplink] = React.useState(epqual?.url)
+  const [eplink, seteplink] = React.useState()
   const [epqual, setepqual] = React.useState()
   const [epid, setepid] = React.useState(deets.episodes[0].id || deets.episode[1].id)
   const [episodedeets, setepisodedeets] = useState({ number: deets.episodes[0].number, title: deets.episodes[0].title, description: epi[0].description } || { number: deets.episodes[1].number, title: deets.episodes[1].title, description: epi[1].description })
   function epfetch() {
     fetch(
-      "https://api.consumet.org/anime/gogoanime/watch/" + epid)
+      "https://api.amvstr.ml/api/v2/stream?id=" + epid)
       .then((res) => res.json())
       .then((json) => {
-        setepqual(json.sources)
-        console.log(json.sources)
-        seteplink(json.sources[json.sources.length - 2].url || json.sources[json.sources.length - 1].url)
+        seteplink(json.plyr.main || json.plyr.backup)
       });
   }
 
@@ -86,28 +82,22 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     }
   }, [epid])
   return (<>
-    <div className=" place-self-center my-5 w-10/12 border-2 border-secondary bg-base-100-focus mx-auto whitespace-wrap ">
-      <div className='flex flex-auto   space-x-3 justify-between mx-5 my-2 lg:p-3'>
+    <div className=" place-self-center my-5 w-full   border-t-2 border-secondary bg-base-100-focus mx-auto whitespace-wrap ">
+      <div className='flex flex-auto  space-x-3 justify-between mx-5 my-2 lg:p-3'>
         <div>
           {deets.type !== "MOVIE" ? (<div className=" mx-auto text-md lg:text-xl  text-primary font-damion normal-case line-clamp-2"  > Ep {episodedeets.number} : {" "}{episodedeets.title} </div>
           ) : <div className=" mx-auto my-auto text-mdlg:text-xl text-primary font-damion normal-case line-clamp-2" > Movie</div>}
         </div>
-        <div className="dropdown my-auto">
-          <label tabIndex={0} className="btn btn-sm  btn-circle btn-ghost text-primary "><AiOutlineSetting className="w-5 h-5" /></label>
-          <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-fit">
-            {epqual?.map((e, index) => <li key={index} className='text-primary text-xs'><div onClick={() => seteplink(e.url)}  >{e.quality}</div></li>)}
-          </ul>
-        </div>
+
         {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary  normal-case font-damion bg-base-100/50  text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
         }</div>
 
       {eplink ?
-        <ReactPlayer
-          controls={true}
-          width='100%'
-          height='auto'
-          url={eplink} />
+        <div className=' h-[360px] '>
 
+          <iframe src={eplink} className='w-full h-full mx-auto'
+          />
+        </div>
         :
         <PulseLoader
           color="red"
@@ -121,16 +111,16 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     {user &&
       <>
         {contwatch?.length > 0 &&
-          <div className='flex flex-auto justify-between ml-2  my-5 text-2xl font-damion  text-primary whitespace-nowrap '>
+          <div className='flex flex-auto justify-between  w-10/12 mx-auto  my-5 text-2xl font-damion  text-primary whitespace-nowrap '>
 
-            <div className="text-xl  hover:text-2xl duration-200 font-damion my-auto text-primary whitespace-nowrap ">
+            <div className="text-xl   hover:text-2xl duration-200 font-damion my-auto text-primary whitespace-nowrap ">
               Continue Watching ?
             </div>
             <button className='btn text-xl hover:rotate-90 hover:scale-110 hover:text-2xl duration-300   btn-circle btn-ghost font-normal  lowercase  border-0 text-primary' onClick={clearcontwatching}>
               <MdClear /> </button>
           </div>
         }
-        <div className=" flex overflow-x-scroll  scrollbar-hide  mx-auto my-3rem ">
+        <div className=" flex overflow-x-scroll w-10/12  scrollbar-hide  mx-auto my-3rem ">
 
           {contwatch?.map((e) =>
             e.id === deets.id &&
@@ -165,7 +155,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
         </div>
       </>}
-    <div className='flex flex-row w-full  my-4'>
+    <div className='flex flex-row w-11/12 mx-auto  my-4'>
 
 
       {deets.totalEpisodes > 25 && (<div className="btn-group hover:bg-transparent btn-ghost align-end  w-10/12   ">
@@ -173,11 +163,11 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
         {final < deets.totalEpisodes ? (<button className=" btn btn-primary border-0 hover:bg-secondary  bg-base-100    text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} ><MdOutlineArrowForward className='w-6 h-6' /></button>) : (<button className="btn btn-primary-focus border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowForward className='w-6 h-6' /></button>)}
       </div>)}
-      <div className=" my-auto  mx-2 text-2xl font-damion  text-primary whitespace-nowrap ">
+      <div className=" my-auto  mx-4 text-2xl font-damion   text-primary whitespace-nowrap ">
         Episode {initial + 1} - {final < epi.length ? final + 1 : epi.length}
       </div>
     </div>
-    <div className=" flex overflow-x-scroll m-1 p-1 scrollbar-hide ">
+    <div className=" flex overflow-x-scroll m-1 p-1 w-11/12 mx-auto scrollbar-hide ">
       {epi.slice(initial, final).map((e) => (
         <motion.ul key={e.id} className="item" variants={item} >
           <div key={e.id} className="flex my-3 flex-col-reverse bg-cover ease-in transition duration-100  transform sm:hover:scale-105  rounded-[10px]  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e) }}>
