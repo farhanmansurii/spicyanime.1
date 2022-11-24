@@ -94,7 +94,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
       {eplink ?
 
-        <iframe src={eplink} className='w-full aspect-video lg:w-[720px] lg:h-[405px] mx-auto'
+        <iframe src={eplink} className='w-[97%] rounded-xl aspect-video lg:w-[720px] lg:h-[405px] mx-auto'
         />
         :
         <div className='w-full aspect-video lg:max-w-[720px] lg:max-h-[405px] mx-auto'>
