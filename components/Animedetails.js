@@ -62,7 +62,7 @@ const Animedetails = ({ deets, user, watchlist, animen }) => {
 
           <div className="flex flex-col p-2 ">
 
-            <div className=" flex flex-row sm:mt-10 flex-wrap   w-11/12  ">
+            <div className=" flex flex-row sm:mt-10 flex-wrap   w-full  ">
               <div className=" text-primary text-5xl ml-4 lg:text-6xl font-damion  ">
                 {deets.title.english || deets.title.userPreferred || deets.title.romaji || ''}
               </div>

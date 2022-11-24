@@ -22,7 +22,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
       "https://api.amvstr.ml/api/v2/stream?id=" + epid)
       .then((res) => res.json())
       .then((json) => {
-        seteplink(json.plyr.main || json.plyr.backup)
+        seteplink(json.nspl.main || json.plyr.main || json.nspl.backup || json.plyr.backup)
       });
   }
 
