@@ -97,11 +97,14 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
         <iframe src={eplink} className='w-full aspect-video lg:w-[720px] lg:h-[405px] mx-auto'
         />
         :
-        <PulseLoader
-          color="red"
-          cssOverride={override}
-          size={10}
-        />
+        <div className='w-full aspect-video lg:max-w-[720px] lg:max-h-[405px] mx-auto'>
+          <PulseLoader
+
+            color="red"
+            cssOverride={override}
+            size={10}
+          />
+        </div>
       }
     </div>
 
