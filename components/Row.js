@@ -19,7 +19,7 @@ const Row = ({ typeOfAnime, text }) => {
       opacity: 1
     }
   };
-  return (<div className='w-10/12 mx-auto my-3rem  '>
+  return (<div className='w-11/12 mx-auto my-2  '>
     {typeOfAnime ? (<div className="text-xl lg:text-3xl mx-3  my-3 text-primary font-damion "> {text}</div>) : ('')}
 
 

@@ -111,7 +111,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     {user &&
       <>
         {contwatch?.length > 0 &&
-          <div className='flex flex-auto justify-between  w-10/12 mx-auto  my-5 text-2xl font-damion  text-primary whitespace-nowrap '>
+          <div className='flex flex-auto justify-between   w-10/12 mx-auto  my-5 text-2xl font-damion  text-primary whitespace-nowrap '>
 
             <div className="text-xl   hover:text-2xl duration-200 font-damion my-auto text-primary whitespace-nowrap ">
               Continue Watching ?

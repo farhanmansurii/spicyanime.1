@@ -6,9 +6,8 @@ import { FiSearch } from "react-icons/fi";
 const Navbar = ({ user }) => {
   const router = useRouter();
   return (
-    <div className="navbar  self-center bg-secondary  text-primary backdrop-blur-sm fixed z-30 hidden lg:flex">
-      <div className='w-10/12 mx-auto top-0'>
-
+    <div className="navbar  self-center bg-secondary/70  text-primary backdrop-blur-sm fixed z-30 hidden lg:flex">
+      <div className='w-11/12 mx-auto top-0'>
         <div className="flex-1 ">
           <Link href='/' >
             <button className=' btn font-damion btn-ghost normal-case text-primary text-xl' >

@@ -21,9 +21,9 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
 
 
   return (
-    <><div className="  flex w-10/12 justify-between my-3 mx-auto">
+    <><div className="  flex w-11/12 justify-between mb-3 mx-auto">
       {user ? (<>
-        <div className="text-3xl lg:text-4xl my-4 text-primary font-damion "> Hello,  {user?.displayName}</div>
+        <div className="text-3xl lg:text-4xl mb-4 mt-2 text-primary font-damion "> Hello,  {user?.displayName}</div>
         <button className=" my-auto btn btn-ghost  ml-1" onClick={() => auth.signOut()}><BiLogOut className="w-6 h-6 text-primary" /> </button>
       </>
       ) : (<>
@@ -34,7 +34,7 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
       )} </div>
 
 
-      <div className="w-10/12 mx-auto  border-4 z-10  border-secondary/70 rounded-xl">
+      <div className="w-full lg:w-11/12 mx-auto  z-10  ">
         <Swiper slidesPerView={1} loop={true} pagination={{
           type: "progressbar",
         }}
@@ -53,8 +53,8 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
         </Swiper>
       </div>
 
-      {contwatch.length > 0 ? <div className="text-xl lg:text-3xl mt-10  text-primary w-10/12 mx-auto">
-        <div className="mx-2 font-damion  mt-2">
+      {contwatch.length > 0 ? <div className="text-xl lg:text-3xl mt-10  text-primary w-11/12 mx-auto">
+        <div className="mx-2 font-damion my-3">
           Continue Watching
         </div>
         <div className=" flex overflow-x-scroll  scrollbar-hide mx-auto my-3rem ">
@@ -81,14 +81,14 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
         </div>
 
       </div> : ''}
-      <div className="flex flex-col space-y-5  my-10 pb-10">
+      <div className="flex flex-col    pb-10">
         <Row typeOfAnime={popular} text={'All Time Favourites'} />
-        <div className="text-xl lg:text-3xl  text-primary w-10/12 mx-auto">
-          <div className="mx-2 font-damion  mt-2">
+        <div className="text-xl lg:text-3xl  text-primary w-11/12 mx-auto">
+          <div className="mx-2 font-damion  my-2">
             Recently Aired
           </div>
         </div>
-        <div className=" flex overflow-x-scroll  scrollbar-hide w-10/12 mx-auto my-3rem ">
+        <div className=" flex overflow-x-scroll  scrollbar-hide w-11/12 mx-auto  ">
           {recentlyaired.map((e) => (
             (e.type === "TV" &&
               <Link href={`/details?id=${e.id}`} key={e.malId}>
