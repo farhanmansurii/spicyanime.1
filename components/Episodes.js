@@ -94,7 +94,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
       {eplink ?
 
-        <iframe src={eplink} className='w-full h-[210px] lg:h-[400px] mx-auto'
+        <iframe src={eplink} className='w-full aspect-video lg:w-[720px] lg:h-[405px] mx-auto'
         />
         :
         <PulseLoader
