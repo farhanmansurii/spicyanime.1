@@ -31,9 +31,9 @@
   font-display: swap;
 }
 @font-face {
-  font-family: 'HelveticaNeue light';
-  src: url('./font/HelveticaNeueLight.woff2') format('woff2'), url('./font/HelveticaNeueLight.woff') format('woff');
-  font-weight: 300;
+  font-family: 'HelveticaNeue';
+  src: url('./font/HelveticaNeueMedium.woff2') format('woff2');
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
 }

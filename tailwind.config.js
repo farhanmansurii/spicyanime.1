@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Book'],
+        'sans': ['HelveticaNeue'],
         'damion': ['Gotham'],
       }
     }

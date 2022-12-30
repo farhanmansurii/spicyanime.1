@@ -20,12 +20,10 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
   const [episodedeets, setepisodedeets] = useState({ number: epi[0].number, title: epi[0].title, description: epi[0].description } || { number: epi[1].number, title: epi[1].title, description: epi[1].description })
   async function epfetch(epid) {
     await fetch(
-      "https://api.amvstr.ml/api/v2/stream?id=" + epid)
+      "https://gogoanime.consumet.org/vidcdn/watch/" + epid)
       .then((res) => res.json())
       .then((json) => {
-
-        seteplink(json.stream.multi.main.url || json.stream.multi.backup.url || json.stream.multi.backup.url)
-        console.log(json.stream.multi.backup.url || json.stream.multi.backup.url || json.stream.multi.backup.url)
+        seteplink(json.sources[0].file || json.sources_bk[0].file || '')
       });
   }
 
@@ -101,7 +99,12 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
           url={eplink}
           width='100%'
           height={'full'}
-
+          quality={[
+            { label: 'Low', value: 'low' },
+            { label: 'Medium', value: 'medium' },
+            { label: 'High', value: 'high' }
+          ]}
+          controls={['quality', 'play', 'progress', 'current-time', 'duration']}
         /> :
         <div className='w-fit h-full ease-in-out duration-200 grid justify-center mx-auto place-content-center'>
 
@@ -114,16 +117,16 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     {user &&
       <>
         {contwatch?.length > 0 &&
-          <div className='flex flex-auto justify-between   w-10/12 mx-auto  my-5 text-2xl font-damion  text-primary whitespace-nowrap '>
+          <div className='flex flex-auto justify-between   w-11/12 mx-auto  mt-10 mb-4 text-2xl font-damion  text-primary whitespace-nowrap '>
 
-            <div className="text-xl   hover:text-2xl duration-200 font-damion my-auto text-primary whitespace-nowrap ">
+            <div className="text-2xl duration-200 mx-4  font-damion my-auto text-primary whitespace-nowrap ">
               Continue Watching ?
             </div>
             <button className='btn text-xl hover:rotate-90 hover:scale-110 hover:text-2xl duration-300   btn-circle btn-ghost font-normal  lowercase  border-0 text-primary' onClick={clearcontwatching}>
               <MdClear /> </button>
           </div>
         }
-        <div className=" flex overflow-x-scroll w-10/12  scrollbar-hide  mx-auto my-3rem ">
+        <div className=" flex overflow-x-scroll w-11/12  scrollbar-hide  mx-auto my-3rem ">
 
           {contwatch?.map((e) =>
             e.id === deets.id &&
@@ -135,7 +138,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
             }} key={e.epid}>
 
               <div
-                className="flex flex-col-reverse bg-cover ease-in transition duration-100 rounded-[10px] z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 "
+                className="flex flex-col-reverse bg-cover ease-in transition duration-100  z-10 border-secondary hover:border-2   aspect-video w-[200px] lg:w-[300px] mx-[4px] "
                 style={{ backgroundImage: `url(${e.image}) ` }}
               >
                 <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
@@ -146,7 +149,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
                   }
                   <div className="flex-row">
 
-                    <div className="self-bottom  font-semibold  text-shadow-2xl text-primary bg-transparent text-sm lg:text-md  text-shadow-2xl whitespace-pre-wrap line-clamp-2">
+                    <div className="self-bottom   text-shadow-2xl text-primary bg-transparent text-sm lg:text-md  text-shadow-2xl whitespace-pre-wrap line-clamp-2">
                       Ep {e.number} : {e.title}</div>
 
                   </div>
@@ -158,7 +161,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
         </div>
       </>}
-    <div className='flex flex-row w-11/12 mx-auto  my-4'>
+    <div className='flex flex-row w-11/12 mx-auto  mt-10 mb-4'>
 
 
       {epi.length > 25 && (<div className="btn-group gap-2 hover:bg-transparent btn-ghost align-end  w-10/12   ">
@@ -166,14 +169,14 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
         {final < epi.length ? (<button className=" bg-secondary hover:scale-95 hover:bg-secondary-focus  p-3 rounded-full border-0     text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} ><MdOutlineArrowForward className='w-6 h-6' /></button>) : (<button className="btn btn-primary-focus border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowForward className='w-6 h-6' /></button>)}
       </div>)}
-      <div className=" my-auto  mx-4 text-2xl font-damion   text-primary whitespace-nowrap ">
+      <div className="  mx-4 text-2xl font-damion   text-primary whitespace-nowrap ">
         Episode {initial + 1} - {final < epi.length ? final + 1 : epi.length}
       </div>
     </div>
     <div className=" flex overflow-x-scroll m-1 p-1 w-11/12 mx-auto scrollbar-hide ">
       {epi.slice(initial, final).map((e) => (
         <motion.ul key={e.id} className="item" variants={item} >
-          <div key={e.id} className="flex my-3 flex-col-reverse bg-cover ease-in  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e) }}>
+          <div key={e.id} className="flex mb-3 flex-col-reverse bg-cover   aspect-video w-[200px] lg:w-[300px] mx-[4px] " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e) }}>
 
             <EpisodeCard episode={e} id={e.id} user={user} />
           </div>
