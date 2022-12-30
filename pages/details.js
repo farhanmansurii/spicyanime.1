@@ -12,8 +12,6 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
   , ssr: false
 });
 function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, epi, user, related, animen }) {
-  console.log(epi)
-  console.log(deets)
   return (
     <>
 
@@ -33,8 +31,10 @@ function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, epi,
           </div>
         ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">No episodes</div>)
       }
+      <div>
 
 
+      </div>
       <Row typeOfAnime={related} text="Recommendations " />
     </>
   );
