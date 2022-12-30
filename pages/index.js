@@ -40,7 +40,7 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
         }}
           cssMode={{}}
           modules={[Pagination, Navigation]}>
-          {bannerimg.map((e, index) => (
+          {action.map((e, index) => (
             <SwiperSlide key={index}>
               <Banner
                 titles={e.title.english}
@@ -62,7 +62,7 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
             contwatch?.map((e) =>
               <Link href={`/details?id=${e.id}`} key={e.id} >
                 <div
-                  className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px] z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] min-w-[200px] lg:w-[300px] m-2 " key={e.id}
+                  className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105  z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] min-w-[200px] lg:w-[300px] m-2 " key={e.id}
                   style={{ backgroundImage: `url(${e.image})` }}
 
                 >
@@ -93,7 +93,7 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
             (e.type === "TV" &&
               <Link href={`/details?id=${e.id}`} key={e.malId}>
                 <motion.ul className="item" variants={item} ><div
-                  className="flex flex-col-reverse bg-cover ease-in transition duration-100 transform sm:hover:scale-105 rounded-[10px] z-10 border-secondary hover:border-4   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " key={e.id}
+                  className="flex flex-col-reverse bg-cover  duration-50 transform sm:hover:scale-[102%]  z-10 border-secondary hover:border-2   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-1 " key={e.id}
                   style={{ backgroundImage: `url(${e.image})` }}
 
                 >
@@ -116,18 +116,15 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
 }
 
 export const getStaticProps = async () => {
-  const res = await fetch("https://api.consumet.org/meta/anilist/popular");
   const res1 = await fetch("https://api.consumet.org/meta/anilist/advanced-search?sort=[%22FAVOURITES_DESC%22,%22EPISODES%22]");
   const res2 = await fetch("https://api.consumet.org/meta/anilist/trending");
   const res3 = await fetch("https://api.consumet.org/meta/anilist/recent-episodes?perPage=30")
-  const json = await res.json();
   const popular = await res1.json();
   const action = await res2.json();
   const recentlyaired = await res3.json();
 
   return {
     props: {
-      bannerimg: json.results,
       popular: popular.results,
       action: action.results,
       recentlyaired: recentlyaired.results

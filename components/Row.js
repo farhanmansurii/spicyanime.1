@@ -20,11 +20,11 @@ const Row = ({ typeOfAnime, text }) => {
     }
   };
   return (<div className='w-11/12 mx-auto my-2  '>
-    {typeOfAnime ? (<div className="text-xl lg:text-3xl mx-3  my-3 text-primary font-damion "> {text}</div>) : ('')}
+    {typeOfAnime ? (<div className="text-xl lg:text-3xl mx-2  my-3 text-primary font-damion "> {text}</div>) : ('')}
 
 
 
-    <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
+    <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-1 ">
       {typeOfAnime?.map((e) =>
 
         <AnimeCard key={e.id} animeImg={e.image} title={e.title.english || e.title.userPreferred} extratext={e.rating} id={e.id} />

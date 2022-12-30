@@ -1,6 +1,5 @@
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import parse from 'html-react-parser';
-import Link from 'next/link';
 import React from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { db } from './config/firebase';
@@ -67,18 +66,9 @@ const Animedetails = ({ deets, user, watchlist, animen }) => {
                 {deets.title.english || deets.title.userPreferred || deets.title.romaji || ''}
               </div>
               <div className='flex  my-auto ml-4 w-fit flex-auto '>
-                {deets.subOrDub === 'sub' ? (
 
-                  <Link href={`/dub?id=${deets.id}`} >
 
-                    <button className=' btn p-3 normal-case btn-circle  bg-secondary/40 hover:bg-secondary/40 border-0  duration-600 ease-linear text-primary'  >{deets.subOrDub}</button>
-                  </Link>
-                ) : (
-                  <Link href={`/details?id=${deets.id}`} >
-
-                    <button className='btn btn-circle p-3   w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' >{deets.subOrDub}</button>
-                  </Link>)
-                }
+                <button className='btn btn-circle p-3 lowercase  w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' >{deets.subOrDub}</button>
                 {user &&
 
                   <div className='my-auto ml-4'>

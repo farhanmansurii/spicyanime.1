@@ -1,16 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import dynamic from "next/dynamic";
 import React from "react";
+import Spinner from "react-spinner-material";
 import Animedetails from "../components/Animedetails";
 import Related from "../components/Related";
 import Row from "../components/Row";
 const Episodes = dynamic(() => import("../components/Episodes"), {
-  loading: () => <div className="mx-auto text-2xl place-text-center my-6 text-center text-primary ">loading</div>
+  loading: () => <div className='w-fit h-full ease-in-out duration-200 grid justify-center mx-auto place-content-center'>
+
+    <Spinner radius={30} color='#DA0037' stroke={5} visible={true} />
+  </div>
   , ssr: false
 });
 function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, user, animen }) {
   const epi = deets.episodes
-  console.log(contwatch, 'contwatch')
   return (
     <>
 

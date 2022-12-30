@@ -2,7 +2,8 @@ import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from 'react';
 import { MdClear, MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
-import { PulseLoader } from 'react-spinners';
+import ReactPlayer from 'react-player';
+import Spinner from 'react-spinner-material';
 import { db } from './config/firebase';
 import EpisodeCard from './EpisodeCard';
 const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
@@ -17,12 +18,12 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
   const [epqual, setepqual] = React.useState()
   const [epid, setepid] = React.useState(deets.episodes[0].id || deets.episode[1].id)
   const [episodedeets, setepisodedeets] = useState({ number: deets.episodes[0].number, title: deets.episodes[0].title, description: epi[0].description } || { number: deets.episodes[1].number, title: deets.episodes[1].title, description: epi[1].description })
-  function epfetch() {
-    fetch(
-      "https://api.amvstr.ml/api/v2/stream?id=" + epid)
+  async function epfetch(epid) {
+    await fetch(
+      "https://gogoanime.consumet.org/vidcdn/watch/" + epid)
       .then((res) => res.json())
       .then((json) => {
-        seteplink(json.plyr.main || json.nspl.main || json.plyr.backup || json.nspl.backup)
+        seteplink(json.sources[0].file || json.sources_bk[0].file || '')
       });
   }
 
@@ -77,16 +78,16 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     }
   }
   useEffect(() => {
-    epfetch()
+    epfetch(epid)
     return () => {
     }
   }, [epid])
   return (<>
-    <div className=" place-self-center my-5 w-[97%] rounded-xl aspect-video lg:w-[720px]     border-t-2  border-secondary bg-base-100-focus mx-auto whitespace-wrap ">
+    <div className=" place-self-center my-5 w-[97%]  aspect-video lg:w-[720px]     border-t-2  border-secondary bg-base-100-focus mx-auto whitespace-wrap ">
       <div className='flex flex-auto  space-x-3 justify-between mx-5 my-2 lg:p-3'>
         <div>
           {deets.type !== "MOVIE" ? (<div className=" mx-auto text-md lg:text-xl  text-primary font-damion normal-case line-clamp-2"  > Ep {episodedeets.number} : {" "}{episodedeets.title} </div>
-          ) : <div className=" mx-auto my-auto text-mdlg:text-xl text-primary font-damion normal-case line-clamp-2" > Movie</div>}
+          ) : <div className=" mx-auto my-auto text-md lg:text-xl text-primary font-damion normal-case line-clamp-2" > Movie</div>}
         </div>
 
         {deets.totalEpisodes > curr && <div className='w-fit btn  btn-sm font-normal  text-primary rounded-none normal-case font-damion bg-base-100/50  text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
@@ -94,16 +95,19 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
       {eplink ?
 
-        <iframe src={eplink} className='w-[97%] rounded-xl aspect-video lg:w-[720px] lg:h-[405px] mx-auto'
-        />
-        :
-        <div className='w-full aspect-video lg:max-w-[720px] lg:max-h-[405px] mx-auto'>
-          <PulseLoader
+        <ReactPlayer
+          url={eplink}
+          width='100%'
+          quality={[
+            { label: 'Low', value: 'low' },
+            { label: 'Medium', value: 'medium' },
+            { label: 'High', value: 'high' }
+          ]}
+          controls={['quality', 'play', 'progress', 'current-time', 'duration']}
+        /> :
+        <div className='w-fit h-full ease-in-out duration-200 grid justify-center mx-auto place-content-center'>
 
-            color="red"
-            cssOverride={override}
-            size={10}
-          />
+          <Spinner radius={30} color='#DA0037' stroke={5} visible={true} />
         </div>
       }
     </div>
@@ -171,7 +175,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     <div className=" flex overflow-x-scroll m-1 p-1 w-11/12 mx-auto scrollbar-hide ">
       {epi.slice(initial, final).map((e) => (
         <motion.ul key={e.id} className="item" variants={item} >
-          <div key={e.id} className="flex my-3 flex-col-reverse bg-cover ease-in transition duration-100  transform sm:hover:scale-105  rounded-[10px]  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e) }}>
+          <div key={e.id} className="flex my-3 flex-col-reverse bg-cover ease-in  h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-2 " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e) }}>
 
             <EpisodeCard episode={e} id={e.id} user={user} />
           </div>
