@@ -19,11 +19,8 @@ const Row = ({ typeOfAnime, text }) => {
       opacity: 1
     }
   };
-  return (<div className='w-11/12 mx-auto my-2  '>
+  return (<div className='w-11/12 mx-auto my-10  '>
     {typeOfAnime ? (<div className="text-xl lg:text-3xl mx-2  my-3 text-primary font-damion "> {text}</div>) : ('')}
-
-
-
     <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-1 ">
       {typeOfAnime?.map((e) =>
 

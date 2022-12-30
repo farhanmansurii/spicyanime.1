@@ -10,7 +10,7 @@ const Navbar = ({ user }) => {
       <div className='w-11/12 mx-auto top-0'>
         <div className="flex-1 ">
           <Link href='/' >
-            <button className=' btn font-damion btn-ghost normal-case text-primary text-xl' >
+            <button className=' btn  btn-ghost normal-case text-primary text-xl' >
               SpicyAnime
             </button>
           </Link>

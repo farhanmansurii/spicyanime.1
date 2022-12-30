@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['SF Pro Text '],
-        'damion': ['GT Super Display'],
+        'sans': ['Book '],
+        'damion': ['Gotham'],
       }
     }
   },

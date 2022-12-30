@@ -2,51 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 @font-face {
-  font-family: "GT America";
-  src: url("./font/GTAmerica-Bold.woff2") format("woff2"),
-    url("./font/GTAmerica-Bold.woff") format("woff");
+  font-family: 'GT America';
+  src: url('./font/GTAmerica-Bold.woff2') format('woff2'), url('./font/GTAmerica-Bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "PolySans Neutral";
-  src: url("./font/PolySans-Neutral.woff2") format("woff2"),
-    url("./font/PolySans-Neutral.woff") format("woff");
+  font-family: 'PolySans Neutral';
+  src: url('./font/PolySans-Neutral.woff2') format('woff2'), url('./font/PolySans-Neutral.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "HelveticaNeue";
-  src: url("./font/HelveticaNeueMedium.woff2") format("woff2"),
-    url("./font/HelveticaNeueMedium.woff") format("woff");
+  font-family: 'HelveticaNeue';
+  src: url('./font/HelveticaNeueMedium.woff2') format('woff2'), url('./font/HelveticaNeueMedium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "SF Pro Text";
-  src: url("./font/SFProText-Regular.woff2") format("woff2"),
-    url("./font/SFProText-Regular.woff") format("woff");
+  font-family: 'SF Pro Text';
+  src: url('./font/SFProText-Regular.woff2') format('woff2'), url('./font/SFProText-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "HelveticaNeue light";
-  src: url("./font/HelveticaNeueLight.woff2") format("woff2"),
-    url("./font/HelveticaNeueLight.woff") format("woff");
+  font-family: 'HelveticaNeue light';
+  src: url('./font/HelveticaNeueLight.woff2') format('woff2'), url('./font/HelveticaNeueLight.woff') format('woff');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "GT Super Display";
-  src: url("./font/GTSuperDisplay-Medium.woff2") format("woff2"),
-    url("./font/GTSuperDisplay-Medium.woff") format("woff");
+  font-family: 'GT Super Display';
+  src: url('./font/GTSuperDisplay-Medium.woff2') format('woff2'), url('./font/GTSuperDisplay-Medium.woff') format('woff');
   font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gotham';
+  src: url('./font/Gotham-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Book';
+  src: url('./font/Gotham-Book.woff') format('woff');
+  font-weight: normal;
   font-style: normal;
   font-display: swap;
 }

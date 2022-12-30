@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
+import Spinner from "react-spinner-material";
 import Row from "../components/Row";
 import useDebounce from "../hooks/useDebounce";
 const URL = "https://api.consumet.org/meta/anilist/advanced-search?query=[%22naruto%22]&perPage=6";
 const SearchPage = () => {
   const [val, setval] = useState("");
   const [searchList, setSearchList] = useState([]);
+  const [isloading, setisloading] = useState(true)
   const debouncedSearch = useDebounce(val, 1000);
   useEffect(() => {
     async function fetchData() {
-
+      setisloading(true)
       const data = await fetch(
         `https://api.consumet.org/meta/anilist/advanced-search?query=${debouncedSearch}`
       ).then((res) => res.json());
       setSearchList(data.results);
-      console.log(data.results)
+      setisloading(false)
     }
 
     if (debouncedSearch) fetchData();
@@ -22,8 +24,8 @@ const SearchPage = () => {
   return (
     <>
       <div className="form-control  place-content-center">
-        <div className="flex place-self-center mt-4  w-10/12 mx-auto    bg-secondary rounded-lg">
-          <input type="text" placeholder="Search for Any Anime TV or Movie" className="input placeholder:text-primary input-bordered bg-secondary-focus input-secondary w-full" input={val} onChange={(e) => setval(e.target.value)} />
+        <div className="flex place-self-center mt-4  w-10/12 mx-auto   ">
+          <input type="text" placeholder="Search for Any Anime TV or Movie" className=" placeholder:text-primary p-4 rounded-full w-full bg-base-200   outline-none border-secondary active:border-0" input={val} onChange={(e) => setval(e.target.value)} />
         </div>
         <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
           {
@@ -31,7 +33,15 @@ const SearchPage = () => {
               <div className="text-6xl text-primary w-8/12 mx-auto mt-10 font-damion capitalize "> what are you looking for buddy ?</div>
             ) : (
 
-              <Row typeOfAnime={searchList} />
+              !isloading ? (
+
+                <Row typeOfAnime={searchList} />
+              ) : (
+                <div className='w-fit h-[200px] my-auto ease-in-out duration-200 grid justify-center mx-auto place-content-center'>
+                  <Spinner radius={30} color='#DA0037' stroke={5} visible={true} />
+                </div>
+              )
+
             )
           }
 

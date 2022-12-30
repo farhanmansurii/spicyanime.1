@@ -1,3 +1,4 @@
+import parse from 'html-react-parser';
 import Link from "next/link";
 import React from "react";
 export const Banner = ({ titles, description, imageban, id }) => {
@@ -13,16 +14,16 @@ export const Banner = ({ titles, description, imageban, id }) => {
             {titles}
           </h1>
           <div className="max-w-xs text-xs text-shadow-md md:max-w-lg md:text-md  text-primary/80 lg:max-w-2xl lg:text-lg my-2 line-clamp-2">
-            {description}
+            {parse(`
+                    Synopsis : ${description}
+                 `
+            )}
           </div>
           <div className="flex">
-            <Link href={`/details?id=${id}`}><button className="  normal-case btn btn-ghost btn-sm bg-secondary rounded-none text-primary sm:btn-sm md:btn-md ">
+            <Link href={`/details?id=${id}`}><div className="  font-damion  hover:scale-95 duration-150 hover:bg-secondary-focus  px-6 py-3 rounded-full bg-secondary uppercase text-primary ">
               Play
-            </button></Link>
-            <Link href={`/details?id=${id}`}>
-              <button className="btn btn-sm sm:btn-sm md:btn-md bg-primary btn-ghost normal-case text-secondary  rounded-none ">
-                More info
-              </button></Link>
+            </div></Link>
+
           </div>
         </div>
       </div>
