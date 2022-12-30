@@ -20,13 +20,17 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
   const [episodedeets, setepisodedeets] = useState({ number: epi[0].number, title: epi[0].title, description: epi[0].description } || { number: epi[1].number, title: epi[1].title, description: epi[1].description })
   async function epfetch(epid) {
     await fetch(
-      "https://gogoanime.consumet.org/vidcdn/watch/" + epid)
+      "https://api.consumet.org/anime/gogoanime/watch/" + epid)
       .then((res) => res.json())
       .then((json) => {
-        seteplink(json.sources[0].file || json.sources_bk[0].file || '')
+        seteplink(json.sources)
+        console.log(json.sources)
       });
   }
-
+  const [quality, setQuality] = useState('default' || 'backup');
+  function handleQualityChange(newQuality) {
+    setQuality(newQuality);
+  }
   const override = {
     display: "flex",
     justifyItems: 'center',
@@ -99,12 +103,10 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
           url={eplink}
           width='100%'
           height={'full'}
-          quality={[
-            { label: 'Low', value: 'low' },
-            { label: 'Medium', value: 'medium' },
-            { label: 'High', value: 'high' }
-          ]}
-          controls={['quality', 'play', 'progress', 'current-time', 'duration']}
+          quality={quality}
+          playing
+          controls
+          onQualityChange={handleQualityChange}
         /> :
         <div className='w-fit h-full ease-in-out duration-200 grid justify-center mx-auto place-content-center'>
 

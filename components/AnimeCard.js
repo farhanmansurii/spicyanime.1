@@ -11,7 +11,7 @@ function AnimeCard({ animeImg, title, id, }) {
         >
           <div className=" bg-gradient-to-t  from-base-100 justify-between  w-[100]%  min-h-full w-full flex flex-col-reverse to-transparent ">
             <div className="flex flex-row justify-between my-3 ">
-              <div className="text-[#F1E0C5] uppercase text-shadow-xl text-sm lg:text-lg   truncate line-clamp-3 whitespace-pre-wrap  mx-2  ">
+              <div className="text-[#F1E0C5] uppercase text-shadow-xl text-sm md:text-md lg:text-lg   truncate line-clamp-3 whitespace-pre-wrap  mx-2  ">
                 {title}
               </div>
             </div>
