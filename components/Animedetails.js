@@ -47,14 +47,14 @@ const Animedetails = ({ deets, user, watchlist, animen }) => {
   return (
 
     <div
-      style={{ backgroundImage: `url(${deets.image})` }}
+      style={{ backgroundImage: `url(${deets.coverImage.medium})` }}
       className="bg-cover bg-center -mt-8 w-vw  bg-hidden lg:block lg:mx-auto"
     >
       <div className="bg-gradient-to-t from-base-100  to-base-100/20 lg:to-base-100/20  lg:backdrop-blur-lg w-100">
         <div className="flex flex-col md:flex-row  items-center w-11/12  mx-auto gap-4 ">
           <div className="  my-5  mt-48 lg:mt-4 lg:w-9/12 " >
 
-            <div className="w-[149.33px] lg:w-[280.33px] bg-cover  hidden  md:block bg-no-repeat h-[233px] lg:h-[400px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.image})` }}>
+            <div className="w-[149.33px] lg:w-[280.33px] bg-cover  hidden  md:block bg-no-repeat h-[233px] lg:h-[400px] shadow-2xl rounded-lg " style={{ backgroundImage: `url(${deets.coverImage.medium})` }}>
             </div>
           </div>
 
@@ -68,7 +68,7 @@ const Animedetails = ({ deets, user, watchlist, animen }) => {
               <div className='flex  my-auto ml-4 w-fit flex-auto '>
 
 
-                <button className='btn btn-circle p-3 lowercase  w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' >{deets.subOrDub}</button>
+                <button className='btn btn-circle p-3 lowercase  w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' >sub</button>
                 {user &&
 
                   <div className='my-auto ml-4'>
@@ -100,12 +100,10 @@ const Animedetails = ({ deets, user, watchlist, animen }) => {
 
             </div>
             <div className='flex flex-wrap'>
-              <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50   text-primary rounded-2xl border-2 border-secondary/30    text-shadow-xl   w-fit">
-                {deets.type}
-              </div>
+
 
               <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50   text-primary rounded-2xl border-2 border-secondary/30  text-shadow-xl   w-fit">
-                {deets.genres.slice(0, 2).map((e, index) => (
+                {deets.genres.map((e, index) => (
                   <div
                     key={index}
                     className='mx-1'
@@ -115,15 +113,19 @@ const Animedetails = ({ deets, user, watchlist, animen }) => {
                 ))}
 
 
-              </div>             <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
+              </div>
+              <div className="px-2 py-1  lowercase flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
                 {deets.status}
               </div>
-              {deets.startDate.day !== null && (<div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
+              <div className="px-2 py-1  lowercase flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
+                {deets.year}
+              </div>
+              {/* {deets.startDate.day !== null && (<div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
                 from  {deets.startDate.month}/{deets.startDate.year}
               </div>)}
               {deets.endDate.day !== null && (<div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary border-2 border-secondary/30 text-shadow-xl   w-fit">
                 to  {deets.endDate.month}/{deets.endDate.year}
-              </div>)}
+              </div>)} */}
               {
                 deets.totalEpisodes !== null ? (
                   <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary   text-shadow-xl  border-2 border-secondary/30 w-fit">

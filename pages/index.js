@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import Link from "next/link";
 import React from "react";
 import { AiFillGoogleCircle } from 'react-icons/ai';
@@ -88,27 +87,7 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
             Recently Aired
           </div>
         </div>
-        <div className=" flex overflow-x-scroll  scrollbar-hide w-11/12 mx-auto  ">
-          {recentlyaired.map((e) => (
-            (e.type === "TV" &&
-              <Link href={`/details?id=${e.id}`} key={e.malId}>
-                <motion.ul className="item" variants={item} ><div
-                  className="flex flex-col-reverse bg-cover  duration-50 transform sm:hover:scale-[102%]  z-10 border-secondary hover:border-2   h-[113px] lg:h-[200px] w-[200px] lg:w-[300px] m-1 " key={e.id}
-                  style={{ backgroundImage: `url(${e.image})` }}
 
-                >
-                  <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
-                    <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
-                      Ep {e.episodeNumber} : {e.episodeTitle}
-                    </div>
-                    <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
-                      {e.title.userPreferred}
-                    </div>
-                  </div>
-                </div>
-                </motion.ul>
-              </Link>
-            )))}</div>
         <Row typeOfAnime={action} text={'Trending now'} />
       </div>
     </>
@@ -116,9 +95,9 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
 }
 
 export const getStaticProps = async () => {
-  const res1 = await fetch("https://api.consumet.org/meta/anilist/advanced-search?sort=[%22FAVOURITES_DESC%22,%22EPISODES%22]");
-  const res2 = await fetch("https://api.consumet.org/meta/anilist/trending");
-  const res3 = await fetch("https://api.consumet.org/meta/anilist/recent-episodes?perPage=30")
+  const res1 = await fetch("https://api.amvstr.ml/api/v2/popular?limit=10");
+  const res2 = await fetch("https://api.amvstr.ml/api/v2/trending?limit=10");
+  const res3 = await fetch("https://api.amvstr.ml/api/v2/schedule?limit=10")
   const popular = await res1.json();
   const action = await res2.json();
   const recentlyaired = await res3.json();

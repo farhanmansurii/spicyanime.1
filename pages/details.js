@@ -12,8 +12,9 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
   </div>
   , ssr: false
 });
-function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, user, animen }) {
-  const epi = deets.episodes
+function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, epi, user, animen }) {
+  console.log(epi)
+  console.log(deets)
   return (
     <>
 
@@ -22,8 +23,7 @@ function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, user
           <Animedetails deets={deets} animen={animen} watchlist={watchlist} contwatch={contwatch} setcontwatch={setcontwatch} setwatchlist={setwatchlist} user={user} />
         </div>
       )}
-
-      {deets.episodes?.length >= 1 ?
+      {epi.length >= 1 ?
         (
 
           <div className=" w-full mx-auto">
@@ -38,7 +38,7 @@ function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, user
       {deets.relations &&
         <div className="pb-[6rem] lg:pb-3">
 
-          <Related relations={deets.relations} text="Related Anime " />
+          <Related relations={deets.relations} text={epi.length} />
           <Row typeOfAnime={deets.recommendations} text="Recommendations " />
         </div>}
     </>
@@ -47,14 +47,17 @@ function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, user
 export async function getServerSideProps(context) {
   const animen = context.query.id;
   const deets = await fetch(
-    `https://api.consumet.org/meta/anilist/info/${animen}?provider=gogoanime&fetchFiller=true`
+    `https://api.amvstr.ml/api/v2/info/${animen}`
+  ).then((res) => res.json());
+  const epi = await fetch(
+    `https://api.amvstr.ml/api/v2/episode/${animen}`
   ).then((res) => res.json());
 
 
 
   return {
     props: {
-      deets, animen
+      deets: deets.data, animen, epi
     },
   };
 }
