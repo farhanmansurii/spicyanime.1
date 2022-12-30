@@ -19,10 +19,9 @@ const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
       await updateDoc(animeRef, {
         savedAnime: arrayUnion({
           userId: user?.uid,
-          title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
+          title: deets.title.english || deets.title.userPreferred || deets.title.romaji,
           id: deets.id,
-          image: deets.image,
-          type: deets.subOrDub
+          image: deets.coverImage.large,
         })
       })
     }
@@ -33,10 +32,9 @@ const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
       await updateDoc(animeRef, {
         savedAnime: arrayRemove({
           userId: user?.uid,
-          title: deets.title.userPreferred || deets.title.romaji || deets.title.english,
+          title: deets.title.english || deets.title.userPreferred || deets.title.romaji,
           id: deets.id,
-          image: deets.image,
-          type: deets.subOrDub
+          image: deets.coverImage.large,
         })
       })
     }
