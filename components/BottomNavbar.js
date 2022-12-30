@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { AiOutlineGoogle, AiOutlineHome } from "react-icons/ai";
-import { FiSearch } from "react-icons/fi";
+import { RiSearchFill } from "react-icons/ri";
 const BottomNavbar = ({ user }) => {
   const router = useRouter();
   return (
@@ -27,7 +27,7 @@ const BottomNavbar = ({ user }) => {
       <Link href='/searchpage' >
         <button className={router.pathname == "/searchpage" ? "active : bg-base-100/10 rounded-tr-3xl border-t-primary   text-primary" : "text-primary"}>
 
-          <FiSearch className="w-4 h-4" />
+          <RiSearchFill className="w-4 h-4" />
         </button>
       </Link>
 

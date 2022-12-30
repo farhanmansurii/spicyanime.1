@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { AiOutlineGoogle, AiOutlineHome } from "react-icons/ai";
-import { FiSearch } from "react-icons/fi";
+import { AiOutlineGoogle } from "react-icons/ai";
+import { RiHome2Fill, RiSearchFill } from "react-icons/ri";
 const Navbar = ({ user }) => {
   const router = useRouter();
   return (
@@ -19,13 +19,13 @@ const Navbar = ({ user }) => {
           <ul className="menu menu-horizontal p-0 space-x-5">
             <Link href='/' >
               <button className='   font-damion btn btn-ghost normal-case text-primary text-xl' >
-                <AiOutlineHome className="w-6 h-6" />
+                <RiHome2Fill className="w-6 h-6" />
               </button>
             </Link>
 
             <Link href='/searchpage' >
               <button className=' font-damion btn btn-ghost normal-case  text-primary text-xl'>
-                < FiSearch className="w-6 h-6" />
+                < RiSearchFill className="w-6 h-6" />
               </button>
             </Link>
             <Link href='/mylist' >

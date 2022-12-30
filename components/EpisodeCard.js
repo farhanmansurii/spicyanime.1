@@ -15,7 +15,7 @@ const EpisodeCard = ({ episode }) => {
     >
       <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
         {episode.isFiller ? (<div className="w-full text-center bg-secondary text-xs     font-semibold  py-1/2 text-primary">filler</div>
-        ) : (<div className="self-bottom text-sm  line-clamp-1 text-primary/50 whitespace-wrap  ">
+        ) : (<div className="self-bottom text-sm  truncate w-10/12 text-primary/50 whitespace-wrap  ">
           {episode.description}
         </div>)
         }
