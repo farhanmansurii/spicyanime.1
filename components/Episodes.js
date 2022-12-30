@@ -2,10 +2,11 @@ import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from 'react';
 import { MdClear, MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
-import ReactPlayer from 'react-player';
 import Spinner from 'react-spinner-material';
 import { db } from './config/firebase';
+
 import EpisodeCard from './EpisodeCard';
+
 const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
   const item = {
     hidden: { y: 10, opacity: 0 },
@@ -15,19 +16,19 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     }
   };
   const [eplink, seteplink] = React.useState()
-  const [epqual, setepqual] = React.useState()
+  const [isloading, setisloading] = React.useState()
   const [epid, setepid] = React.useState(epi[0].id || epi[1].id)
   const [episodedeets, setepisodedeets] = useState({ number: epi[0].number, title: epi[0].title, description: epi[0].description } || { number: epi[1].number, title: epi[1].title, description: epi[1].description })
   async function epfetch(epid) {
     await fetch(
-      "https://api.consumet.org/anime/gogoanime/watch/" + epid)
+      "https://api.amvstr.ml/api/v2/stream?id=" + epid)
       .then((res) => res.json())
       .then((json) => {
-        seteplink(json.sources)
-        console.log(json.sources)
+        seteplink(json.plyr.main || json.nspl.main || json.plyr.backup || json.nspl.backup)
+        console.log(json.plyr.main)
       });
   }
-  const [quality, setQuality] = useState('default' || 'backup');
+  const [quality, setQuality] = useState('default');
   function handleQualityChange(newQuality) {
     setQuality(newQuality);
   }
@@ -97,18 +98,11 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
         {epi.length > curr && <div className='w-fit btn  btn-sm font-normal  text-primary rounded-none normal-case font-damion bg-base-100/50  text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
         }</div>
 
-      {eplink ?
+      {!isloading ?
 
-        <ReactPlayer
-          url={eplink}
-          width='100%'
-          height={'full'}
-          quality={quality}
-          playing
-          controls
-          onQualityChange={handleQualityChange}
+        <iframe src={eplink} className='w-[97%]  aspect-video lg:w-[720px] lg:h-[405px] mx-auto'
         /> :
-        <div className='w-fit h-full ease-in-out duration-200 grid justify-center mx-auto place-content-center'>
+        <div className='lg:w-[720px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center'>
 
           <Spinner radius={30} color='#DA0037' stroke={5} visible={true} />
         </div>
