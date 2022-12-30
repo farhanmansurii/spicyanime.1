@@ -2,15 +2,15 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { AiOutlineGoogle, AiOutlineHome } from "react-icons/ai";
-import { RiSearchFill } from "react-icons/ri";
+import { AiOutlineGoogle } from "react-icons/ai";
+import { RiHome2Fill, RiSearchFill } from "react-icons/ri";
 const BottomNavbar = ({ user }) => {
   const router = useRouter();
   return (
     <div className="btm-nav bg-secondary/20 backdrop-blur-md btm-nav-sm text-sm mb-[2rem] mx-auto rounded-full w-7/12 align-self-center font-bold fixed z-30 lg:hidden  " >
       <Link href='/' >
         <button className={router.pathname == "/" ? "active : bg-base-100/10 rounded-tl-3xl border-t-primary text-primary" : " text-primary"}>
-          <AiOutlineHome className="w-4 h-4" />
+          <RiHome2Fill className="w-4 h-4" />
         </button>
       </Link>
       <Link href='/mylist' >
