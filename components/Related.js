@@ -4,7 +4,7 @@ const Related = ({ relations, text }) => {
   return (<>
 
     <div className='w-11/12 mx-auto my-6 '>
-      <div className="  mx-2 text-xl font-damion  text-primary ">
+      <div className="text-xl lg:text-3xl mx-2  my-3 text-primary font-damion ">
         {text}
       </div>
       <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
