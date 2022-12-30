@@ -164,10 +164,10 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     <div className='flex flex-row w-11/12 mx-auto  my-4'>
 
 
-      {epi.length > 25 && (<div className="btn-group hover:bg-transparent btn-ghost align-end  w-10/12   ">
-        {initial !== 0 ? (<button className="btn btn-primary border-0  bg-base-100  hover:bg-secondary  text-primary " onClick={() => { setinitial(initial - 24), setfinal(final - 24) }}><MdOutlineArrowBack className='w-6 h-6' /></button>) : (<button className="btn btn-primary border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowBack className='w-6 h-6' /></button>)}
+      {epi.length > 25 && (<div className="btn-group gap-2 hover:bg-transparent btn-ghost align-end  w-10/12   ">
+        {initial !== 0 ? (<button className=" bg-secondary p-3 duration-100 hover:scale-95 hover:bg-secondary-focus rounded-full border-0      text-primary " onClick={() => { setinitial(initial - 24), setfinal(final - 24) }}><MdOutlineArrowBack className='w-6 h-6' /></button>) : (<button className="btn btn-primary border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowBack className='w-6 h-6' /></button>)}
 
-        {final < epi.length ? (<button className=" btn btn-primary border-0 hover:bg-secondary  bg-base-100    text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} ><MdOutlineArrowForward className='w-6 h-6' /></button>) : (<button className="btn btn-primary-focus border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowForward className='w-6 h-6' /></button>)}
+        {final < epi.length ? (<button className=" bg-secondary hover:scale-95 hover:bg-secondary-focus  p-3 rounded-full border-0     text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} ><MdOutlineArrowForward className='w-6 h-6' /></button>) : (<button className="btn btn-primary-focus border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowForward className='w-6 h-6' /></button>)}
       </div>)}
       <div className=" my-auto  mx-4 text-2xl font-damion   text-primary whitespace-nowrap ">
         Episode {initial + 1} - {final < epi.length ? final + 1 : epi.length}
