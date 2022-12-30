@@ -39,7 +39,6 @@ const Animedetails = ({ deets, user, watchlist, animen }) => {
           type: deets.subOrDub
         })
       })
-
     }
 
 
