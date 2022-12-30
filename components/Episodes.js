@@ -98,6 +98,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
         <ReactPlayer
           url={eplink}
           width='100%'
+          height={'full'}
           quality={[
             { label: 'Low', value: 'low' },
             { label: 'Medium', value: 'medium' },

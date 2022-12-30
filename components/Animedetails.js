@@ -3,7 +3,7 @@ import parse from 'html-react-parser';
 import React from 'react';
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { db } from './config/firebase';
-const Animedetails = ({ deets, user, watchlist, animen }) => {
+const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
   const deeid = deets.id
   function animeExists(deeid) {
     return watchlist?.some(function (el) {
@@ -128,7 +128,7 @@ const Animedetails = ({ deets, user, watchlist, animen }) => {
               {
                 deets.totalEpisodes !== null ? (
                   <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary   text-shadow-xl  border-2 border-secondary/30 w-fit">
-                    {deets.totalEpisodes} episodes
+                    {epi.length || ' '} episodes
                   </div>
                 ) : ('')
               }

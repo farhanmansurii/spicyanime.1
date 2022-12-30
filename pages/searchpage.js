@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import Spinner from "react-spinner-material";
 import Row from "../components/Row";
 import useDebounce from "../hooks/useDebounce";
-const URL = "https://api.consumet.org/meta/anilist/advanced-search?query=[%22naruto%22]&perPage=6";
 const SearchPage = () => {
   const [val, setval] = useState("");
   const [searchList, setSearchList] = useState([]);
   const [isloading, setisloading] = useState(true)
-  const debouncedSearch = useDebounce(val, 1000);
+  const debouncedSearch = useDebounce(val, 500);
   useEffect(() => {
     async function fetchData() {
       setisloading(true)
       const data = await fetch(
-        `https://api.consumet.org/meta/anilist/advanced-search?query=${debouncedSearch}`
+        `https://api.amvstr.ml/api/v2/search?q=${debouncedSearch}&page=1&limit=10`
       ).then((res) => res.json());
       setSearchList(data.results);
       setisloading(false)

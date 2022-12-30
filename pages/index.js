@@ -82,12 +82,6 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
       </div> : ''}
       <div className="flex flex-col    pb-10">
         <Row typeOfAnime={popular} text={'All Time Favourites'} />
-        <div className="text-xl lg:text-3xl  text-primary w-11/12 mx-auto">
-          <div className="mx-2 font-damion  my-2">
-            Recently Aired
-          </div>
-        </div>
-
         <Row typeOfAnime={action} text={'Trending now'} />
       </div>
     </>
@@ -95,18 +89,15 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
 }
 
 export const getStaticProps = async () => {
-  const res1 = await fetch("https://api.amvstr.ml/api/v2/popular?limit=10");
-  const res2 = await fetch("https://api.amvstr.ml/api/v2/trending?limit=10");
-  const res3 = await fetch("https://api.amvstr.ml/api/v2/schedule?limit=10")
+  const res1 = await fetch("https://api.amvstr.ml/api/v2/popular?limit=20");
+  const res2 = await fetch("https://api.amvstr.ml/api/v2/trending?limit=20");
   const popular = await res1.json();
   const action = await res2.json();
-  const recentlyaired = await res3.json();
 
   return {
     props: {
       popular: popular.results,
       action: action.results,
-      recentlyaired: recentlyaired.results
     },
   };
 };
