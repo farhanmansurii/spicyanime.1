@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { MdClear, MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
 import Spinner from 'react-spinner-material';
 import { db } from './config/firebase';
-
 import EpisodeCard from './EpisodeCard';
 
 const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
@@ -24,11 +23,10 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
       "https://api.amvstr.ml/api/v2/stream?id=" + epid)
       .then((res) => res.json())
       .then((json) => {
-        seteplink(json.plyr.main || json.nspl.main || json.plyr.backup || json.nspl.backup)
-        console.log(json.plyr.main)
+        seteplink(json.plyr?.backup || json.nspl?.main || json.plyr?.backup || json.nspl?.backup)
       });
   }
-  const [quality, setQuality] = useState('default');
+  const [list, setList] = useState(false);
   function handleQualityChange(newQuality) {
     setQuality(newQuality);
   }
@@ -98,7 +96,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
         {epi.length > curr && <div className='w-fit btn  btn-sm font-normal  text-primary rounded-none normal-case font-damion bg-base-100/50  text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
         }</div>
 
-      {!isloading ?
+      {eplink ?
 
         <iframe src={eplink} className='w-[97%]  aspect-video lg:w-[720px] lg:h-[405px] mx-auto'
         /> :
@@ -157,27 +155,51 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
         </div>
       </>}
-    <div className='flex flex-row w-11/12 mx-auto  mt-10 mb-4'>
+    {
+      epi.length > 101 ? (
+
+        <div className=' rounded-full w-fit p-2 bg-secondary my-5 px-5  flex gap-1  mx-auto text-lg lg:text-xl ' onClick={() => setList(!list)}>
+          Switch to {
+            !list ?
+              <div> Grid view? </div> :
+              <div> Detailed view?</div>
+          }</div>
+      ) : ''
+    }
+    {!list &&
+      <>
+        <div className='flex flex-row w-11/12 mx-auto  mt-10 mb-4'>
 
 
-      {epi.length > 25 && (<div className="btn-group gap-2 hover:bg-transparent btn-ghost align-end  w-10/12   ">
-        {initial !== 0 ? (<button className=" bg-secondary p-3 duration-100 hover:scale-95 hover:bg-secondary-focus rounded-full border-0      text-primary " onClick={() => { setinitial(initial - 24), setfinal(final - 24) }}><MdOutlineArrowBack className='w-6 h-6' /></button>) : (<button className="btn btn-primary border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowBack className='w-6 h-6' /></button>)}
+          {epi.length > 25 && (<div className="btn-group gap-2 hover:bg-transparent btn-ghost align-end  w-10/12   ">
+            {initial !== 0 ? (<button className=" bg-secondary p-3 duration-100 hover:scale-95 hover:bg-secondary-focus rounded-full border-0      text-primary " onClick={() => { setinitial(initial - 24), setfinal(final - 24) }}><MdOutlineArrowBack className='w-6 h-6' /></button>) : (<button className="btn btn-primary border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowBack className='w-6 h-6' /></button>)}
 
-        {final < epi.length ? (<button className=" bg-secondary hover:scale-95 hover:bg-secondary-focus  p-3 rounded-full border-0     text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} ><MdOutlineArrowForward className='w-6 h-6' /></button>) : (<button className="btn btn-primary-focus border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowForward className='w-6 h-6' /></button>)}
-      </div>)}
-      <div className="  mx-4 text-2xl font-damion   text-primary whitespace-nowrap ">
-        Episode {initial + 1} - {final < epi.length ? final + 1 : epi.length}
-      </div>
-    </div>
-    <div className=" flex overflow-x-scroll m-1 p-1 w-11/12 mx-auto scrollbar-hide ">
-      {epi.slice(initial, final).map((e) => (
-        <motion.ul key={e.id} className="item" variants={item} >
-          <div key={e.id} className="flex mb-3 flex-col-reverse bg-cover   aspect-video w-[200px] lg:w-[300px] mx-[4px] " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e) }}>
-
-            <EpisodeCard episode={e} id={e.id} user={user} />
+            {final < epi.length ? (<button className=" bg-secondary hover:scale-95 hover:bg-secondary-focus  p-3 rounded-full border-0     text-primary " onClick={() => { setinitial(initial + 24), setfinal(final + 24) }} ><MdOutlineArrowForward className='w-6 h-6' /></button>) : (<button className="btn btn-primary-focus border-0  bg-base-100  hover:bg-secondary  text-primary/20 btn-disabled "><MdOutlineArrowForward className='w-6 h-6' /></button>)}
+          </div>)}
+          <div className="  mx-4 text-2xl font-damion   text-primary whitespace-nowrap ">
+            Episode {initial + 1} - {final < epi.length ? final + 1 : epi.length}
           </div>
-        </motion.ul>
-      ))}
+        </div>
+        <div className=" flex overflow-x-scroll m-1 p-1 w-11/12 mx-auto scrollbar-hide ">
+
+          {
+            epi.slice(initial, final).map((e) => (
+              <motion.ul key={e.id} className="item" variants={item} >
+                <div key={e.id} className="flex mb-3 flex-col-reverse bg-cover   aspect-video w-[200px] lg:w-[300px] mx-[4px] " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e) }}>
+
+                  <EpisodeCard episode={e} id={e.id} user={user} />
+                </div>
+              </motion.ul>
+
+            ))
+          }
+        </div>
+      </>
+    }
+    <div className='flex w-11/12 flex-wrap gap-2 mx-auto'>
+      {epi.length > 101 && list && epi.reverse().map((e) =>
+
+        <div key={e.id} onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e) }} className='bg-secondary  p-2 w-10  justify-center grid' >{e.number}</div>)}
     </div>
 
 

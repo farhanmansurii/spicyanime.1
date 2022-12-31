@@ -80,7 +80,7 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
         </div>
 
       </div> : ''}
-      <div className="flex flex-col    pb-10">
+      <div className="flex flex-col   pb-24 lg:pb-10">
         <Row typeOfAnime={popular} text={'All Time Favourites'} />
         <Row typeOfAnime={action} text={'Trending now'} />
       </div>

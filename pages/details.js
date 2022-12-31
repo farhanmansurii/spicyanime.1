@@ -31,11 +31,11 @@ function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, epi,
           </div>
         ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">No episodes</div>)
       }
-      <div>
+      <div className="mb-24 lg:pb-10">
 
 
+        <Row typeOfAnime={related} text="Recommendations " />
       </div>
-      <Row typeOfAnime={related} text="Recommendations " />
     </>
   );
 }
