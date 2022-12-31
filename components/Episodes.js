@@ -27,9 +27,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
       });
   }
   const [list, setList] = useState(false);
-  function handleQualityChange(newQuality) {
-    setQuality(newQuality);
-  }
+
   const override = {
     display: "flex",
     justifyItems: 'center',
