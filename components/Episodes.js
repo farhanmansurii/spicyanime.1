@@ -1,5 +1,5 @@
 import 'firebase/database';
-import { doc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from 'react';
 import { MdClear, MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
@@ -64,12 +64,12 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     }
     if (user?.email) {
 
-      updateElement(user?.email, deets.id, {
-        number: e.number,
-        title: e.title,
-        description: e.description,
-        image: e.image, epid: e.id,
-        eptitle: deets.title.english || deets.title.userPreferred || deets.title.romaji
+      await updateDoc(animeRef, {
+        continue: arrayUnion(
+
+          data
+
+        )
       })
     }
   }
