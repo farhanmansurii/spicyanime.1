@@ -24,12 +24,12 @@ const SearchPage = () => {
     <>
       <div className="form-control  place-content-center">
         <div className="flex place-self-center mt-4  w-10/12 mx-auto   ">
-          <input type="text" placeholder="Search for Any Anime TV or Movie" className=" placeholder:text-primary p-4 rounded-full w-full bg-base-200   outline-none border-secondary active:border-0" input={val} onChange={(e) => setval(e.target.value)} />
+          <input type="text" placeholder="Search for Any Anime TV or Movie" className=" placeholder:text-primary p-4 rounded-full w-full backdrop-blur-sm bg-secondary/20    outline-none border-secondary active:border-0" input={val} onChange={(e) => setval(e.target.value)} />
         </div>
         <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-2 ">
           {
             val === '' ? (
-              <div className="text-6xl text-primary w-8/12 mx-auto mt-10 font-damion capitalize "> what are you looking for buddy ?</div>
+              <div className="text-6xl text-primary w-8/12 mx-auto mt-10 font-damion  "> Search for your favourite anime</div>
             ) : (
 
               !isloading ? (

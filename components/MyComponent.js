@@ -16,10 +16,10 @@ const MyComponent = ({ sources, handleVideoEnd }) => {
 
   return (
     <div>
-      <div className='gap-1 flex py-1 place-content-center'>
+      <div className='gap-1 flex py-1  flex-wrap place-content-center'>
         {sources.map((video) => (
           <button
-            onClick={() => handleQualityChange(video.url)}
+            onClick={() => handleQualityChange(video.url)} key={video.url}
             className={`${selectedUrl === video.url ? 'bg-secondary-focus text-primary border-2 border-primary' : 'bg-secondary text-primary'}  rounded-full  px-3 py-2  text-xs`}
           >     {video.quality}
           </button>
