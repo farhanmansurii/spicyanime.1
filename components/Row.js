@@ -3,6 +3,7 @@ import AnimeCard from './AnimeCard';
 const Row = ({ typeOfAnime, text }) => {
   return (<div className='w-11/12 mx-auto mt-10  '>
     {typeOfAnime ? (<div className="text-xl lg:text-3xl mx-2  my-3 text-[#F1E0C5] font-damion "> {text}</div>) : ('')}
+
     <div className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-1 ">
       {typeOfAnime?.map((e) =>
 

@@ -5,6 +5,7 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { db } from './config/firebase';
 const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
   const deeid = deets.id
+  console.log(deets.coverImage.color)
   function animeExists(deeid) {
     return watchlist?.some(function (el) {
       return el.id === deeid;
@@ -44,7 +45,7 @@ const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
   return (
 
     <div
-      style={{ backgroundImage: `url(${deets.bannerImage})` }}
+      style={{ backgroundImage: `url(${deets.coverImage.large})` }}
       className="bg-cover bg-center -mt-8 w-vw  bg-hidden lg:block lg:mx-auto"
     >
       <div className="bg-gradient-to-t from-base-100  to-base-100/20 lg:to-base-100/20  lg:backdrop-blur-lg w-100">
@@ -65,16 +66,16 @@ const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
               <div className='flex  my-auto ml-4 w-fit flex-auto '>
 
 
-                <button className='btn btn-circle p-3 lowercase  w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' >sub</button>
+                <button style={{ backgroundColor: deets.coverImage.color }} className='btn btn-circle p-3 lowercase  w-fit /50 hover:/50 border-0 duration-10000 ease-linear text-primary ' >sub</button>
                 {user &&
 
                   <div className='my-auto ml-4'>
 
                     {!setIsAdded ?
-                      (<button className='btn btn-circle p-3   w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary ' onClick={saveAnime} >
+                      (<button className='btn btn-circle p-3   w-fit /50 hover:/50 border-0 duration-10000 ease-linear text-primary' onClick={saveAnime} >
                         < AiOutlineHeart className='h-6  w-6' />
                       </button>) :
-                      (<button className=' btn btn-circle p-3 w-fit bg-secondary/40 hover:bg-secondary/40 border-0  duration-600 ease-linear text-primary' onClick={removeAnime} > < AiFillHeart className=' h-6 w-6 ease-in duration-600 ' />
+                      (<button style={{ backgroundColor: deets.coverImage.color }} className=' btn btn-circle p-3 w-fit  border-0  duration-600 ease-linear text-primary' onClick={removeAnime} > < AiFillHeart className=' h-6 w-6 ease-in duration-600 ' />
                       </button>)}
 
                   </div>
@@ -84,7 +85,7 @@ const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
 
 
 
-            <div className="px-3 rounded-2xl py-2 flex  lg:max-h-[10rem] max-h-[5rem] overflow-y-scroll scrollbar-hide flex-row m-1 mt-3 text-xs lg:text-lg bg-base-100/50   text-primary text-shadow-xl   border-2 border-secondary/30 w-11/12 ">
+            <div style={{ backgroundColor: deets.coverImage.color, }} className={`px-3  bg- rounded-2xl py-2 flex  lg:max-h-[10rem] max-h-[5rem] overflow-y-scroll scrollbar-hide flex-row m-1 mt-3 text-xs lg:text-lg    text-base-100 text-shadow-xl   border-secondary/30 w-11/12 `}>
               <div  >
                 <div   >
                   {parse(`
@@ -99,7 +100,7 @@ const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
             <div className='flex flex-wrap'>
 
 
-              <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50   text-primary rounded-2xl border-2 border-secondary/30  text-shadow-xl   w-fit">
+              <div style={{ backgroundColor: deets.coverImage.color, }} className="px-2 py-1 flex m-1 text-[9px] lg:text-lg    text-base-100 rounded-2xl border-secondary/30  text-shadow-xl   w-fit">
                 {deets.genres.map((e, index) => (
                   <div
                     key={index}
@@ -111,21 +112,21 @@ const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
 
 
               </div>
-              <div className="px-2 py-1  lowercase flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
+              <div style={{ backgroundColor: deets.coverImage.color, }} className="px-2 py-1  lowercase flex m-1 text-[9px] lg:text-lg  rounded-2xl text-base-100  border-secondary/30 text-shadow-xl   w-fit">
                 {deets.status}
               </div>
-              <div className="px-2 py-1  lowercase flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
+              <div style={{ backgroundColor: deets.coverImage.color, }} className="px-2 py-1  lowercase flex m-1 text-[9px] lg:text-lg  rounded-2xl text-base-100  border-secondary/30 text-shadow-xl   w-fit">
                 {deets.year}
               </div>
-              {/* {deets.startDate.day !== null && (<div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary  border-2 border-secondary/30 text-shadow-xl   w-fit">
+              {/* {deets.startDate.day !== null && (<div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg  rounded-2xl text-base-100  border-secondary/30 text-shadow-xl   w-fit">
                 from  {deets.startDate.month}/{deets.startDate.year}
               </div>)}
-              {deets.endDate.day !== null && (<div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary border-2 border-secondary/30 text-shadow-xl   w-fit">
+              {deets.endDate.day !== null && (<div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg  rounded-2xl text-base-100 border-secondary/30 text-shadow-xl   w-fit">
                 to  {deets.endDate.month}/{deets.endDate.year}
               </div>)} */}
               {
                 deets.totalEpisodes !== null ? (
-                  <div className="px-2 py-1 flex m-1 text-[9px] lg:text-lg bg-base-100/50 rounded-2xl text-primary   text-shadow-xl  border-2 border-secondary/30 w-fit">
+                  <div style={{ backgroundColor: deets.coverImage.color, }} className="px-2 py-1  flex m-1 text-[9px] lg:text-lg  rounded-2xl text-base-100   text-shadow-xl  border-secondary/30 w-fit">
                     {epi.length || ' '} episodes
                   </div>
                 ) : ('')

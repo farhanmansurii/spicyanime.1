@@ -5,7 +5,7 @@ import { MdClear, MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNe
 import Spinner from 'react-spinner-material';
 import { db } from './config/firebase';
 import EpisodeCard from './EpisodeCard';
-
+import MyComponent from './MyComponent';
 const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
   const item = {
     hidden: { y: 10, opacity: 0 },
@@ -20,10 +20,11 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
   const [episodedeets, setepisodedeets] = useState({ number: epi[0].number, title: epi[0].title, description: epi[0].description } || { number: epi[1].number, title: epi[1].title, description: epi[1].description })
   async function epfetch(epid) {
     await fetch(
-      "https://api.amvstr.ml/api/v2/stream?id=" + epid)
+      "https://api.consumet.org/anime/gogoanime/watch/" + epid)
       .then((res) => res.json())
       .then((json) => {
-        seteplink(json.plyr?.backup || json.nspl?.main || json.plyr?.backup || json.nspl?.backup)
+        seteplink(json.sources)
+        console.log(json.sources)
       });
   }
   const [list, setList] = useState(false);
@@ -96,8 +97,13 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
       {eplink ?
 
-        <iframe src={eplink} className='w-[97%]  aspect-video lg:w-[720px] lg:h-[405px] mx-auto'
-        /> :
+        <div className='w-full aspect-video'>
+          <MyComponent
+            sources={eplink}
+          />
+        </div>
+
+        :
         <div className='lg:w-[720px]  w-[97%] aspect-video ease-in-out duration-200 grid justify-center mx-auto place-content-center'>
 
           <Spinner radius={30} color='#DA0037' stroke={5} visible={true} />
