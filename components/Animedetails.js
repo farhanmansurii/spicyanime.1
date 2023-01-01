@@ -66,16 +66,15 @@ const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
               <div className='flex  my-auto ml-4 w-fit flex-auto '>
 
 
-                <button style={{ backgroundColor: deets.coverImage.color }} className='btn btn-circle p-3 lowercase  w-fit /50 hover:/50 border-0 duration-10000 ease-linear text-primary ' >sub</button>
                 {user &&
 
                   <div className='my-auto ml-4'>
 
                     {!setIsAdded ?
-                      (<button className='btn btn-circle p-3   w-fit /50 hover:/50 border-0 duration-10000 ease-linear text-primary' onClick={saveAnime} >
+                      (<button className='btn btn-circle p-3   w-fit bg-secondary/50 hover:bg-secondary/50 border-0 duration-10000 ease-linear text-primary' onClick={saveAnime} >
                         < AiOutlineHeart className='h-6  w-6' />
                       </button>) :
-                      (<button style={{ backgroundColor: deets.coverImage.color }} className=' btn btn-circle p-3 w-fit  border-0  duration-600 ease-linear text-primary' onClick={removeAnime} > < AiFillHeart className=' h-6 w-6 ease-in duration-600 ' />
+                      (<button className=' btn btn-circle p-3 w-fit bg-secondary-focus/50 hover:bg-secondary-focus/50 border-0  duration-600 ease-linear text-primary' onClick={removeAnime} > < AiFillHeart className=' h-6 w-6 ease-in duration-600 ' />
                       </button>)}
 
                   </div>

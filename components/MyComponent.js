@@ -1,46 +1,39 @@
-import Hls from 'hls.js';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react'
+import ReactPlayer from 'react-player'
 
-const MyComponent = ({ sources }) => {
-  const playerRef = useRef(null);
+const MyComponent = ({ sources, handleVideoEnd }) => {
+  const [selectedUrl, setSelectedUrl] = useState(null)
+  const handleQualityChange = (url) => {
+    setSelectedUrl(url)
+  }
 
   useEffect(() => {
-    const defaultSource = sources?.find((source) => source.quality === "default");
-
-    if (Hls.isSupported()) {
-      const hls = new Hls();
-      hls.loadSource(defaultSource?.url);
-      hls.attachMedia(playerRef.current);
-
-      return () => {
-        hls.destroy();
-      };
+    const defaultVideo = sources.find((video) => video.quality === 'default')
+    if (defaultVideo) {
+      setSelectedUrl(defaultVideo.url)
     }
-  }, [sources]);
-
-  const handleQualityChange = (event) => {
-    let selectedSource;
-
-    if (event.target.value === "default") {
-      selectedSource = sources.find((source) => source.quality === "default");
-    } else {
-      selectedSource = sources?.find((source) => source?.quality === event.target.value);
-    }
-
-    playerRef.current.src = selectedSource?.url;
-  };
+  }, [])
 
   return (
     <div>
-
-      <video ref={playerRef} controls className='w-full h-full'></video>
-      <select className='px-3 py-2 bg-base-100 rounded-3xl border-[2px] border-primary my-2' onChange={handleQualityChange} defaultValue="default">
-        {sources.map((source) => (
-          <option key={source.quality} value={source.quality}>{source.quality}</option>
+      <div className='gap-1 flex py-1 place-content-center'>
+        {sources.map((video) => (
+          <button
+            onClick={() => handleQualityChange(video.url)}
+            className={`${selectedUrl === video.url ? 'bg-secondary-focus text-primary border-2 border-primary' : 'bg-secondary text-primary'}  rounded-full  px-3 py-2  text-xs`}
+          >     {video.quality}
+          </button>
         ))}
-      </select>
+      </div>
+      {selectedUrl && (
+        <ReactPlayer
+          onEnded={handleVideoEnd}
+          url={selectedUrl}
+          controls width={'100%'} height={'100%'}
+        />
+      )}
     </div>
-  );
-};
+  )
+}
 
-export default MyComponent;
+export default MyComponent

@@ -98,7 +98,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
       {eplink ?
 
         <div className='w-full aspect-video'>
-          <MyComponent
+          <MyComponent handleVideoEnd={() => { seteplink(''), nextep() }}
             sources={eplink}
           />
         </div>
