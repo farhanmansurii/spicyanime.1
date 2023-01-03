@@ -71,6 +71,7 @@
     "@tailwindcss/line-clamp": "^0.4.2",
     "autoprefixer": "^10.4.8",
     "cross-env": "^7.0.3",
+    "eslint": "^8.31.0",
     "husky": "^8.0.1",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",

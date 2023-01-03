@@ -8,7 +8,7 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
   loading: () => <div className="mx-auto text-2xl place-text-center my-6 text-center text-primary ">loading</div>
   , ssr: false
 });
-function dub({ deets, setwatchlist, watchlist, , user }) {
+function dub({ deets, setwatchlist, watchlist, user }) {
   const epi = deets.episodes
   console.log(epi)
   return (
