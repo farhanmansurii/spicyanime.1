@@ -10,10 +10,10 @@ const EpisodeCard = ({ episode }) => {
   };
   return (<>
     <motion.ul className="item" variants={item} ><div
-      className="flex flex-col-reverse bg-cover    z-10 border-secondary hover:border-2   aspect-video w-[200px] lg:w-[300px] mx-1 "
+      className="flex flex-col-reverse bg-cover    z-10   aspect-video w-[200px] lg:w-[300px] mx-1 "
       style={{ backgroundImage: `url(${episode.image}) ` }}
     >
-      <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
+      <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t duration-100 border-secondary hover:border-2   h-full from-base-100 to-transparent w-full bg-cover ">
         {episode.isFiller ? (<div className="w-full text-center bg-secondary text-xs     font-semibold  py-1/2 text-primary">filler</div>
         ) : (<div className="self-bottom text-sm  truncate w-10/12 text-primary/50 whitespace-wrap  ">
           {episode.description}
