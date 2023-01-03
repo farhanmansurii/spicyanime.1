@@ -8,7 +8,7 @@ import Spinner from 'react-spinner-material';
 import { addRecentlyWatched, removeRecentlyWatched, updateRecentlyWatched } from '../redux/reducers/recentlyWatchedReducer';
 import { db } from './config/firebase';
 import EpisodeCard from './EpisodeCard';
-import MyComponent from './MyComponent';
+import Player from './Player';
 const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
   const animeId = deets.id
   const dispatch = useDispatch();
@@ -125,7 +125,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
       {eplink ?
 
         <div className='w-full aspect-video'>
-          <MyComponent handleVideoEnd={() => { seteplink(''), nextep() }}
+          <Player handleVideoEnd={() => { seteplink(''), nextep() }}
             sources={eplink}
           />
         </div>
