@@ -67,7 +67,7 @@ export default function Home({ bannerimg, popular, action, watchlist, recentlyai
           <div className="mx-2 font-damion my-3">
             Continue Watching
           </div>
-          <div className=" flex overflow-x-scroll  scrollbar-hide mx-auto my-[3rem]  gap-1 ">
+          <div className=" flex overflow-x-scroll  scrollbar-hide mx-auto   gap-1 ">
 
             {
               recentlyWatched.map((e) =>
