@@ -8,7 +8,7 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
   loading: () => <div className="mx-auto text-2xl place-text-center my-6 text-center text-primary ">loading</div>
   , ssr: false
 });
-function dub({ deets, setwatchlist, watchlist, contwatch, setContwatch, user }) {
+function dub({ deets, setwatchlist, watchlist, , user }) {
   const epi = deets.episodes
   console.log(epi)
   return (
@@ -16,7 +16,7 @@ function dub({ deets, setwatchlist, watchlist, contwatch, setContwatch, user }) 
 
       {!deets ? (<div>No Data Found</div>) : (
         <div className=" flex-column  ">
-          <Animedetails deets={deets} watchlist={watchlist} contwatch={contwatch} setContwatch={setContwatch} setwatchlist={setwatchlist} user={user} />
+          <Animedetails deets={deets} watchlist={watchlist} setwatchlist={setwatchlist} user={user} />
         </div>
       )}
 
@@ -26,7 +26,7 @@ function dub({ deets, setwatchlist, watchlist, contwatch, setContwatch, user }) 
           <div className=" w-10/12 mx-auto">
 
 
-            <Episodes deets={deets} epi={epi} user={user} contwatch={contwatch} setContwatch={setContwatch} />
+            <Episodes deets={deets} epi={epi} user={user} />
 
           </div>
         ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">No episodes</div>)

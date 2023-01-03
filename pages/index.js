@@ -11,7 +11,7 @@ import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
 import Row from "../components/Row";
 import { removeRecentlyWatched, updateRecentlyWatched } from "../redux/reducers/recentlyWatchedReducer";
-export default function Home({ bannerimg, popular, contwatch, setcontwatch, action, watchlist, recentlyaired, user, handleAuth }) {
+export default function Home({ bannerimg, popular, action, watchlist, recentlyaired, user, handleAuth }) {
   const item = {
     hidden: { y: 10, opacity: 0 },
     visible: {
@@ -67,18 +67,18 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
           <div className="mx-2 font-damion my-3">
             Continue Watching
           </div>
-          <div className=" flex overflow-x-scroll  scrollbar-hide mx-auto my-3rem gap-1 ">
+          <div className=" flex overflow-x-scroll  scrollbar-hide mx-auto my-[3rem]  gap-1 ">
 
             {
               recentlyWatched.map((e) =>
                 <Link href={`/details?id=${e.id}`} key={e.id} >
                   <div
-                    className="flex flex-col-reverse bg-cover   z-10 border-secondary hover:border-2  aspect-video min-w-[200px] lg:min-w-[300px] " key={e.id}
+                    className="flex flex-col-reverse bg-cover   z-10  aspect-video min-w-[200px] lg:min-w-[300px]  " key={e.id}
                     style={{ backgroundImage: `url(${e.image})` }}
 
                   >
 
-                    <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
+                    <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t  border-secondary hover:border-[2px] duration-100 ease-linear   h-full from-base-100 to-transparent w-full bg-cover ">
                       <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
                         Ep {e.number} : {e.title}
                       </div>

@@ -13,8 +13,6 @@ import store from '../redux/store';
 import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
-  const [contwatch, setcontwatch] = useState([])
-  const [finalcontwatch, setfinalcontwatch] = useState([])
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
   const animeRef = doc(db, 'users', `${user?.email}`);
@@ -47,7 +45,7 @@ function MyApp({ Component, pageProps }) {
     onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
       setwatchlist(doc.data()?.savedAnime);
 
-      setcontwatch(doc.data()?.continue.reverse())
+
     })
     return () => {
     }
@@ -74,7 +72,7 @@ function MyApp({ Component, pageProps }) {
         <NextNProgress color="#cc2939" startPosition={0.3} stopDelayMs={200} height={5} showOnShallow={true} options={{ easing: 'ease-in', speed: 500, showSpinner: false }} />
         <div className="sm:pb-24 lg:pb-5 pt-6 lg:pt-24  ">
 
-          <Component isLoggedIn={isLoggedIn} contwatch={contwatch} setcontwatch={setcontwatch} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
+          <Component isLoggedIn={isLoggedIn} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
         </div>
       </motion.div>
     </Provider>

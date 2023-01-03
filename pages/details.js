@@ -11,13 +11,13 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
   </div>
   , ssr: false
 });
-function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, epi, user, related, animen }) {
+function details({ deets, setwatchlist, watchlist, epi, user, related, animen }) {
   return (
     <>
 
       {!deets ? (<div>No Data Found</div>) : (
         <div className=" flex-column  ">
-          <Animedetails deets={deets} animen={animen} epi={epi} watchlist={watchlist} contwatch={contwatch} setcontwatch={setcontwatch} setwatchlist={setwatchlist} user={user} />
+          <Animedetails deets={deets} animen={animen} epi={epi} watchlist={watchlist} setwatchlist={setwatchlist} user={user} />
         </div>
       )}
       {epi.length >= 1 ?
@@ -26,7 +26,7 @@ function details({ deets, setwatchlist, watchlist, contwatch, setcontwatch, epi,
           <div className=" w-full mx-auto">
 
 
-            <Episodes deets={deets} contwatch={contwatch} setcontwatch={setcontwatch} user={user} watchlist={watchlist} setwatchlist={setwatchlist} epi={epi} />
+            <Episodes deets={deets} user={user} watchlist={watchlist} setwatchlist={setwatchlist} epi={epi} />
 
           </div>
         ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">No episodes</div>)
