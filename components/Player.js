@@ -5,7 +5,7 @@ const Player = ({ sources, handleVideoEnd }) => {
   const [selectedUrl, setSelectedUrl] = useState(null)
   const [progress, setProgress] = useState(0);
   const handleProgress = (progress) => {
-    setProgress(Math.round(progress.played * 100));
+    (Math.round(progress.played * 100));
   }
   const handleQualityChange = (url) => {
     setSelectedUrl(url)
@@ -33,7 +33,6 @@ const Player = ({ sources, handleVideoEnd }) => {
         <ReactPlayer
           onEnded={handleVideoEnd}
           url={selectedUrl}
-
           controls width={'100%'} height={'100%'}
         />
       )}
