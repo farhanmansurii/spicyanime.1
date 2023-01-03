@@ -2,12 +2,30 @@ import 'firebase/database';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from 'react';
-import { MdClear, MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
+import { MdOutlineArrowBack, MdOutlineArrowForward, MdOutlineNavigateNext } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
 import Spinner from 'react-spinner-material';
+import { addRecentlyWatched, removeRecentlyWatched, updateRecentlyWatched } from '../redux/reducers/recentlyWatchedReducer';
 import { db } from './config/firebase';
 import EpisodeCard from './EpisodeCard';
 import MyComponent from './MyComponent';
 const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
+  const animeId = deets.id
+  const dispatch = useDispatch();
+  const recentlyWatched = useSelector(state => state.recentlyWatched);
+  const handleAdd = (e) => {
+    dispatch(addRecentlyWatched({
+      item: {
+        number: e.number,
+        title: e.title,
+        description: e.description,
+        image: e.image, epid: e.id,
+        id: deets.id, eptitle: deets.title.english || deets.title.userPreferred || deets.title.romaji
+        , animeId
+      }
+    }));
+  };
+
   const item = {
     hidden: { y: 10, opacity: 0 },
     visible: {
@@ -48,12 +66,12 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     )
     contwatching(nextep[0])
     setcurr(curr + 1)
+    handleAdd(nextep[0])
+
   }
   const animeRef = doc(db, 'users', `${user?.email}`);
 
-  const updateElement = (elementId, newElement) => {
-    db.ref(`users/${user?.email}/continue/${elementId}`).update(newElement)
-  }
+
   const contwatching = async (e) => {
     const data = {
       number: e.number,
@@ -62,6 +80,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
       image: e.image, epid: e.id,
       id: deets.id, eptitle: deets.title.english || deets.title.userPreferred || deets.title.romaji
     }
+      ;
     if (user?.email) {
 
       await updateDoc(animeRef, {
@@ -72,7 +91,12 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
         )
       })
     }
+
+
   }
+  const handleClick = () => {
+    dispatch(removeRecentlyWatched({ animeId }));
+  };
   const clearcontwatching = async (e) => {
 
     if (user?.email) {
@@ -83,12 +107,40 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     }
   }
   useEffect(() => {
+    const storedState = localStorage.getItem("recentlyWatched");
+    if (storedState) {
+      dispatch(updateRecentlyWatched(JSON.parse(storedState)));
+    }
+  }, []);
+  useEffect(() => {
     epfetch(epid)
     return () => {
     }
   }, [epid])
   return (<>
-    <div className=" place-self-center my-5 w-[97%]  aspect-video lg:w-[720px]     border-t-2  border-secondary bg-base-100-focus mx-auto whitespace-wrap ">
+
+    <div className=" place-self-center my-5 w-[97%]  aspect-video lg:w-[720px]      bg-base-100-focus mx-auto whitespace-wrap ">
+      <div className='mx-auto w-auto'>
+
+        {recentlyWatched?.map((e) =>
+          e.animeId === animeId &&
+          <div onClick={() => {
+            seteplink('')
+            setepisodedeets({ number: e.number, title: e.title, description: e.description }),
+              setepid(e.epid)
+            setcurr(e.number)
+          }} key={e.epid} className='justify-around flex w-full'>
+            <div className='bg-secondary p-3  text-primary rounded-3xl mb-2 text-sm lg:text-lg font-damion flex gap-3  '> Continue watching Ep {e.number} {e.title} ?
+              <button onClick={handleClick} ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6  h-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+
+              </button>
+            </div>
+
+          </div>
+        )}
+      </div>
       <div className='flex flex-auto  space-x-3 justify-between mx-5 my-2 lg:p-3'>
         <div>
           {deets.type !== "MOVIE" ? (<div className=" mx-auto text-md lg:text-xl  text-primary font-damion normal-case line-clamp-2"  > Ep {episodedeets.number} : {" "}{episodedeets.title} </div>
@@ -97,6 +149,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
 
         {epi.length > curr && <div className='w-fit btn  btn-sm font-normal  text-primary rounded-none normal-case font-damion bg-base-100/50  text-md my-auto border-secondary-focus border-2' onClick={() => { seteplink(''), nextep() }}> Ep {curr + 1} <MdOutlineNavigateNext /></div>
         }</div>
+
 
       {eplink ?
 
@@ -115,53 +168,6 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
     </div>
 
 
-    {user &&
-      <>
-        {contwatch?.length > 0 &&
-          <div className='flex flex-auto justify-between   w-11/12 mx-auto  mt-10 mb-4 text-2xl font-damion  text-primary whitespace-nowrap '>
-
-            <div className="text-2xl duration-200 mx-4  font-damion my-auto text-primary whitespace-nowrap ">
-              Continue Watching ?
-            </div>
-            <button className='btn text-xl hover:rotate-90 hover:scale-110 hover:text-2xl duration-300   btn-circle btn-ghost font-normal  lowercase  border-0 text-primary' onClick={clearcontwatching}>
-              <MdClear /> </button>
-          </div>
-        }
-        <div className=" flex overflow-x-scroll w-11/12  scrollbar-hide  mx-auto my-3rem ">
-
-          {contwatch?.map((e) =>
-            e.id === deets.id &&
-            <div onClick={() => {
-              seteplink('')
-              setepisodedeets({ number: e.number, title: e.title, description: e.description }),
-                setepid(e.epid)
-              setcurr(e.number)
-            }} key={e.epid}>
-
-              <div
-                className="flex flex-col-reverse bg-cover ease-in transition duration-100  z-10 border-secondary hover:border-2   aspect-video w-[200px] lg:w-[300px] mx-[4px] "
-                style={{ backgroundImage: `url(${e.image}) ` }}
-              >
-                <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
-                  {e.isFiller ? (<div className="w-full text-center bg-secondary text-xs   rounded-md  font-semibold  py-1/2 text-primary">filler</div>
-                  ) : (<div className="self-bottom text-sm  line-clamp-1 text-primary/50 whitespace-wrap  ">
-                    {e.description}
-                  </div>)
-                  }
-                  <div className="flex-row">
-
-                    <div className="self-bottom   text-shadow-2xl text-primary bg-transparent text-sm lg:text-md  text-shadow-2xl whitespace-pre-wrap line-clamp-2">
-                      Ep {e.number} : {e.title}</div>
-
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          )}
-
-        </div>
-      </>}
     {
       epi.length > 101 ? (
 
@@ -192,7 +198,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
           {
             epi.slice(initial, final).map((e) => (
               <motion.ul key={e.id} className="item" variants={item} >
-                <div key={e.id} className="flex mb-3 flex-col-reverse bg-cover   aspect-video w-[200px] lg:w-[300px] mx-[4px] " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e) }}>
+                <div key={e.id} className="flex mb-3 flex-col-reverse bg-cover   aspect-video w-[200px] lg:w-[300px] mx-[4px] " onClick={() => { seteplink(''), setepid(e.id), setcurr(e.number), setepisodedeets({ number: e.number, title: e.title, description: e.description }), contwatching(e), handleAdd(e) }}>
 
                   <EpisodeCard episode={e} id={e.id} user={user} />
                 </div>

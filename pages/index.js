@@ -1,7 +1,8 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { AiFillGoogleCircle } from 'react-icons/ai';
 import { BiLogOut } from 'react-icons/bi';
+import { useDispatch, useSelector } from "react-redux";
 import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -9,6 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
 import Row from "../components/Row";
+import { removeRecentlyWatched, updateRecentlyWatched } from "../redux/reducers/recentlyWatchedReducer";
 export default function Home({ bannerimg, popular, contwatch, setcontwatch, action, watchlist, recentlyaired, user, handleAuth }) {
   const item = {
     hidden: { y: 10, opacity: 0 },
@@ -18,7 +20,15 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
     }
   };
 
-
+  const dispatch = useDispatch();
+  const recentlyWatched = useSelector(state => state.recentlyWatched);
+  const deleteItem = (id) => dispatch(removeRecentlyWatched(id))
+  useEffect(() => {
+    const storedState = localStorage.getItem("recentlyWatched");
+    if (storedState) {
+      dispatch(updateRecentlyWatched(JSON.parse(storedState)));
+    }
+  }, []);
   return (
     <><div className="  flex w-11/12 justify-between mb-3 mx-auto">
       {user ? (<>
@@ -51,36 +61,39 @@ export default function Home({ bannerimg, popular, contwatch, setcontwatch, acti
           ))}
         </Swiper>
       </div>
+      {
+        recentlyWatched.length > 0 &&
+        <div className="text-xl lg:text-3xl mt-10  text-primary w-11/12 mx-auto">
+          <div className="mx-2 font-damion my-3">
+            Continue Watching
+          </div>
+          <div className=" flex overflow-x-scroll  scrollbar-hide mx-auto my-3rem gap-1 ">
 
-      {contwatch.length > 0 ? <div className="text-xl lg:text-3xl mt-10  text-primary w-11/12 mx-auto">
-        <div className="mx-2 font-damion my-3">
-          Continue Watching
-        </div>
-        <div className=" flex overflow-x-scroll  scrollbar-hide mx-auto my-3rem ">
-          {
-            contwatch?.map((e) =>
-              <Link href={`/details?id=${e.id}`} key={e.id} >
-                <div
-                  className="flex flex-col-reverse bg-cover   z-10 border-secondary hover:border-2  aspect-video min-w-[200px] lg:w-[300px] m-2 " key={e.id}
-                  style={{ backgroundImage: `url(${e.image})` }}
+            {
+              recentlyWatched.map((e) =>
+                <Link href={`/details?id=${e.id}`} key={e.id} >
+                  <div
+                    className="flex flex-col-reverse bg-cover   z-10 border-secondary hover:border-2  aspect-video min-w-[200px] lg:min-w-[300px] " key={e.id}
+                    style={{ backgroundImage: `url(${e.image})` }}
 
-                >
+                  >
 
-                  <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
-                    <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
-                      Ep {e.number} : {e.title}
-                    </div>
-                    <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
-                      {e.eptitle}
+                    <div className=" flex flex-col-reverse  p-2 lg:p-4 bg-gradient-to-t   h-full from-base-100 to-transparent w-full bg-cover ">
+                      <div className="self-bottom text-sm  line-clamp-2 text-primary/50 mx-2 whitespace-wrap  ">
+                        Ep {e.number} : {e.title}
+                      </div>
+                      <div className="self-bottom text-shadow-2xl text-primary bg-transparent text-sm lg:text-md mx-2 text-shadow-2xl whitespace-pre-wrap line-clamp-3">
+                        {e.eptitle}
+                      </div>
+
                     </div>
                   </div>
-                </div>
-              </Link>
-            )
-          }
-        </div>
+                </Link>
+              )
+            }
+          </div></div>
 
-      </div> : ''}
+      }
       <div className="flex flex-col   pb-24 lg:pb-10">
         <Row typeOfAnime={popular} text={'All Time Favourites'} />
         <Row typeOfAnime={action} text={'Trending now'} />

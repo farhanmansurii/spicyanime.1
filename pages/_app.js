@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import { useRouter } from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
 import React, { useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
 import BottomNavbar from "../components/BottomNavbar";
 import { auth, db } from "../components/config/firebase";
 import Navbar from "../components/Navbar";
 import useAuth from '../components/UseAuth';
+import store from '../redux/store';
 import "../styles/globals.css";
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
@@ -52,7 +54,7 @@ function MyApp({ Component, pageProps }) {
   }, [user]);
 
   return (
-    <><div >
+    <Provider store={store}><div >
       <Navbar />
       <BottomNavbar user={user} isLoggedIn={isLoggedIn} />
     </div>
@@ -75,7 +77,7 @@ function MyApp({ Component, pageProps }) {
           <Component isLoggedIn={isLoggedIn} contwatch={contwatch} setcontwatch={setcontwatch} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
         </div>
       </motion.div>
-    </>
+    </Provider>
   )
 }
 
