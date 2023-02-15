@@ -5,7 +5,6 @@ import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 import { db } from './config/firebase';
 const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
   const deeid = deets.id
-  console.log(deets)
   function animeExists(deeid) {
     return watchlist?.some(function (el) {
       return el.id === deeid;
