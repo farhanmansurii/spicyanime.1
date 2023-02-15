@@ -1,3 +1,4 @@
+import axios from "axios";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { AiFillGoogleCircle } from 'react-icons/ai';
@@ -96,15 +97,34 @@ export default function Home({ newEp, popular, action, user, handleAuth }) {
 }
 
 export async function getStaticProps() {
-  const res1 = await fetch("https://api.amvstr.ml/api/v2/popular?limit=10");
-  const res2 = await fetch("https://api.amvstr.ml/api/v2/trending?limit=10");
-  const popular = await res1.json();
-  const action = await res2.json();
+  try {
+    const { data: popular } = await axios.get('https://api.amvstr.ml/api/v2/popular', {
+      params: {
+        limit: 10,
+      },
+    });
 
-  return {
-    props: {
-      popular: popular.results,
-      action: action.results,
-    },
-  };
+    const { data: action } = await axios.get('https://api.amvstr.ml/api/v2/trending', {
+      params: {
+        limit: 10,
+      },
+    });
+
+    return {
+      props: {
+        popular: popular.results,
+        action: action.results,
+      },
+      revalidate: 10800,
+
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        popular: [],
+        action: [],
+      },
+    };
+  }
 };
