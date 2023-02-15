@@ -102,9 +102,9 @@ export default function Home({ bannerimg, popular, action, watchlist, recentlyai
   )
 }
 
-export const getStaticProps = async () => {
-  const res1 = await fetch("https://api.amvstr.ml/api/v2/popular?limit=20");
-  const res2 = await fetch("https://api.amvstr.ml/api/v2/trending?limit=20");
+export async function getServerSideProps() {
+  const res1 = await fetch("https://api.amvstr.ml/api/v2/popular?limit=10");
+  const res2 = await fetch("https://api.amvstr.ml/api/v2/trending?limit=10");
   const popular = await res1.json();
   const action = await res2.json();
 
