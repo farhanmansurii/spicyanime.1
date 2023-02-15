@@ -43,7 +43,7 @@ const Episodes = ({ epi, deets, user, contwatch, setcontwatch }) => {
       .then((res) => res.json())
       .then((json) => {
         seteplink(json.sources)
-        console.log(json.sources)
+
       });
   }
   const [list, setList] = useState(false);

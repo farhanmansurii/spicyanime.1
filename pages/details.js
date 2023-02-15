@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import axios from "axios";
 import dynamic from "next/dynamic";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Spinner from "react-spinner-material";
 import Animedetails from "../components/Animedetails";
 import Row from "../components/Row";
@@ -11,7 +12,25 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
   </div>
   , ssr: false
 });
-function details({ deets, setwatchlist, watchlist, epi, user, related, animen }) {
+function details({ deets, setwatchlist, watchlist, user, related, animen }) {
+  const [epi, setEpi] = useState([]);
+  const [epIsLoading, setepIsLoading] = useState(<Spinner radius={30} color='#DA0037' stroke={5} visible={true} />);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const episodesResponse = await axios.get(`https://api.amvstr.ml/api/v2/episode/${animen}`);
+        setepIsLoading('')
+        setEpi(episodesResponse.data);
+        console.log('lazy', episodesResponse.data);
+      } catch (error) {
+        setepIsLoading("No Episodes")
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [animen]);
+
   return (
     <>
 
@@ -29,8 +48,9 @@ function details({ deets, setwatchlist, watchlist, epi, user, related, animen })
             <Episodes deets={deets} user={user} watchlist={watchlist} setwatchlist={setwatchlist} epi={epi} />
 
           </div>
-        ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">No episodes</div>)
+        ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">{epIsLoading}</div>)
       }
+
       <div className="mb-24 lg:pb-10">
 
 
@@ -40,25 +60,30 @@ function details({ deets, setwatchlist, watchlist, epi, user, related, animen })
   );
 }
 export async function getServerSideProps(context) {
-  const animen = context.query.id;
-  const deets = await fetch(
-    `https://api.amvstr.ml/api/v2/info/${animen}`
-  ).then((res) => res.json());
-  const epi = await fetch(
-    `https://api.amvstr.ml/api/v2/episode/${animen}`
-  ).then((res) => res.json()).catch(((error) => console.log(error)))
+  const animeId = context.query.id;
 
-  const related = await fetch(
-    `https://api.amvstr.ml/api/v2/recommendations/${animen}`
-  ).then((res) => res.json());
+  try {
+    const detailsResponse = await fetch(`https://api.amvstr.ml/api/v2/info/${animeId}`);
+    const details = await detailsResponse.json();
 
 
+    const relatedResponse = await fetch(`https://api.amvstr.ml/api/v2/recommendations/${animeId}`);
+    const related = await relatedResponse.json();
 
-  return {
-    props: {
-      deets: deets.data, animen, epi, related: related.data
-    },
-  };
+    return {
+      props: {
+        deets: details.data,
+        animen: animeId,
+        related: related.data
+      }
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      notFound: true
+    };
+  }
 }
+
 
 export default details;
