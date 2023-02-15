@@ -106,7 +106,7 @@ const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
                 Type :  {deets.format}
               </div>
               <div style={{ backgroundColor: deets.coverImage.color || "#cc2936", }} className="px-2 py-1  capitalize flex  text-sm lg:text-lg  rounded-2xl text-base-100  border-secondary/30 text-shadow-xl   w-fit">
-                Status :  {deets.status}
+                Status :  <span className='lowercase'>&nbsp;{deets.status}</span>
               </div>
               {
                 deets.totalEpisodes !== null ? (
