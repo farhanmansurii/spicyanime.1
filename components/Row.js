@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, { useRef } from 'react';
 import AnimeCard from './AnimeCard';
 const Row = ({ typeOfAnime, text }) => {
@@ -11,7 +12,7 @@ const Row = ({ typeOfAnime, text }) => {
     containerRef.current.scrollLeft += 1000;
   }
   return (<div className='w-11/12 mx-auto mt-10   '>
-    {typeOfAnime ? (<div className="text-xl lg:text-3xl mx-2 justify-between  my-3 flex text-[#F1E0C5] font-damion "><div>
+    {typeOfAnime ? (<div className="text-xl lg:text-3xl mx-2 uppercase  justify-between  my-3 flex text-primary font-damion "><div>
       {text}
     </div>
 
@@ -40,8 +41,10 @@ const Row = ({ typeOfAnime, text }) => {
 
     <div ref={containerRef} className=" flex overflow-x-scroll p-2 scrollbar-hide space-x-1 ">
       {typeOfAnime?.map((e) =>
+        <Link href={`/details?id=${e.id}`} key={e.id} >
 
-        <AnimeCard key={e.id} animeImg={e.image || e.coverImage.large} title={e.title.english || e.title.userPreferred} extratext={e.rating} id={e.id} />
+          <AnimeCard key={e.id} animeImg={e.image || e.coverImage.large} title={e.title.english || e.title.userPreferred} extratext={e.rating} id={e.id} />
+        </Link>
       )}
     </div>
   </div>

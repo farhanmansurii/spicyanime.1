@@ -10,20 +10,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Banner } from "../components/Banner";
 import { auth } from "../components/config/firebase";
 import Row from "../components/Row";
-import { removeRecentlyWatched, updateRecentlyWatched } from "../redux/reducers/recentlyWatchedReducer";
-export default function Home({ bannerimg, popular, action, watchlist, recentlyaired, user, handleAuth }) {
-  const item = {
-    hidden: { y: 10, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1
-    }
-  };
+import { updateRecentlyWatched } from "../redux/reducers/recentlyWatchedReducer";
+export default function Home({ newEp, popular, action, user, handleAuth }) {
 
   const dispatch = useDispatch();
   const recentlyWatched = useSelector(state => state.recentlyWatched);
-  const deleteItem = (id) => dispatch(removeRecentlyWatched(id))
   useEffect(() => {
+
     const storedState = localStorage.getItem("recentlyWatched");
     if (storedState) {
       dispatch(updateRecentlyWatched(JSON.parse(storedState)));
@@ -64,7 +57,7 @@ export default function Home({ bannerimg, popular, action, watchlist, recentlyai
       {
         recentlyWatched.length > 0 &&
         <div className="text-xl lg:text-3xl mt-10  text-primary w-11/12 mx-auto">
-          <div className="mx-2 font-damion my-3">
+          <div className="mx-2 uppercase font-damion my-3">
             Continue Watching
           </div>
           <div className=" flex overflow-x-scroll  scrollbar-hide mx-auto   gap-1 ">
@@ -103,7 +96,7 @@ export default function Home({ bannerimg, popular, action, watchlist, recentlyai
 }
 
 export async function getServerSideProps() {
-  const res1 = await fetch("https://api.amvstr.ml/api/v2/popular?limit=10");
+  const res1 = await fetch("https://api.consumet.org/meta/anilist/popular?page=1");
   const res2 = await fetch("https://api.amvstr.ml/api/v2/trending?limit=10");
   const popular = await res1.json();
   const action = await res2.json();

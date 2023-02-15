@@ -46,7 +46,7 @@ export async function getServerSideProps(context) {
   ).then((res) => res.json());
   const epi = await fetch(
     `https://api.amvstr.ml/api/v2/episode/${animen}`
-  ).then((res) => res.json());
+  ).then((res) => res.json()).catch(((error) => console.log(error)))
 
   const related = await fetch(
     `https://api.amvstr.ml/api/v2/recommendations/${animen}`

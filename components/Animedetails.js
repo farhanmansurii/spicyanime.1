@@ -57,7 +57,7 @@ const Animedetails = ({ deets, user, watchlist, animen, epi }) => {
           </div>
 
 
-          <div className="flex flex-col p-2 ">
+          <div className="flex flex-col p-2  flex-0">
 
             <div className=" flex flex-row sm:mt-10 flex-wrap  gap-4  w-full  ">
               <div className=" text-primary text-5xl ml-4 lg:text-6xl font-damion  ">

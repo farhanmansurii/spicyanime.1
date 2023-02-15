@@ -62,6 +62,7 @@
     "react-spinners": "^0.13.6",
     "react-video-player": "^1.0.0",
     "swiper": "^8.4.2",
+    "swr": "^2.0.3",
     "tailwind-scrollbar-hide": "^1.1.7",
     "tailwindcss-textshadow": "^2.1.3"
   },
