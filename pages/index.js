@@ -95,7 +95,7 @@ export default function Home({ newEp, popular, action, user, handleAuth }) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const res1 = await fetch("https://api.amvstr.ml/api/v2/popular?limit=10");
   const res2 = await fetch("https://api.amvstr.ml/api/v2/trending?limit=10");
   const popular = await res1.json();
