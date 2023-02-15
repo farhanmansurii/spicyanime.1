@@ -12,7 +12,7 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
   </div>
   , ssr: false
 });
-function details({ deets, setwatchlist, watchlist, user, related, animen }) {
+function details({ deets, setwatchlist, watchlist, user, related, animen, notFound }) {
   const [epi, setEpi] = useState([]);
   const [epIsLoading, setepIsLoading] = useState(<Spinner radius={30} color='#DA0037' stroke={5} visible={true} />);
 
@@ -34,7 +34,7 @@ function details({ deets, setwatchlist, watchlist, user, related, animen }) {
   return (
     <>
 
-      {!deets ? (<div>No Data Found</div>) : (
+      {notFound ? (<div>No Data Found</div>) : (
         <div className=" flex-column  ">
           <Animedetails deets={deets} animen={animen} epi={epi} watchlist={watchlist} setwatchlist={setwatchlist} user={user} />
         </div>
@@ -74,6 +74,7 @@ export async function getServerSideProps(context) {
       props: {
         deets: details.data,
         animen: animeId,
+        notFound: false,
         related: related.data
       }
     };
@@ -81,6 +82,7 @@ export async function getServerSideProps(context) {
     console.log(error);
     return {
       notFound: true
+      , animen: animeId
     };
   }
 }
