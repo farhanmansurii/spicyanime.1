@@ -100,7 +100,6 @@ export async function getServerSideProps() {
   const res2 = await fetch("https://api.amvstr.ml/api/v2/trending?limit=10");
   const popular = await res1.json();
   const action = await res2.json();
-  const newEp = await res3.json();
 
   return {
     props: {

@@ -1,6 +1,5 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
-import { motion } from "framer-motion";
 import { useRouter } from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
 import React, { useEffect, useState } from 'react';
@@ -15,7 +14,6 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const [watchlist, setwatchlist] = useState([])
   const { isLoggedIn, user } = useAuth();
-  const animeRef = doc(db, 'users', `${user?.email}`);
 
   const handleAuth = async () => {
     const provider = new GoogleAuthProvider();
@@ -56,25 +54,12 @@ function MyApp({ Component, pageProps }) {
       <Navbar />
       <BottomNavbar user={user} isLoggedIn={isLoggedIn} />
     </div>
-      <motion.div
-        key={router.route}
-        initial="initial"
-        animate="animate"
-        variants={{
-          initial: {
-            opacity: 0,
-          },
-          animate: {
-            opacity: 1,
-          },
-        }}
-      >
-        <NextNProgress color="#8B0000" startPosition={0.3} height={5} showOnShallow={true} options={{ easing: 'ease-in' }} />
-        <div className="sm:pb-24 lg:pb-5 pt-6 lg:pt-24  ">
 
-          <Component isLoggedIn={isLoggedIn} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
-        </div>
-      </motion.div>
+      <NextNProgress color="#8B0000" startPosition={0.3} height={5} showOnShallow={true} options={{ easing: 'ease-in' }} />
+      <div className="sm:pb-24 lg:pb-5 pt-6 lg:pt-24  ">
+
+        <Component isLoggedIn={isLoggedIn} key={router.asPath} user={user} watchlist={watchlist} setwatchlist={setwatchlist} {...pageProps} handleAuth={handleAuth} />
+      </div>
     </Provider>
   )
 }
