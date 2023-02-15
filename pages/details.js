@@ -15,19 +15,18 @@ const Episodes = dynamic(() => import("../components/Episodes"), {
 function details({ deets, setwatchlist, watchlist, user, related, animen, notFound }) {
   const [epi, setEpi] = useState([]);
   const [epIsLoading, setepIsLoading] = useState(<Spinner radius={30} color='#DA0037' stroke={5} visible={true} />);
-
+  const fetchData = async () => {
+    try {
+      const episodesResponse = await axios.get(`https://api.amvstr.ml/api/v2/episode/${animen}`);
+      setepIsLoading('')
+      setEpi(episodesResponse.data);
+    } catch (error) {
+      setepIsLoading("No Episodes")
+      console.error(error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const episodesResponse = await axios.get(`https://api.amvstr.ml/api/v2/episode/${animen}`);
-        setepIsLoading('')
-        setEpi(episodesResponse.data);
-        console.log('lazy', episodesResponse.data);
-      } catch (error) {
-        setepIsLoading("No Episodes")
-        console.error(error);
-      }
-    };
+
     fetchData();
   }, [animen]);
 
@@ -39,18 +38,18 @@ function details({ deets, setwatchlist, watchlist, user, related, animen, notFou
           <Animedetails deets={deets} animen={animen} epi={epi} watchlist={watchlist} setwatchlist={setwatchlist} user={user} />
         </div>
       )}
-      {epi.length >= 1 ?
-        (
-
-          <div className=" w-full mx-auto">
-
-
-            <Episodes deets={deets} user={user} watchlist={watchlist} setwatchlist={setwatchlist} epi={epi} />
-
-          </div>
-        ) : (<div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary ">{epIsLoading}</div>)
-      }
-
+      {epi.length > 0 ? (
+        <div className="w-full mx-auto">
+          <Episodes deets={deets} user={user} watchlist={watchlist} setwatchlist={setwatchlist} epi={epi} />
+        </div>
+      ) : epi.length === 0 ? (
+        <div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary">This anime has no episodes or <button onClick={() => fetchData()}><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+        </svg>
+        </button></div>
+      ) : (
+        <div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary">Loading episodes</div>
+      )}
       <div className="mb-24 lg:pb-10">
 
 
