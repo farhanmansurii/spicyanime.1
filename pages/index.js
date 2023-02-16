@@ -114,7 +114,6 @@ export async function getStaticProps() {
       popular: popular.results,
       action: action.results,
     },
-    revalidate: 10800,
 
   };
 };
