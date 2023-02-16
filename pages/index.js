@@ -97,34 +97,24 @@ export default function Home({ newEp, popular, action, user, handleAuth }) {
 }
 
 export async function getStaticProps() {
-  try {
-    const { data: popular } = await axios.get('https://api.amvstr.ml/api/v2/popular', {
-      params: {
-        limit: 10,
-      },
-    });
+  const { data: popular } = await axios.get('https://api.amvstr.ml/api/v2/popular', {
+    params: {
+      limit: 10,
+    },
+  });
 
-    const { data: action } = await axios.get('https://api.amvstr.ml/api/v2/trending', {
-      params: {
-        limit: 10,
-      },
-    });
+  const { data: action } = await axios.get('https://api.amvstr.ml/api/v2/trending', {
+    params: {
+      limit: 10,
+    },
+  });
 
-    return {
-      props: {
-        popular: popular.results,
-        action: action.results,
-      },
-      revalidate: 10800,
+  return {
+    props: {
+      popular: popular.results,
+      action: action.results,
+    },
+    revalidate: 10800,
 
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        popular: [],
-        action: [],
-      },
-    };
-  }
+  };
 };
