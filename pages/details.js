@@ -38,10 +38,13 @@ function details({ deets, setwatchlist, watchlist, user, related, animen, notFou
           <Animedetails deets={deets} animen={animen} epi={epi} watchlist={watchlist} setwatchlist={setwatchlist} user={user} />
         </div>
       )}
-      {epi && (
+      {epi.length > 0 && (
         <div className="w-full mx-auto">
           <Episodes deets={deets} user={user} watchlist={watchlist} setwatchlist={setwatchlist} epi={epi} />
         </div>
+      )}
+      {!epi && (
+        <div className="mx-auto text-2xl font-damion place-text-center my-6 text-center text-primary">Loading episodes</div>
       )}
       <div className="mb-24 lg:pb-10">
 
@@ -73,8 +76,12 @@ export async function getServerSideProps(context) {
   } catch (error) {
     console.log(error);
     return {
-      notFound: true
-      , animen: animeId
+      props: {
+        deets: details?.data,
+        animen: animeId,
+        related: related?.data,
+        notFound: true
+      }
     };
   }
 }
